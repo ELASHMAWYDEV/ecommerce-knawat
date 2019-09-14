@@ -1,0 +1,435 @@
+
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Title Page</title>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <link href="https://fonts.googleapis.comcss?family=Roboto&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/responsive.css">
+        <style>
+         .page-heading{
+            background: #f2f2f2;
+    padding: 7px;
+    border-radius: 3px;
+         }
+        </style>
+    </head>
+
+    <body class="m-0">
+
+
+        <!-- header-->
+        <div class="nav-bar-t main-b-bg">
+                    <nav class="navbar navbar-expand-lg navbar-dark  container">
+                        <div class="navbar-brand  logo">
+                            <a  id="site-name" href="#">
+                                <img src="img/logo.png"  alt="site logo">
+                            </a>
+                        </div>
+                    
+                        
+                        <div class="navbar-collapse p-0" id="navbarNavDropdown">
+                        <ul class="navbar-nav header-area">
+                        
+                            <input class="form-control mr-sm-2 nav-item top-search-input" type="search" placeholder="Search products" aria-label="Search">
+                            <i class="fa fa-search fa-2x text-light bg-dark  top-search-btn"></i>
+                            
+                            <li class="nav-item dropdown d-292-none ">
+                            <a class="nav-link  header-nav-link" href="#" id="loginWhishlistdropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                My Account <i class="fa fa-chevron-down"></i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="loginWhishlistdropdown">
+                                <a class="dropdown-item" href="#"><i class="fa fa-heart-o main-r-color mr-2"></i> Whishlist <i class="badge-info rounded-badge main-b-bg">5</i></a>
+                                <a class="dropdown-item" href="#"><i class="fa fa-sign-in main-r-color mr-2"></i> Login</a>
+                            </div>
+                            </li>
+                            <li class="nav-item dropdown d-292-none">
+                            <a class="nav-link header-nav-link " href="#" id="loginWhishlistdropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-shopping-cart fa-lg ">
+                                    <i class="badge-info main-r-bg rounded-badge" style="font-size: 15px;position: relative;top: -10px;">5</i>
+                                </i> 
+                                Cart
+                            </a>
+                            
+                            </li>
+                        </ul>
+                        <ul class=" d-none d-292-flex list-unstyled justify-content-center">
+                            <li class="nav-item dropdown">
+                            <a class="nav-link text-light header-nav-link" href="#" id="loginWhishlistdropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                My Account
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="loginWhishlistdropdown">
+                                <a class="dropdown-item" href="#"><i class="fa fa-heart-o main-r-color mr-2"></i> Whishlist <i class="badge-info rounded-badge main-b-bg">5</i></a>
+                                <a class="dropdown-item" href="#"><i class="fa fa-sign-in main-r-color mr-2"></i> Login</a>
+                            </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                            <a class="nav-link text-light header-nav-link" href="#" id="loginWhishlistdropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-shopping-cart fa-lg ">
+                                    <i class="badge-info main-r-bg rounded-badge" style="font-size: 15px;position: relative;top: -10px;">5</i>
+                                </i> 
+                                Cart
+                            </a>
+                        </ul>
+                        </div>
+                    </nav>
+        </div>
+        <div class="main-menu-area" >
+                    <nav class="navbar navbar-expand-lg navbar-light  container p-0 pl-3">
+                        
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainmenuarea" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="mainmenuarea">
+                        <ul class="navbar-nav ">
+                        
+                            <li class="nav-item dropdown text-light d-none d-lg-inline-block">
+                            <a class="nav-link main-r-bg" href="#" id="allcategory" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                All Categories 
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="allcategory">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                            </li>
+                            <li class="nav-item dropdown pt-6px">
+                            <a class="nav-link " href="#" id="homedropdownmanu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Home
+                            </a>
+                            <div class="dropdown-menu dropd-h-p" aria-labelledby="homedropdownmanu">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                            </li>
+                            <li class="nav-item dropdown pt-6px">
+                            <a class="nav-link " href="#" id="productdropdownmenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Product
+                            </a>
+                            <div class="dropdown-menu dropd-h-p" aria-labelledby="productdropdownmenu">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                            </li>
+                            <li class="navbar-nav nav-item dropdown  d-sm-none ">
+                            <a class="nav-link " href="#" id="currency-xs" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                USD
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="currency-xs" style="right: 0;    left: auto; max-width: 7rem;">
+                                <a class="dropdown-item" href="#">ESU</a>
+                                <a class="dropdown-item" href="#">DZ</a>
+                                <a class="dropdown-item" href="#">SL</a>
+                            </div>
+                            </li>
+                        
+                        </ul>
+                        <li class="navbar-nav nav-item dropdown ml-auto d-none d-sm-block">
+                            <a class="nav-link " href="#" id="currency-d" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                USD
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="currency-d" style="right: 0;    left: auto;    max-width: 7rem;">
+                                <a class="dropdown-item" href="#">ESU</a>
+                                <a class="dropdown-item" href="#">DZ</a>
+                                <a class="dropdown-item" href="#">SL</a>
+                            </div>
+                            </li>
+                        </div>
+
+                    </nav>
+                    <nav class="navbar allcat-xs">
+                    <li class="nav-item dropdown text-light  d-lg-none  container">
+                        <a class="nav-link main-r-bg" href="#" id="allcategory" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-bars"></i> All Categories 
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="allcategory">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                    
+                    </nav>
+        </div>
+        <!-- /header-->
+     <!-- mian login content-->
+     <div class="container pt-4 pb-4">
+    
+            
+            <!-- page wapper-->
+            <div class="columns-container p-3 bg-white" style="box-shadow: 0px 0px 8px 0 #c1b3b3;">
+                    <div class="container" id="columns">
+                       
+                        <!-- page heading-->
+                        <h3 class="page-heading">
+                            <span class="page-heading-title2">Authentication</span>
+                        </h3>
+                        <!-- ../page heading-->
+                        <div class="page-content">
+                            <div class="row m-0">
+                                <div class="col-sm-6 border">
+                                    <div class="box-authentication">
+                                        <h5>Create an account</h5>
+                                        <!-- <div class="flash-message">
+                                                @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+                                                @if(Session::has('alert-' . $msg))
+                                
+                                                <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} 
+                                                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                </p>
+                                                @endif
+                                                @endforeach
+                                            </div> --> 
+                                           
+                                           <!--  @if($errors)
+                                              @foreach($errors->all() as $err)
+                                              <div class="alert alert-danger alert-dismissible fade show  mr-auto ml-auto mb-3" role="alert">
+                                                  {{$err}}   
+                                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                  </button>
+                                              </div>
+                                              @endforeach
+                                            @endif -->
+                                        <form class="form-horizontal" method="POST" action="{{ route('users.store') }}">
+                                                <!-- {{ csrf_field() }} -->
+                        
+                                                <div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
+                                                    <label for="firstname" class="col-md-4 control-label">firstname</label>
+                        
+                                                    <div class="col-md-10"> 
+                                                        <input id="firstname" type="text" class="form-control w-100" name="firstname" value="{{ old('firstname') }}" required autofocus>
+                
+                                                        <!-- @if ($errors->has('firstname'))
+                                                            <span class="help-block">
+                                                                <strong>{{ $errors->first('firstname') }}</strong>
+                                                            </span>
+                                                        @endif -->
+                                                    </div>
+                                                </div>
+                                                <div class="form-group{{ $errors->has('lastname') ? ' has-error' : '' }}">
+                                                        <label for="lastname" class="col-md-4 control-label">lastname</label>
+                            
+                                                        <div class="col-md-10"> 
+                                                            <input id="lastname" type="text" class="form-control w-100" name="lastname" value="{{ old('lastname') }}" required autofocus>
+                    
+                                                           <!--  @if ($errors->has('lastname'))
+                                                                <span class="help-block">
+                                                                    <strong>{{ $errors->first('lastname') }}</strong>
+                                                                </span>
+                                                            @endif -->
+                                                        </div>
+                                                </div>
+                                                <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
+                                                        <label for="address" class="col-md-4 control-label">address</label>
+                            
+                                                        <div class="col-md-10"> 
+                                                            <input id="address" type="text" class="form-control w-100" name="address" value="{{ old('address') }}" required autofocus>
+                    
+                                                           <!--  @if ($errors->has('address'))
+                                                                <span class="help-block">
+                                                                    <strong>{{ $errors->first('address') }}</strong>
+                                                                </span>
+                                                            @endif -->
+                                                        </div>
+                                                </div>
+                                                <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
+                                                        <label for="phone" class="col-md-4 control-label">phone</label>
+                            
+                                                        <div class="col-md-10"> 
+                                                            <input id="phone" type="number" class="form-control w-100" name="phone" value="{{ old('phone') }}" required autofocus>
+                    
+                                                           <!--  @if ($errors->has('phone'))
+                                                                <span class="help-block">
+                                                                    <strong>{{ $errors->first('phone') }}</strong>
+                                                                </span>
+                                                            @endif -->
+                                                        </div>
+                                                </div>
+                                                <div class="form-group{{ $errors->has('remail') ? ' has-error' : '' }}">
+                                                    <label for="remail" class="col-md-4 control-label">E-Mail Address</label>
+                        
+                                                    <div class="col-md-10">
+                                                        <input id="remail" type="email" class="form-control w-100" name="remail" value="{{ old('remail') }}" required>
+                        
+                                                       <!--  @if ($errors->has('remail'))
+                                                            <span class="help-block">
+                                                                <strong>{{ $errors->first('remail') }}</strong>
+                                                            </span>
+                                                        @endif -->
+                                                    </div>
+                                                </div>
+                        
+                                                <div class="form-group{{ $errors->has('rpassword') ? ' has-error' : '' }}">
+                                                    <label for="rpassword" class="col-md-4 control-label">password</label>
+                        
+                                                    <div class="col-md-10">
+                                                        <input id="rpassword" type="password" class="form-control w-100" name="rpassword" required>
+                        
+                                                      <!--   @if ($errors->has('rpassword'))
+                                                            <span class="help-block">
+                                                                <strong>{{ $errors->first('rpassword') }}</strong>
+                                                            </span>
+                                                        @endif -->
+                                                    </div>
+                                                </div>
+                        
+                                                <div class="form-group">
+                                                    <label for="password-confirm" class="col-md-4 control-label ">Confirm Password</label>
+                        
+                                                    <div class="col-md-10">
+                                                        <input id="password-confirm" type="password" class="form-control w-100" name="password_confirmation" required>
+                                                    </div>
+                                                </div>
+                        
+                                                <div class="form-group">
+                                                    <div class="col-md-10 col-md-offset-4">
+                                                        <button type="submit" class="btn main-b-bg text-light">
+                                                            Register
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 border">
+                                    <div class="box-authentication">
+                                        <h5>Already registered?</h5>
+                                        <form class="form-horizontal" method="POST" action="{{ route('login') }}">
+                                           <!--  {{ csrf_field() }} -->
+                    
+                                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                                <label for="email" class=" control-label">Email</label>
+                    
+                                                <div class="">
+                                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+                    
+                                                    <!-- @if ($errors->has('email'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('email') }}</strong>
+                                                        </span>
+                                                    @endif -->
+                                                </div>
+                                            </div>
+                    
+                                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                                                <label for="password" class=" control-label">Password</label>
+                    
+                                                <div class="">
+                                                    <input id="password" type="password" class="form-control" name="password" required>
+                    
+                                                   <!--  @if ($errors->has('password'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('password') }}</strong>
+                                                        </span>
+                                                    @endif -->
+                                                </div>
+                                            </div>
+                    
+                                            <div class="form-group">
+                                                <div class="col-md-6 ">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }} style="margin-left: -13px;margin-top: 13px;"> Remember me 
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                    
+                                            <div class="form-group">
+                                                
+                                                    <button class="btn main-b-bg text-light"><i class="fa fa-lock"></i> Sign in</button>
+                                                
+                                            </div>
+                                        </form>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+                <!-- ./page wapper-->
+     </div>
+     <!-- mian login content-->
+      <!--footer -->
+      <section id="footer" class="bg-white pt-3">
+            <div class="container pt-4 pb-2" >
+                <div class="row text-center text-xs-center text-sm-left text-md-left">
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <h5>Quick links</h5>
+                        <ul class="list-unstyled quick-links">
+                            <li><a href="/"><i class="fa fa-angle-double-right"></i>Home</a></li>
+                            <li><a href=""><i class="fa fa-angle-double-right"></i>About</a></li>
+                            <li><a href=""><i class="fa fa-angle-double-right"></i>Services</a></li>
+                            <li><a href=""><i class="fa fa-angle-double-right"></i>Offers</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <h5>Additional links</h5>
+                        <ul class="list-unstyled quick-links">
+                            <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Terms of use</a></li>
+                            <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Terms and Conditions  </a></li>
+                            <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>FAQ</a></li>
+                            <li><a href=""><i class="fa fa-angle-double-right"></i>Contact Us</a></li>
+    
+                        </ul>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <h5>Contact links</h5>
+                        <ul class="list-unstyled quick-links ">
+                            <li><a href="javascript:void();"><i class="fa  fa-globe  mr-2"></i>address exampe here</a></li>
+                            <li><a href="javascript:void();"><i class="fa fa-phone  mr-2"></i> 05565546514</a></li>
+                            <li><a href="javascript:void();"><i class="fa fa-envelope   mr-2"></i>email@example.com</a></li>
+                            
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
+                        <ul class="list-unstyled list-inline social text-center ">
+                            <li class="list-inline-item"><a href="" target="_blank"><i class="fa fa-facebook fa-lg"></i></a></li>
+                            <li class="list-inline-item"><a href="" target="_blank"><i class="fa fa-twitter fa-lg"></i></a></li>
+                            <li class="list-inline-item"><a href="" target="_blank"><i class="fa fa-youtube fa-lg"></i></a></li>
+                            <li class="list-inline-item"><a href="" target="_blank"><i class="fa fa-linkedin fa-lg"></i></a></li>
+                            <li class="list-inline-item"><a href="" target="_blank"><i class="fa fa-instagram fa-lg"></i></a></li>
+                        </ul>
+                    </div>
+                    </hr>
+                </div>	
+                    
+            </div>
+            <div class="text-center">
+                    <div class="text-white main-b-bg p-3">
+                        
+                        <p class="h6">&copy All right Reversed.<a class="text-green ml-2"  href="/" style="color: #3d464d;
+                            font-weight: bold;
+                            text-decoration: none;" >site name</a>
+                        </p>
+                    </div>
+                    </hr>
+            </div>
+        </section>
+     <!--footer -->
+     
+        <!-- Bootstrap JavaScript -->
+        <script src="js/jquery-3.3.1.min.js "></script>
+        <script src="js/bootstrap.min.js "></script>
+        
+      
+    </body>
+</html>

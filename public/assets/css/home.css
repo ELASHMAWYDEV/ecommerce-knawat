@@ -1,0 +1,53 @@
+.slider-main-area{
+    padding-top: 60px;
+    padding-bottom: 60px;
+    background: #fff;
+}
+.mainSlider{
+    box-shadow: 0 0 4px #99999969;
+}
+#home-slide-1 .carousel-item{
+    min-height: 27rem;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+#home-slide-1 .slider-text-info{
+    padding: 98px 0;
+}
+#home-slide-1 h1.title-1,#home-slide-1 h2.title-2 {
+    color: #222222;
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 1.1;
+    margin: 0;
+    text-transform: uppercase;
+}
+#home-slide-1 .slider-1-des p span {
+    color: #0879c9;font-size: 60px;display: block
+}
+#home-slide-1 .slider-1-des p {
+    color: #666666;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 0;
+    margin-top: 17px;
+    padding: 0;
+    text-transform: uppercase;
+}
+#home-slide-1 .shop-btn{ 
+    background: rgba(0,0,0,0);
+    border: 2px solid #0879c9;
+    color: #0879c9;padding: 3px 6px;
+}
+
+
+@media (max-width: 767px){
+#home-slide-1 .slider-1-des p span {
+    font-size: 35px;
+}
+#home-slide-1 .slider-1-des p {
+    font-size: 14px;
+    margin-top: 5px;
+}
+}
