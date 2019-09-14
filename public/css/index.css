@@ -380,3 +380,23 @@ a:hover {
     .fa-instagram{color: #815dc7}
 
     /*end */
+
+    .scroll_top{
+        position: fixed;
+        bottom: 30px;
+        border-radius: 5px;
+        color: #ffffff;
+        font-size: 18px;
+        height: 40px;
+        line-height: 38px;
+        right: 20px;
+        text-align: center;
+        transition: all 0.4s ease-in-out 0s;
+        width: 40px;
+        background: #333333 none repeat scroll 0 0;
+        z-index: 2147483647;
+        display: block;cursor: pointer;
+    }
+    #scrollUp:hover {
+        background: #0879c9;
+    }

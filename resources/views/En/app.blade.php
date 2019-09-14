@@ -29,7 +29,9 @@
 
 
 
-    <a href="#" class="scroll_top" title="Scroll to Top" style="display: inline;">Scroll</a>
+    <a  class="scroll_top" id="scrollUp" title="Scroll to Top" onclick="scrollToTop();return false" >
+     <i class="fa fa-chevron-up" style="color:#fff"></i>
+    </a>
     <!-- Script-->
 
     <!-- Modal quick view of product -->
@@ -55,6 +57,25 @@
     <script type="text/javascript" src="{{asset('assets/js/jquery-3.3.1.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('assets/js/bootstrap.min.js')}}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+    function scrollToTop() {
+    var position =
+        document.body.scrollTop || document.documentElement.scrollTop;
+    if (position) {
+        window.scrollBy(0, -Math.max(1, Math.floor(position / 10)));
+        scrollAnimation = setTimeout("scrollToTop()", 30);
+    } else clearTimeout(scrollAnimation);
+    }
+    document.addEventListener('scroll',function(){
+         let scrollbtn = document.querySelector('#scrollUp');
+    if(window.scrollY < 700){
+        scrollbtn.style.display = "none"
+    }else{
+        scrollbtn.style.display = "block"
+    }
+    })
+   
+    </script>
     @yield('js')
      
 </body>

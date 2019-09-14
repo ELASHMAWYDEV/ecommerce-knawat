@@ -47,7 +47,7 @@
                                            <div class="price-box text-center">
                                              <span class="new-price">
                                                  <span class="money" data-currency-usd="$110.00">
-                                                   ${{product.variations[0].sale_price.toFixed(2)}}
+                                                   {{currencySign}}{{ (currencyRate * (product.variations[0].sale_price)).toFixed(2)}}
                                                  </span>
                                              </span>
                                              
@@ -99,7 +99,15 @@ export default{
       },
       ploading(){
           return this.loading
-      } 
+      },
+      currencyRate(){
+            return this.$store.state.currencyRate;
+        },
+      currencySign(){
+        
+        return this.$store.state.currencySign
+      }
+     
     }
    ,
    mounted(){

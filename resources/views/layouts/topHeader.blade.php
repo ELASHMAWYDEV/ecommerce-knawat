@@ -1,7 +1,7 @@
 <div class="nav-bar-t main-b-bg">
     <nav class="navbar navbar-expand-lg navbar-dark  container">
         <div class="navbar-brand  logo">
-              <a  id="site-name" href="#">
+              <a  id="site-name" href="{{route('frontEnd.home')}}">
                 <img src="img/logo.png"  alt="site logo">
               </a>
         </div>
@@ -34,7 +34,7 @@
           </ul>
           <ul class=" d-none d-292-flex list-unstyled justify-content-center">
               <li class="nav-item dropdown">
-              <a class="nav-link text-light header-nav-link" href="#" id="loginWhishlistdropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link text-weight header-nav-link" href="#" id="loginWhishlistdropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 My Account
               </a>
               <div class="dropdown-menu" aria-labelledby="loginWhishlistdropdown">
@@ -43,7 +43,7 @@
               </div>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link text-light header-nav-link" href="#" id="loginWhishlistdropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link text-weight header-nav-link" href="#" id="loginWhishlistdropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-shopping-cart fa-lg ">
                     <i class="badge-info main-r-bg rounded-badge" style="font-size: 15px;position: relative;top: -10px;">5</i>
                 </i> 

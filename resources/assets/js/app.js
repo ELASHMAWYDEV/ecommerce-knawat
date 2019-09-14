@@ -20,11 +20,23 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 Vue.component('products', require('./components/Products.vue'));
 Vue.component('categories', require('./components/Categories.vue'));
 Vue.component('paginateproducts', require('./components/PaginateProducts.vue'));
+Vue.component('currency', require('./components/Currency.vue'));
+Vue.component('currencylg', require('./components/CurrencyLg.vue'));
 
 const store = new Vuex.Store({
     state:{
       products :[],
-      currentProducts :[]
+      currentProducts :[],
+      currencies :{},
+      currenciesSigns :{
+        'USD':'$',
+        'EUR':'€',
+        'GBP':'£',
+        'TRY':'₺'
+      },
+      currentCurrency:'USD',
+      currencyRate :1,
+      currencySign:'$'
     }
 })
 

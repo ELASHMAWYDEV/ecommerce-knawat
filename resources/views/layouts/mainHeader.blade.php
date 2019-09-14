@@ -18,7 +18,7 @@
                 Home
               </a>
               <div class="dropdown-menu dropd-h-p" aria-labelledby="homedropdownmanu">
-                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="{{route('frontEnd.home')}}">Home Page</a>
                 <a class="dropdown-item" href="#">Another action</a>
                 <a class="dropdown-item" href="#">Something else here</a>
               </div>
@@ -28,33 +28,15 @@
                Product
               </a>
               <div class="dropdown-menu dropd-h-p" aria-labelledby="productdropdownmenu">
-                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="{{route('frontEnd.products')}}">All Products</a>
                 <a class="dropdown-item" href="#">Another action</a>
                 <a class="dropdown-item" href="#">Something else here</a>
               </div>
             </li>
-            <li class="navbar-nav nav-item dropdown  d-sm-none ">
-              <a class="nav-link " href="#" id="currency-xs" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                USD
-              </a>
-              <div class="dropdown-menu" aria-labelledby="currency-xs" style="right: 0;    left: auto; max-width: 7rem;">
-                <a class="dropdown-item" href="#">ESU</a>
-                <a class="dropdown-item" href="#">DZ</a>
-                <a class="dropdown-item" href="#">SL</a>
-              </div>
-            </li>
+            <currency></currency>
            
           </ul>
-           <li class="navbar-nav nav-item dropdown ml-auto d-none d-sm-block">
-              <a class="nav-link " href="#" id="currency-d" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                USD
-              </a>
-              <div class="dropdown-menu" aria-labelledby="currency-d" style="right: 0;    left: auto;    max-width: 7rem;">
-                <a class="dropdown-item" href="#">ESU</a>
-                <a class="dropdown-item" href="#">DZ</a>
-                <a class="dropdown-item" href="#">SL</a>
-              </div>
-            </li>
+           <currencylg></currencylg>
         </div>
 
     </nav>

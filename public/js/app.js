@@ -995,11 +995,23 @@ Vue.component('example-component', __webpack_require__(39));
 Vue.component('products', __webpack_require__(56));
 Vue.component('categories', __webpack_require__(62));
 Vue.component('paginateproducts', __webpack_require__(66));
+Vue.component('currency', __webpack_require__(69));
+Vue.component('currencylg', __webpack_require__(72));
 
 var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
   state: {
     products: [],
-    currentProducts: []
+    currentProducts: [],
+    currencies: {},
+    currenciesSigns: {
+      'USD': '$',
+      'EUR': '€',
+      'GBP': '£',
+      'TRY': '₺'
+    },
+    currentCurrency: 'USD',
+    currencyRate: 1,
+    currencySign: '$'
   }
 });
 
@@ -44891,9 +44903,13 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                                                  $" +
+                              "\n                                                  " +
+                                _vm._s(_vm.currencySign) +
                                 _vm._s(
-                                  product.variations[0].sale_price.toFixed(2)
+                                  (
+                                    _vm.currencyRate *
+                                    product.variations[0].sale_price
+                                  ).toFixed(2)
                                 ) +
                                 "\n                                                "
                             )
@@ -45101,6 +45117,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     ploading: function ploading() {
       return this.loading;
+    },
+    currencyRate: function currencyRate() {
+      return this.$store.state.currencyRate;
+    },
+    currencySign: function currencySign() {
+
+      return this.$store.state.currencySign;
     }
   },
 
@@ -46693,6 +46716,377 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-a828c09c", module.exports)
+  }
+}
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(40)
+/* script */
+var __vue_script__ = __webpack_require__(70)
+/* template */
+var __vue_template__ = __webpack_require__(71)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Currency.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-256ff8c8", Component.options)
+  } else {
+    hotAPI.reload("data-v-256ff8c8", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 70 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            currentCurrency: 'USD'
+
+        };
+    },
+
+    computed: {
+        getCurrency: function getCurrency() {
+            /* fetch('https://api.exchangeratesapi.io/latest?base=USD')
+            .then(res =>res.json())
+            .then(res =>{
+             // console.log(res.rates)
+            })
+            .catch(err=>alert('error in loading currencies')) */
+        },
+        changeCurrency: function changeCurrency(currency) {
+            this.currentCurrency = currency;
+        }
+    },
+    mounted: function mounted() {
+        this.getCurrency;
+    }
+});
+
+/***/ }),
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("li", { staticClass: "navbar-nav nav-item dropdown  d-sm-none " }, [
+    _c(
+      "a",
+      {
+        staticClass: "nav-link ",
+        attrs: {
+          href: "#",
+          id: "currency-xs",
+          role: "button",
+          "data-toggle": "dropdown",
+          "aria-haspopup": "true",
+          "aria-expanded": "false"
+        }
+      },
+      [_vm._v("\n    " + _vm._s(this.currentCurrency) + "\n  ")]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "dropdown-menu",
+        staticStyle: { right: "0", left: "auto", "max-width": "7rem" },
+        attrs: { "aria-labelledby": "currency-xs" }
+      },
+      [
+        _c(
+          "a",
+          {
+            staticClass: "dropdown-item",
+            on: {
+              click: function($event) {
+                return _vm.changeCurrency("EUR")
+              }
+            }
+          },
+          [_vm._v("EUR")]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "dropdown-item",
+            on: {
+              click: function($event) {
+                return _vm.changeCurrency("GBP")
+              }
+            }
+          },
+          [_vm._v("GBP")]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-256ff8c8", module.exports)
+  }
+}
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(40)
+/* script */
+var __vue_script__ = __webpack_require__(73)
+/* template */
+var __vue_template__ = __webpack_require__(74)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/CurrencyLg.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-88da1e3a", Component.options)
+  } else {
+    hotAPI.reload("data-v-88da1e3a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 73 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    computed: {
+        currentCurrency: function currentCurrency() {
+            return this.$store.state.currentCurrency;
+            console.log("curcurcur" + this.$store.state.currentCurrency);
+        },
+        curencies: function curencies() {
+            return this.$store.state.currencies;
+        },
+        getCurrency: function getCurrency() {
+            var _this = this;
+
+            fetch('https://api.exchangeratesapi.io/latest?base=USD').then(function (res) {
+                return res.json();
+            }).then(function (res) {
+                console.log(res.rates);
+                _this.$store.state.currencies = res.rates;
+            }).catch(function (err) {
+                return alert('error in loading currencies');
+            });
+        }
+    },
+    methods: {
+        changeCurrency: function changeCurrency(currency) {
+
+            this.$store.state.currentCurrency = currency;
+            this.$store.state.currencyRate = this.$store.state.currencies['' + currency + ''];
+            this.$store.state.currencySign = this.$store.state.currenciesSigns['' + currency + ''];
+        }
+    },
+    mounted: function mounted() {
+        this.getCurrency;
+    }
+});
+
+/***/ }),
+/* 74 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "li",
+    { staticClass: "navbar-nav nav-item dropdown ml-auto d-none d-sm-block" },
+    [
+      _c(
+        "a",
+        {
+          staticClass: "nav-link ",
+          attrs: {
+            href: "#",
+            id: "currency-d",
+            role: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }
+        },
+        [_vm._v("\n     " + _vm._s(_vm.currentCurrency) + "\n   ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "dropdown-menu",
+          staticStyle: { right: "0", left: "auto", "max-width": "7rem" },
+          attrs: { "aria-labelledby": "currency-d" }
+        },
+        [
+          _c(
+            "a",
+            {
+              staticClass: "dropdown-item",
+              on: {
+                click: function($event) {
+                  return _vm.changeCurrency("USD")
+                }
+              }
+            },
+            [_vm._v("USD")]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "dropdown-item",
+              on: {
+                click: function($event) {
+                  return _vm.changeCurrency("TRY")
+                }
+              }
+            },
+            [_vm._v("TRY")]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "dropdown-item",
+              on: {
+                click: function($event) {
+                  return _vm.changeCurrency("EUR")
+                }
+              }
+            },
+            [_vm._v("EUR")]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "dropdown-item",
+              on: {
+                click: function($event) {
+                  return _vm.changeCurrency("GBP")
+                }
+              }
+            },
+            [_vm._v("GBP")]
+          )
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-88da1e3a", module.exports)
   }
 }
 
