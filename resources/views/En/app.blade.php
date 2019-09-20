@@ -24,6 +24,8 @@
 
       @yield('content')
       @include('layouts.footer')
+       <!-- Modal login -->
+       <loginmodal></loginmodal>
    </div>
    
 
@@ -34,6 +36,7 @@
     </a>
     <!-- Script-->
 
+   
     <!-- Modal quick view of product -->
     <div class="modal fade" id="view-product" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -53,7 +56,7 @@
           </div>
           </div>
       </div>
-      </div>
+    </div>
     <script type="text/javascript" src="{{asset('assets/js/jquery-3.3.1.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('assets/js/bootstrap.min.js')}}"></script>
     <script src="{{ asset('js/app.js') }}"></script>

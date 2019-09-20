@@ -15,6 +15,8 @@
 
 
 Auth::routes();
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+
 Route::resource('users','UserController');
 Route::group(['as'=>'frontEnd.','middleware'=>'web'],function(){
     Route::get('/', 'HomeController@index')->name('home');
@@ -26,6 +28,8 @@ Route::group(['as'=>'frontEnd.','middleware'=>'web'],function(){
     Route::get('/products', 'HomeController@products')->name('products');
     //the  lang status 
     Route::get('/lang/{lang}','HomeController@setLang')->name('setLang');
+    //register new user
+    Route::post('/users/store','UserController@store')->name('users.store');
 });
 
 Route::get('json-api', 'ApiController@index');

@@ -2,7 +2,15 @@
 @extends('En.app')
 @section('title','login')
 @section('css')
+<style>
+.error{color: #ff2c2c;
+    font-weight: bold;}
+.form-control,.btn{
+    border-radius: 2px;
+}
+.form-control:focus{box-shadow: none}
 
+</style>
 @endsection
 @section('content')
 
@@ -34,18 +42,9 @@
                                         @endif
                                         @endforeach
                                     </div>  
-                                   
-                                    @if($errors)
-                                      @foreach($errors->all() as $err)
-                                      <div class="alert alert-danger alert-dismissible fade show  mr-auto ml-auto mb-3" role="alert">
-                                          {{$err}}   
-                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                          </button>
-                                      </div>
-                                      @endforeach
-                                    @endif 
-                                <form class="form-horizontal" method="POST" action="{{ route('users.store') }}">
+                                    
+                                <form class="form-horizontal" method="POST" action="{{ route('frontEnd.users.store') }}"
+                                id="regform" novalidate>
                                         {{ csrf_field() }}
                 
                                         <div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
@@ -55,7 +54,7 @@
                                                 <input id="firstname" type="text" class="form-control w-100" name="firstname" value="{{ old('firstname') }}" required autofocus>
         
                                                 @if ($errors->has('firstname'))
-                                                    <span class="help-block">
+                                                    <span class="help-block text-danger">
                                                         <strong>{{ $errors->first('firstname') }}</strong>
                                                     </span>
                                                 @endif 
@@ -68,7 +67,7 @@
                                                     <input id="lastname" type="text" class="form-control w-100" name="lastname" value="{{ old('lastname') }}" required autofocus>
             
                                                     @if ($errors->has('lastname'))
-                                                        <span class="help-block">
+                                                        <span class="help-block text-danger">
                                                             <strong>{{ $errors->first('lastname') }}</strong>
                                                         </span>
                                                     @endif 
@@ -81,48 +80,48 @@
                                                     <input id="address" type="text" class="form-control w-100" name="address" value="{{ old('address') }}" required autofocus>
             
                                                     @if ($errors->has('address'))
-                                                        <span class="help-block">
+                                                        <span class="help-block text-danger">
                                                             <strong>{{ $errors->first('address') }}</strong>
                                                         </span>
                                                     @endif
                                                 </div>
                                         </div>
                                         <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
-                                                <label for="phone" class="col-md-4 control-label">phone</label>
+                                                <label for="phone" class="col-md-4 control-label" minlength="10" maxlength="13">phone</label>
                     
                                                 <div class="col-md-10"> 
                                                     <input id="phone" type="number" class="form-control w-100" name="phone" value="{{ old('phone') }}" required autofocus>
             
                                                     @if ($errors->has('phone'))
-                                                        <span class="help-block">
+                                                        <span class="help-block text-danger">
                                                             <strong>{{ $errors->first('phone') }}</strong>
                                                         </span>
                                                     @endif 
                                                 </div>
                                         </div>
-                                        <div class="form-group{{ $errors->has('remail') ? ' has-error' : '' }}">
-                                            <label for="remail" class="col-md-4 control-label">E-Mail Address</label>
+                                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
                 
                                             <div class="col-md-10">
-                                                <input id="remail" type="email" class="form-control w-100" name="remail" value="{{ old('remail') }}" required>
+                                                <input id="email" type="email" class="form-control w-100" name="email" value="{{ old('email') }}" required>
                 
-                                                @if ($errors->has('remail'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('remail') }}</strong>
+                                                @if ($errors->has('email'))
+                                                    <span class="help-block text-danger">
+                                                        <strong>{{ $errors->first('email') }}</strong>
                                                     </span>
                                                 @endif 
                                             </div>
                                         </div>
                 
-                                        <div class="form-group{{ $errors->has('rpassword') ? ' has-error' : '' }}">
-                                            <label for="rpassword" class="col-md-4 control-label">password</label>
+                                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                                            <label for="password" class="col-md-4 control-label">password</label>
                 
                                             <div class="col-md-10">
-                                                <input id="rpassword" type="password" class="form-control w-100" name="rpassword" required>
+                                                <input id="password" type="password" class="form-control w-100" name="password" required>
                 
-                                                @if ($errors->has('rpassword'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('rpassword') }}</strong>
+                                                @if ($errors->has('password'))
+                                                    <span class="help-block text-danger">
+                                                        <strong>{{ $errors->first('password') }}</strong>
                                                     </span>
                                                 @endif 
                                             </div>
@@ -146,59 +145,7 @@
                                     </form>
                             </div>
                         </div>
-                        <div class="col-sm-6 border">
-                            <div class="box-authentication">
-                                <h5>Already registered?</h5>
-                                <form class="form-horizontal" method="POST" action="{{ route('login') }}">
-                                    {{ csrf_field() }} 
-            
-                                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                        <label for="email" class=" control-label">Email</label>
-            
-                                        <div class="">
-                                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
-            
-                                             @if ($errors->has('email'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('email') }}</strong>
-                                                </span>
-                                            @endif  
-                                        </div>
-                                    </div>
-            
-                                    <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                        <label for="password" class=" control-label">Password</label>
-            
-                                        <div class="">
-                                            <input id="password" type="password" class="form-control" name="password" required>
-            
-                                            @if ($errors->has('password'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('password') }}</strong>
-                                                </span>
-                                            @endif  
-                                        </div>
-                                    </div>
-            
-                                    <div class="form-group">
-                                        <div class="col-md-6 ">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }} style="margin-left: -13px;margin-top: 13px;"> Remember me 
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-            
-                                    <div class="form-group">
-                                        
-                                            <button class="btn main-b-bg text-light"><i class="fa fa-lock"></i> Sign in</button>
-                                        
-                                    </div>
-                                </form>
-                                
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -207,4 +154,37 @@
 </div>
 <!-- mian login content-->
     <!-- ./page wapper-->
+@endsection
+
+@section('js')
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js"></script>
+
+<script>
+$( "#regform" ).validate({
+    rules: {
+        firstname:{
+            required :true
+        },
+        lastname: {
+        required :true,
+        },
+        email: {
+        required :true,
+        email: true
+        },
+        phone: {
+        required :true,
+        number: true,
+        minlength: 10,
+        }
+        
+    }
+     ,
+    submitHandler: function(form) {
+       form.submit();
+     }
+
+    });
+</script>
 @endsection

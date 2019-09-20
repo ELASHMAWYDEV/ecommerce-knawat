@@ -80,11 +80,9 @@
         return this.$store.state.products;
       },
       numberOfPaginationLinks(){
-          return Math.ceil((this.$store.state.products.length / this.productPerPage))
-      },
-      ploading(){
-          return this.$store.state.ploading
-      } 
+          console.log( Math.ceil((this.$store.state.products.length / this.productPerPage) + 1))
+          return Math.ceil((this.$store.state.products.length / this.productPerPage) )
+      }
     }
 }
 

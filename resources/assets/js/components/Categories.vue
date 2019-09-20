@@ -47,7 +47,12 @@ export default {
     fetchCategories(){
         axios.get('/getCategories')
         .then(res => {
+            console.log("c",res.data)
+            if(res.data.status == "failed"){
+               return res.data = ['']
+            }
             sessionStorage.setItem('categories',JSON.stringify(res.data))
+
             this.categories =res.data.splice(1,10);
             this.restOfCategories = res.data.splice(10)
             

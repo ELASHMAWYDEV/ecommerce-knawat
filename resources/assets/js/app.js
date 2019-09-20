@@ -22,6 +22,7 @@ Vue.component('categories', require('./components/Categories.vue'));
 Vue.component('paginateproducts', require('./components/PaginateProducts.vue'));
 Vue.component('currency', require('./components/Currency.vue'));
 Vue.component('currencylg', require('./components/CurrencyLg.vue'));
+Vue.component('loginmodal', require('./components/Login.vue'));
 
 const store = new Vuex.Store({
     state:{

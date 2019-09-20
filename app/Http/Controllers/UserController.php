@@ -37,22 +37,24 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-    
+      //  dd($request->all());
         $this->validate($request,[
            'firstname'=>'string|max:200',
            'lastname'=>'string|max:200',
-           'remail' => 'required|string|email|max:255|unique:users',
+           'email' => 'required|string|email|max:255|unique:users',
            'phone'=>'required',
            'address'=>'string|required',
-           'rpassword' => 'required|string|min:6|confirmed',
+           'password' => 'required|string|min:6|confirmed',
         ]);
+        $user  = user::where('email',$request->email)->first();
+        
         $user = User::create([
             'firstname'=>$request->firstname,
             'lastname'=>$request->firstname,
-            'email'=>$request->remail,
+            'email'=>$request->email,
             'phone'=>$request->phone,
             'address'=>$request->address,
-            'password'=>bcrypt($request->rpassword)
+            'password'=>bcrypt($request->password)
         ]);
         Mail::send('mail.NewRegistration',['user'=>$user,'site_name_e'=>'trisoline ecommerce'],function($message) use ($user){
             $message->to('ayatir04@gmail.com');
