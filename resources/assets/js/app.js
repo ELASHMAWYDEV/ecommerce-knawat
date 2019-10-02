@@ -19,13 +19,15 @@ Vue.use(Vuex)
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('products', require('./components/Products.vue'));
 Vue.component('categories', require('./components/Categories.vue'));
+Vue.component('categoriessm', require('./components/Categoriessm.vue'));
 Vue.component('paginateproducts', require('./components/PaginateProducts.vue'));
 Vue.component('currency', require('./components/Currency.vue'));
 Vue.component('currencylg', require('./components/CurrencyLg.vue'));
 Vue.component('loginmodal', require('./components/Login.vue'));
-
+Vue.component('searchproducts',require('./components/Search.vue'));
 const store = new Vuex.Store({
     state:{
+      categories :[],
       products :[],
       currentProducts :[],
       currencies :{},

@@ -1,25 +1,32 @@
 <template>
-            <li class="nav-item dropdown text-light d-none d-lg-inline-block">
-              <a class="nav-link main-r-bg " href="#" id="allcategory" role="button" data-toggle="dropdown" 
-              aria-haspopup="true" aria-expanded="false" @mouseenter.once="setCategories()">
-                All Categories   
-              </a>
-             <ul class="dropdown-menu" v-if="this.loading">
-                   <img  src="/img/loadingP.gif" alt="loading" style="margin: auto;display:list-item">
-             </ul>
-             <ul class="dropdown-menu" v-else >
-                <li class="dropdown-item" 
-                    v-for="c in categories"
-                    :key="c.id"
-                    @click="filterproducts(c.name.en)">
-                    <a tabindex="-1">{{c.name.en}}</a>
-                </li>
-                <li v-if="restOfCategories.length > 0" class="dropdown-submenu">
-                    <a class="test dropdown-item" tabindex="-1" >
+ <nav class="navbar allcat-xs">
+    <li class="nav-item dropdown text-light  d-lg-none  container">
+        <a class="nav-link main-r-bg" href="#" id="allcategory" role="button" data-toggle="dropdown" 
+        aria-haspopup="true" aria-expanded="false"  @mouseenter.once="setCategories()">
+          <i class="fa fa-bars"></i> All Categories 
+        </a>
+        <div class="dropdown-menu" v-if="this.loading">
+            <img  src="/img/loadingP.gif" alt="loading" style="margin: auto;display:list-item">
+        </div>
+        <div class="dropdown-menu" aria-labelledby="allcategory">
+          <a
+                v-for="c in categories"
+                :key="c.id"
+                @click="filterproducts(c.name.en)"
+           class="dropdown-item" >{{c.name.en}}
+
+          </a>
+          <a class="test dropdown-item" tabindex="-1" @click="showRestCategories()">
                         More <i class="fa fa-caret-right float-right"></i>
-                    </a>
-                    <ul class="dropdown-menu" style="left: 103%; margin-top: -139%;">
-                    <li class="dropdown-item" 
+          </a>
+         
+          
+        </div>
+    </li>
+    <div v-if="restOfCategories.length > 0" class="dropdown-submenu container w-100">
+                   
+                    <ul  class="border w-100" id="categorysm" >
+                    <li class="dropdown-item"
                      v-for="rc in restOfCategories"
                      :key="rc.id" 
                      @click="filterproducts(rc.name.en)">
@@ -29,24 +36,18 @@
                     </li>
                    
                     </ul>
-                </li>
-             </ul>
-            </li>
-             
+    </div>
+ </nav>
 </template>
 <script>
 export default {
-   data(){
+    data(){
        return {
          categories :[], 
          restOfCategories :[] ,
          loading:false
        }
        
-   },
-   created(){
-    
-    
    },
    methods:{
 
@@ -64,7 +65,7 @@ export default {
 
         }); 
         this.$store.state.currentProducts = fil;
-    
+        this.hideRestCategories();
     },
       setCategories(){
         this.loading = true;
@@ -72,20 +73,28 @@ export default {
      if(categories != null){
         
        console.log("there is categories")
-       this.categories = JSON.parse(categories).splice(1,10);
-       this.restOfCategories = JSON.parse(categories).splice(10);
+       this.categories = JSON.parse(categories).splice(1,9);
+       this.restOfCategories = JSON.parse(categories).splice(9);
     
      }else{
      
              
-             this.categories = this.allcategories.splice(1,10);
-             this.restOfCategories = this.allcategories.splice(10);
+             this.categories = this.allcategories.splice(1,9);
+             this.restOfCategories = this.allcategories.splice(9);
             
            
          
           
      }
       this.loading = false;
+     }
+     ,
+     showRestCategories(){
+          document.querySelector('#categorysm').classList.add('shown');
+     }
+     ,
+     hideRestCategories(){
+          document.querySelector('#categorysm').classList.remove('shown');
      }
    }
    ,
@@ -110,14 +119,8 @@ export default {
       
     }
 }
-/*/ toggle to the rest of categories button */
-$(document).ready(function(){
-  $('.dropdown-submenu a.test').on("click", function(e){
-    $(this).next('ul').toggle();
-    e.stopPropagation();
-    e.preventDefault();
-  });
-});
 
+     
+ 
 
 </script>

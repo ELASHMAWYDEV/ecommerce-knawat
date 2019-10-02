@@ -36,7 +36,7 @@ class Products {
     }
     
     public function getCategories(){
-        return $this->mp->get('/catalog/categories',2);
+        return $this->mp->get('/catalog/categories');
     }
 
     //orders 

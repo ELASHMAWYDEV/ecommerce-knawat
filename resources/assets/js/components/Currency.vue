@@ -1,9 +1,11 @@
 <template>
             <li class="navbar-nav nav-item dropdown  d-sm-none ">
-              <a class="nav-link " href="#" id="currency-xs" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{this.currentCurrency}}
+              <a class="nav-link " href="#" id="currency-xs" role="button" >
+                {{currentCurrency}}
               </a>
-              <div class="dropdown-menu" aria-labelledby="currency-xs" style="right: 0;    left: auto; max-width: 7rem;">
+              <div class="currency-dropdownmenu" >
+                <a class="dropdown-item" @click="changeCurrency('USD')">USD</a>
+                <a class="dropdown-item" @click="changeCurrency('TRY')">TRY</a>
                 <a class="dropdown-item" @click="changeCurrency('EUR')">EUR</a>
                 <a class="dropdown-item" @click="changeCurrency('GBP')">GBP</a>
               </div>
@@ -12,29 +14,37 @@
 <script>
 
 export default{
-    data(){
-        return{
-            currentCurrency:'USD'
-           
+    
+    computed:{
+      currentCurrency(){
+          return this.$store.state.currentCurrency;
+          console.log("curcurcur"+this.$store.state.currentCurrency)
+        },
+        curencies(){
+          return this.$store.state.currencies
         }
     },
-    computed:{
-       getCurrency(){
-        /* fetch('https://api.exchangeratesapi.io/latest?base=USD')
-        .then(res =>res.json())
-        .then(res =>{
-         // console.log(res.rates)
-        })
-        .catch(err=>alert('error in loading currencies')) */
-      },
-      changeCurrency(currency){
-          this.currentCurrency = currency;
-
-      }
+     methods:{
+        changeCurrency(currency){
+            
+            this.$store.state.currentCurrency = currency;
+            this.$store.state.currencyRate = this.$store.state.currencies[''+currency+''];
+            this.$store.state.currencySign = this.$store.state.currenciesSigns[''+currency+'']
+        }
+       
     },
-    mounted(){
-        this.getCurrency
-    }
+
     
 }
+$(document).ready(function(){
+  $('#currency-xs').on('click',function(){
+    $('.currency-dropdownmenu').toggleClass('show');
+    if($('.currency-dropdownmenu').hasClass('show'))
+     setTimeout(() => {
+    $('.currency-dropdownmenu').removeClass('show');
+    }, 5000);
+  })
+  
+})
+
 </script>

@@ -10,7 +10,7 @@
         <div class="navbar-collapse p-0" id="navbarNavDropdown">
           <ul class="navbar-nav header-area">
            
-            <input class="form-control mr-sm-2 nav-item top-search-input" type="search" placeholder="Search products" aria-label="Search">
+            <searchproducts></searchproducts>
             <i class="fa fa-search fa-2x text-light bg-dark  top-search-btn"></i>
             
             <li class="nav-item dropdown d-292-none ">

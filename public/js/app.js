@@ -1072,7 +1072,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(11);
-module.exports = __webpack_require__(62);
+module.exports = __webpack_require__(65);
 
 
 /***/ }),
@@ -1103,13 +1103,15 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */]);
 Vue.component('example-component', __webpack_require__(41));
 Vue.component('products', __webpack_require__(44));
 Vue.component('categories', __webpack_require__(47));
-Vue.component('paginateproducts', __webpack_require__(50));
-Vue.component('currency', __webpack_require__(53));
-Vue.component('currencylg', __webpack_require__(56));
-Vue.component('loginmodal', __webpack_require__(59));
-
+Vue.component('categoriessm', __webpack_require__(50));
+Vue.component('paginateproducts', __webpack_require__(53));
+Vue.component('currency', __webpack_require__(56));
+Vue.component('currencylg', __webpack_require__(59));
+Vue.component('loginmodal', __webpack_require__(62));
+Vue.component('searchproducts', __webpack_require__(77));
 var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
   state: {
+    categories: [],
     products: [],
     currentProducts: [],
     currencies: {},
@@ -45961,7 +45963,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         sessionStorage.setItem('products', JSON.stringify(res.data.products));
         //this.$store.state.products = res.data.products
-
+        setTimeout(_this.setfirstCategories(), 2000);
         setTimeout(_this.fetchallProducts(), 4000);
       }).catch(function (error) {
         _this.loading = false;
@@ -45977,9 +45979,57 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         //sessionStorage.setItem('products',JSON.stringify(this.products))
         _this2.$store.state.products = res.data.products;
         sessionStorage.setItem('products', JSON.stringify(res.data.products));
+        /* set alll the categories */
+        setTimeout(_this2.setCategories(), 2000);
       }).catch(function (error) {
         alert("error");
       });
+    },
+    setfirstCategories: function setfirstCategories() {
+      var cat = new Set();
+
+      this.currentProducts.forEach(function (product) {
+        product.categories.forEach(function (element) {
+
+          cat.add(element);
+        });
+      });
+      this.$store.state.categories = this.getUnique(Array.from(cat), 'id');
+      sessionStorage.setItem('categories', JSON.stringify(this.getUnique(Array.from(cat), 'id')));
+    },
+    setCategories: function setCategories() {
+      var cat = new Set();
+
+      this.allproducts.forEach(function (product) {
+        product.categories.forEach(function (element) {
+
+          cat.add(element);
+        });
+      });
+      this.$store.state.categories = this.getUnique(Array.from(cat), 'id');
+      sessionStorage.setItem('categories', JSON.stringify(this.getUnique(Array.from(cat), 'id')));
+    },
+
+    /*filter duplicated objects **/
+    getUnique: function getUnique(arr, comp) {
+
+      var unique = arr.map(function (e) {
+        return e[comp];
+      })
+
+      // store the keys of the unique objects
+      .map(function (e, i, final) {
+        return final.indexOf(e) === i && i;
+      })
+
+      // eliminate the dead keys & store unique objects
+      .filter(function (e) {
+        return arr[e];
+      }).map(function (e) {
+        return arr[e];
+      });
+
+      return unique;
     }
   }
 });
@@ -46254,98 +46304,91 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            categories: [],
-            restOfCategories: []
-        };
+  data: function data() {
+    return {
+      categories: [],
+      restOfCategories: [],
+      loading: false
+    };
+  },
+  created: function created() {},
+
+  methods: {
+
+    /* filte products by categorie */
+    filterproducts: function filterproducts(type) {
+
+      var products = this.$store.state.products;
+
+      var fil = products.filter(function (element) {
+        return element.categories.some(function (c) {
+          return c.name.en == type;
+        });
+      }).map(function (element) {
+        return Object.assign({}, element, { categories: element.categories.filter(function (subElement) {
+            return subElement.name.en == type;
+          }) });
+      });
+      this.$store.state.currentProducts = fil;
     },
-    created: function created() {
-        var categories = sessionStorage.getItem('categories');
-        if (categories != null) {
-            //console.log("not null")
-            this.categories = JSON.parse(categories).splice(1, 10);
-            this.restOfCategories = JSON.parse(categories).splice(10);
-        } else {
-            this.fetchCategories();
-        }
-    },
+    setCategories: function setCategories() {
+      this.loading = true;
+      var categories = sessionStorage.getItem('categories');
+      if (categories != null) {
 
-    methods: {
-        fetchCategories: function fetchCategories() {
-            var _this = this;
+        console.log("there is categories");
+        this.categories = JSON.parse(categories).splice(1, 10);
+        this.restOfCategories = JSON.parse(categories).splice(10);
+      } else {
 
-            axios.get('/getCategories').then(function (res) {
-                console.log("c", res.data);
-                if (res.data.status == "failed") {
-                    return res.data = [''];
-                }
-                sessionStorage.setItem('categories', JSON.stringify(res.data));
-
-                _this.categories = res.data.splice(1, 10);
-                _this.restOfCategories = res.data.splice(10);
-            });
-        },
-        filterproducts: function filterproducts(type) {
-
-            var products = this.$store.state.products;
-
-            var fil = products.filter(function (element) {
-                return element.categories.some(function (c) {
-                    return c.name.en == type;
-                });
-            }).map(function (element) {
-                return Object.assign({}, element, { categories: element.categories.filter(function (subElement) {
-                        return subElement.name.en == type;
-                    }) });
-            });
-            this.$store.state.currentProducts = fil;
-            console.log("prod", fil);
-
-            //console.log(type)
-            /*let fil = products.filter(function(product){
-                let l = product.categories.length ;
-                product.categories.includes(type);*/
-            //console.log("1st length"+l)
-            /* product.categories =  product.categories.filter(c =>{
-              console.log(c.name.en.trim() == type)
-              return  c.name.en.trim() == type.trim()
-            }) */
-            //console.log("2nd length"+product.categories.length)
-            //return product;
-            // return product.categories.length == l;
-            // product.categories[0]
-            // return product
-            //});
-
-        }
-    },
-
-    computed: {
-        allproducts: function allproducts() {
-            return this.$store.state.products;
-        },
-
-        currentProducts: {
-            get: function get() {
-                return this.$store.state.currentProducts;
-            },
-            set: function set(value) {
-                this.$store.state.currentProducts = value;
-            }
-        }
-
+        this.categories = this.allcategories.splice(1, 10);
+        this.restOfCategories = this.allcategories.splice(10);
+      }
+      this.loading = false;
     }
-});
+  },
 
-$(document).ready(function () {
-    $('.dropdown-submenu a.test').on("click", function (e) {
-        $(this).next('ul').toggle();
-        e.stopPropagation();
-        e.preventDefault();
-    });
+  computed: {
+    /*get all categories in store */
+    allcategories: function allcategories() {
+      return this.$store.state.categories;
+    },
+
+    /* get all products in the store */
+    allproducts: function allproducts() {
+      return this.$store.state.products;
+    },
+
+    /* the current products shown in the page */
+    currentProducts: {
+      get: function get() {
+        return this.$store.state.currentProducts;
+      },
+      set: function set(value) {
+        this.$store.state.currentProducts = value;
+      }
+    }
+
+  }
+  /*/ toggle to the rest of categories button */
+});$(document).ready(function () {
+  $('.dropdown-submenu a.test').on("click", function (e) {
+    $(this).next('ul').toggle();
+    e.stopPropagation();
+    e.preventDefault();
+  });
 });
 
 /***/ }),
@@ -46357,60 +46400,102 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "ul",
-    { staticClass: "dropdown-menu" },
+    "li",
+    { staticClass: "nav-item dropdown text-light d-none d-lg-inline-block" },
     [
-      _vm._l(_vm.categories, function(c) {
-        return _c(
-          "li",
-          {
-            key: c.id,
-            staticClass: "dropdown-item",
-            on: {
-              click: function($event) {
-                return _vm.filterproducts(c.name.en)
-              }
+      _c(
+        "a",
+        {
+          staticClass: "nav-link main-r-bg ",
+          attrs: {
+            href: "#",
+            id: "allcategory",
+            role: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          },
+          on: {
+            "~mouseenter": function($event) {
+              return _vm.setCategories()
             }
-          },
-          [_c("a", { attrs: { tabindex: "-1" } }, [_vm._v(_vm._s(c.name.en))])]
-        )
-      }),
+          }
+        },
+        [_vm._v("\n    All Categories   \n  ")]
+      ),
       _vm._v(" "),
-      _c("li", { staticClass: "dropdown-submenu" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "ul",
-          {
-            staticClass: "dropdown-menu",
-            staticStyle: { left: "103%", "margin-top": "-139%" }
-          },
-          _vm._l(_vm.restOfCategories, function(rc) {
-            return _c(
-              "li",
-              {
-                key: rc.id,
-                staticClass: "dropdown-item",
-                on: {
-                  click: function($event) {
-                    return _vm.filterproducts(rc.name.en)
-                  }
-                }
-              },
-              [
-                _c("a", {}, [
-                  _vm._v(
-                    "\n              " + _vm._s(rc.name.en) + "\n          "
-                  )
-                ])
-              ]
-            )
-          }),
-          0
-        )
-      ])
-    ],
-    2
+      this.loading
+        ? _c("ul", { staticClass: "dropdown-menu" }, [
+            _c("img", {
+              staticStyle: { margin: "auto", display: "list-item" },
+              attrs: { src: "/img/loadingP.gif", alt: "loading" }
+            })
+          ])
+        : _c(
+            "ul",
+            { staticClass: "dropdown-menu" },
+            [
+              _vm._l(_vm.categories, function(c) {
+                return _c(
+                  "li",
+                  {
+                    key: c.id,
+                    staticClass: "dropdown-item",
+                    on: {
+                      click: function($event) {
+                        return _vm.filterproducts(c.name.en)
+                      }
+                    }
+                  },
+                  [
+                    _c("a", { attrs: { tabindex: "-1" } }, [
+                      _vm._v(_vm._s(c.name.en))
+                    ])
+                  ]
+                )
+              }),
+              _vm._v(" "),
+              _vm.restOfCategories.length > 0
+                ? _c("li", { staticClass: "dropdown-submenu" }, [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c(
+                      "ul",
+                      {
+                        staticClass: "dropdown-menu",
+                        staticStyle: { left: "103%", "margin-top": "-139%" }
+                      },
+                      _vm._l(_vm.restOfCategories, function(rc) {
+                        return _c(
+                          "li",
+                          {
+                            key: rc.id,
+                            staticClass: "dropdown-item",
+                            on: {
+                              click: function($event) {
+                                return _vm.filterproducts(rc.name.en)
+                              }
+                            }
+                          },
+                          [
+                            _c("a", {}, [
+                              _vm._v(
+                                "\n               " +
+                                  _vm._s(rc.name.en) +
+                                  "\n           "
+                              )
+                            ])
+                          ]
+                        )
+                      }),
+                      0
+                    )
+                  ])
+                : _vm._e()
+            ],
+            2
+          )
+    ]
   )
 }
 var staticRenderFns = [
@@ -46422,7 +46507,7 @@ var staticRenderFns = [
       "a",
       { staticClass: "test dropdown-item", attrs: { tabindex: "-1" } },
       [
-        _vm._v("\n           More "),
+        _vm._v("\n            More "),
         _c("i", { staticClass: "fa fa-caret-right float-right" })
       ]
     )
@@ -46463,6 +46548,311 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
+Component.options.__file = "resources/assets/js/components/Categoriessm.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-ec7eb7a6", Component.options)
+  } else {
+    hotAPI.reload("data-v-ec7eb7a6", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 51 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            categories: [],
+            restOfCategories: [],
+            loading: false
+        };
+    },
+
+    methods: {
+
+        /* filte products by categorie */
+        filterproducts: function filterproducts(type) {
+
+            var products = this.$store.state.products;
+
+            var fil = products.filter(function (element) {
+                return element.categories.some(function (c) {
+                    return c.name.en == type;
+                });
+            }).map(function (element) {
+                return Object.assign({}, element, { categories: element.categories.filter(function (subElement) {
+                        return subElement.name.en == type;
+                    }) });
+            });
+            this.$store.state.currentProducts = fil;
+            this.hideRestCategories();
+        },
+        setCategories: function setCategories() {
+            this.loading = true;
+            var categories = sessionStorage.getItem('categories');
+            if (categories != null) {
+
+                console.log("there is categories");
+                this.categories = JSON.parse(categories).splice(1, 9);
+                this.restOfCategories = JSON.parse(categories).splice(9);
+            } else {
+
+                this.categories = this.allcategories.splice(1, 9);
+                this.restOfCategories = this.allcategories.splice(9);
+            }
+            this.loading = false;
+        },
+        showRestCategories: function showRestCategories() {
+            document.querySelector('#categorysm').classList.add('shown');
+        },
+        hideRestCategories: function hideRestCategories() {
+            document.querySelector('#categorysm').classList.remove('shown');
+        }
+    },
+
+    computed: {
+        /*get all categories in store */
+        allcategories: function allcategories() {
+            return this.$store.state.categories;
+        },
+
+        /* get all products in the store */
+        allproducts: function allproducts() {
+            return this.$store.state.products;
+        },
+
+        /* the current products shown in the page */
+        currentProducts: {
+            get: function get() {
+                return this.$store.state.currentProducts;
+            },
+            set: function set(value) {
+                this.$store.state.currentProducts = value;
+            }
+        }
+
+    }
+});
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("nav", { staticClass: "navbar allcat-xs" }, [
+    _c(
+      "li",
+      { staticClass: "nav-item dropdown text-light  d-lg-none  container" },
+      [
+        _c(
+          "a",
+          {
+            staticClass: "nav-link main-r-bg",
+            attrs: {
+              href: "#",
+              id: "allcategory",
+              role: "button",
+              "data-toggle": "dropdown",
+              "aria-haspopup": "true",
+              "aria-expanded": "false"
+            },
+            on: {
+              "~mouseenter": function($event) {
+                return _vm.setCategories()
+              }
+            }
+          },
+          [
+            _c("i", { staticClass: "fa fa-bars" }),
+            _vm._v(" All Categories \n       ")
+          ]
+        ),
+        _vm._v(" "),
+        this.loading
+          ? _c("div", { staticClass: "dropdown-menu" }, [
+              _c("img", {
+                staticStyle: { margin: "auto", display: "list-item" },
+                attrs: { src: "/img/loadingP.gif", alt: "loading" }
+              })
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "dropdown-menu",
+            attrs: { "aria-labelledby": "allcategory" }
+          },
+          [
+            _vm._l(_vm.categories, function(c) {
+              return _c(
+                "a",
+                {
+                  key: c.id,
+                  staticClass: "dropdown-item",
+                  on: {
+                    click: function($event) {
+                      return _vm.filterproducts(c.name.en)
+                    }
+                  }
+                },
+                [_vm._v(_vm._s(c.name.en) + "\n\n         ")]
+              )
+            }),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "test dropdown-item",
+                attrs: { tabindex: "-1" },
+                on: {
+                  click: function($event) {
+                    return _vm.showRestCategories()
+                  }
+                }
+              },
+              [
+                _vm._v("\n                       More "),
+                _c("i", { staticClass: "fa fa-caret-right float-right" })
+              ]
+            )
+          ],
+          2
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _vm.restOfCategories.length > 0
+      ? _c("div", { staticClass: "dropdown-submenu container w-100" }, [
+          _c(
+            "ul",
+            { staticClass: "border w-100", attrs: { id: "categorysm" } },
+            _vm._l(_vm.restOfCategories, function(rc) {
+              return _c(
+                "li",
+                {
+                  key: rc.id,
+                  staticClass: "dropdown-item",
+                  on: {
+                    click: function($event) {
+                      return _vm.filterproducts(rc.name.en)
+                    }
+                  }
+                },
+                [
+                  _c("a", {}, [
+                    _vm._v(
+                      "\n                          " +
+                        _vm._s(rc.name.en) +
+                        "\n                      "
+                    )
+                  ])
+                ]
+              )
+            }),
+            0
+          )
+        ])
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-ec7eb7a6", module.exports)
+  }
+}
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(54)
+/* template */
+var __vue_template__ = __webpack_require__(55)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
 Component.options.__file = "resources/assets/js/components/PaginateProducts.vue"
 
 /* hot reload */
@@ -46485,7 +46875,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 51 */
+/* 54 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46574,7 +46964,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 52 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -46703,15 +47093,15 @@ if (false) {
 }
 
 /***/ }),
-/* 53 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(54)
+var __vue_script__ = __webpack_require__(57)
 /* template */
-var __vue_template__ = __webpack_require__(55)
+var __vue_template__ = __webpack_require__(58)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -46750,7 +47140,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 54 */
+/* 57 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46766,36 +47156,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            currentCurrency: 'USD'
-
-        };
-    },
 
     computed: {
-        getCurrency: function getCurrency() {
-            /* fetch('https://api.exchangeratesapi.io/latest?base=USD')
-            .then(res =>res.json())
-            .then(res =>{
-             // console.log(res.rates)
-            })
-            .catch(err=>alert('error in loading currencies')) */
+        currentCurrency: function currentCurrency() {
+            return this.$store.state.currentCurrency;
+            console.log("curcurcur" + this.$store.state.currentCurrency);
         },
-        changeCurrency: function changeCurrency(currency) {
-            this.currentCurrency = currency;
+        curencies: function curencies() {
+            return this.$store.state.currencies;
         }
     },
-    mounted: function mounted() {
-        this.getCurrency;
+    methods: {
+        changeCurrency: function changeCurrency(currency) {
+
+            this.$store.state.currentCurrency = currency;
+            this.$store.state.currencyRate = this.$store.state.currencies['' + currency + ''];
+            this.$store.state.currencySign = this.$store.state.currenciesSigns['' + currency + ''];
+        }
     }
+
+});
+$(document).ready(function () {
+    $('#currency-xs').on('click', function () {
+        $('.currency-dropdownmenu').toggleClass('show');
+        if ($('.currency-dropdownmenu').hasClass('show')) setTimeout(function () {
+            $('.currency-dropdownmenu').removeClass('show');
+        }, 5000);
+    });
 });
 
 /***/ }),
-/* 55 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -46807,53 +47203,64 @@ var render = function() {
       "a",
       {
         staticClass: "nav-link ",
-        attrs: {
-          href: "#",
-          id: "currency-xs",
-          role: "button",
-          "data-toggle": "dropdown",
-          "aria-haspopup": "true",
-          "aria-expanded": "false"
-        }
+        attrs: { href: "#", id: "currency-xs", role: "button" }
       },
-      [_vm._v("\n    " + _vm._s(this.currentCurrency) + "\n  ")]
+      [_vm._v("\n    " + _vm._s(_vm.currentCurrency) + "\n  ")]
     ),
     _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "dropdown-menu",
-        staticStyle: { right: "0", left: "auto", "max-width": "7rem" },
-        attrs: { "aria-labelledby": "currency-xs" }
-      },
-      [
-        _c(
-          "a",
-          {
-            staticClass: "dropdown-item",
-            on: {
-              click: function($event) {
-                return _vm.changeCurrency("EUR")
-              }
+    _c("div", { staticClass: "currency-dropdownmenu" }, [
+      _c(
+        "a",
+        {
+          staticClass: "dropdown-item",
+          on: {
+            click: function($event) {
+              return _vm.changeCurrency("USD")
             }
-          },
-          [_vm._v("EUR")]
-        ),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass: "dropdown-item",
-            on: {
-              click: function($event) {
-                return _vm.changeCurrency("GBP")
-              }
+          }
+        },
+        [_vm._v("USD")]
+      ),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "dropdown-item",
+          on: {
+            click: function($event) {
+              return _vm.changeCurrency("TRY")
             }
-          },
-          [_vm._v("GBP")]
-        )
-      ]
-    )
+          }
+        },
+        [_vm._v("TRY")]
+      ),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "dropdown-item",
+          on: {
+            click: function($event) {
+              return _vm.changeCurrency("EUR")
+            }
+          }
+        },
+        [_vm._v("EUR")]
+      ),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "dropdown-item",
+          on: {
+            click: function($event) {
+              return _vm.changeCurrency("GBP")
+            }
+          }
+        },
+        [_vm._v("GBP")]
+      )
+    ])
   ])
 }
 var staticRenderFns = []
@@ -46867,15 +47274,15 @@ if (false) {
 }
 
 /***/ }),
-/* 56 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(57)
+var __vue_script__ = __webpack_require__(60)
 /* template */
-var __vue_template__ = __webpack_require__(58)
+var __vue_template__ = __webpack_require__(61)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -46914,7 +47321,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 57 */
+/* 60 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -46937,42 +47344,49 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
-    computed: {
-        currentCurrency: function currentCurrency() {
-            return this.$store.state.currentCurrency;
-            console.log("curcurcur" + this.$store.state.currentCurrency);
-        },
-        curencies: function curencies() {
-            return this.$store.state.currencies;
-        },
-        getCurrency: function getCurrency() {
-            var _this = this;
-
-            fetch('https://api.exchangeratesapi.io/latest?base=USD').then(function (res) {
-                return res.json();
-            }).then(function (res) {
-                console.log(res.rates);
-                _this.$store.state.currencies = res.rates;
-            }).catch(function (err) {
-                return alert('error in loading currencies');
-            });
-        }
+  computed: {
+    currentCurrency: function currentCurrency() {
+      return this.$store.state.currentCurrency;
+      console.log("curcurcur" + this.$store.state.currentCurrency);
     },
-    methods: {
-        changeCurrency: function changeCurrency(currency) {
-
-            this.$store.state.currentCurrency = currency;
-            this.$store.state.currencyRate = this.$store.state.currencies['' + currency + ''];
-            this.$store.state.currencySign = this.$store.state.currenciesSigns['' + currency + ''];
-        }
+    curencies: function curencies() {
+      return this.$store.state.currencies;
     },
-    mounted: function mounted() {
-        this.getCurrency;
+    getCurrency: function getCurrency() {
+      var _this = this;
+
+      var currencies = sessionStorage.getItem('currencies');
+      if (currencies != null) {
+        this.$store.state.currencies = JSON.parse(currencies);
+        return true;
+      }
+      fetch('https://api.exchangeratesapi.io/latest?base=USD').then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        //console.log(res.rates)
+        _this.$store.state.currencies = res.rates;
+        sessionStorage.setItem('currencies', JSON.stringify(res.rates));
+      }).catch(function (err) {
+        return console.log('error in loading currencies');
+      });
     }
+  },
+  methods: {
+    changeCurrency: function changeCurrency(currency) {
+
+      this.$store.state.currentCurrency = currency;
+      this.$store.state.currencyRate = this.$store.state.currencies['' + currency + ''];
+      this.$store.state.currencySign = this.$store.state.currenciesSigns['' + currency + ''];
+    }
+  },
+  mounted: function mounted() {
+
+    this.getCurrency;
+  }
 });
 
 /***/ }),
-/* 58 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -47074,15 +47488,15 @@ if (false) {
 }
 
 /***/ }),
-/* 59 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(60)
+var __vue_script__ = __webpack_require__(63)
 /* template */
-var __vue_template__ = __webpack_require__(61)
+var __vue_template__ = __webpack_require__(64)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -47121,7 +47535,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 60 */
+/* 63 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -47233,7 +47647,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 61 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -47488,10 +47902,138 @@ if (false) {
 }
 
 /***/ }),
-/* 62 */
+/* 65 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 66 */,
+/* 67 */,
+/* 68 */,
+/* 69 */,
+/* 70 */,
+/* 71 */,
+/* 72 */,
+/* 73 */,
+/* 74 */,
+/* 75 */,
+/* 76 */,
+/* 77 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(79)
+/* template */
+var __vue_template__ = __webpack_require__(78)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Search.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7cdae69f", Component.options)
+  } else {
+    hotAPI.reload("data-v-7cdae69f", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("input", {
+    directives: [
+      {
+        name: "model",
+        rawName: "v-model",
+        value: _vm.searchproducts,
+        expression: "searchproducts"
+      }
+    ],
+    staticClass: "form-control mr-sm-2 nav-item top-search-input",
+    attrs: {
+      type: "search",
+      placeholder: "Search products",
+      "aria-label": "Search"
+    },
+    domProps: { value: _vm.searchproducts },
+    on: {
+      input: function($event) {
+        if ($event.target.composing) {
+          return
+        }
+        _vm.searchproducts = $event.target.value
+      }
+    }
+  })
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-7cdae69f", module.exports)
+  }
+}
+
+/***/ }),
+/* 79 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            searchproducts: ''
+        };
+    },
+
+    watch: {
+        searchproducts: function searchproducts(query) {
+            console.log(query);
+        }
+    }
+});
 
 /***/ })
 /******/ ]);

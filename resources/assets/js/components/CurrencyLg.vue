@@ -25,13 +25,19 @@ export default{
           return this.$store.state.currencies
         },
         getCurrency(){
+          let currencies = sessionStorage.getItem('currencies');
+        if(currencies !=null){
+           this.$store.state.currencies = JSON.parse(currencies);
+           return true;
+        }
         fetch('https://api.exchangeratesapi.io/latest?base=USD')
         .then(res =>res.json())
         .then(res =>{
-          console.log(res.rates)
+          //console.log(res.rates)
           this.$store.state.currencies = res.rates;
+          sessionStorage.setItem('currencies',JSON.stringify(res.rates));
         })
-        .catch(err=>alert('error in loading currencies'))
+        .catch(err=>console.log('error in loading currencies'))
        }
         
     },
@@ -45,6 +51,7 @@ export default{
        
     },
     mounted(){
+       
         this.getCurrency
     }
     

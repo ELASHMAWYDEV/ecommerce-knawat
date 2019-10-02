@@ -87,6 +87,7 @@ export default{
               this.fetchfirstProducts();
 
            }
+            
        
      
    },
@@ -128,7 +129,7 @@ export default{
             
             sessionStorage.setItem('products',JSON.stringify(res.data.products))
             //this.$store.state.products = res.data.products
-           
+            setTimeout(this.setfirstCategories(),2000)
             setTimeout(this.fetchallProducts(), 4000);
           })
           .catch(error => {
@@ -145,13 +146,58 @@ export default{
             //sessionStorage.setItem('products',JSON.stringify(this.products))
             this.$store.state.products = res.data.products
              sessionStorage.setItem('products',JSON.stringify(res.data.products))
-             
+             /* set alll the categories */
+             setTimeout(this.setCategories(),2000)
            
           })
           .catch(error => {
                   alert("error")
                 })
-        }
+        },
+        setfirstCategories(){
+          let cat = new Set();
+
+          
+          this.currentProducts.forEach(product=>{
+            product.categories.forEach(element => {
+              
+              cat.add(element);
+            });             
+             
+            
+          })
+          this.$store.state.categories = this.getUnique(Array.from(cat),'id');
+          sessionStorage.setItem('categories',JSON.stringify(this.getUnique(Array.from(cat),'id')))
+        },
+        setCategories(){
+          let cat = new Set();
+
+          
+          this.allproducts.forEach(product=>{
+            product.categories.forEach(element => {
+              
+              cat.add(element);
+            });             
+             
+            
+          })
+          this.$store.state.categories = this.getUnique(Array.from(cat),'id');
+          sessionStorage.setItem('categories',JSON.stringify(this.getUnique(Array.from(cat),'id')))
+        },
+        /*filter duplicated objects **/
+        getUnique(arr, comp) {
+
+        const unique = arr
+            .map(e => e[comp])
+
+          // store the keys of the unique objects
+          .map((e, i, final) => final.indexOf(e) === i && i)
+
+          // eliminate the dead keys & store unique objects
+          .filter(e => arr[e]).map(e => arr[e]);
+
+        return unique;
+      }
    }
 }
 </script>

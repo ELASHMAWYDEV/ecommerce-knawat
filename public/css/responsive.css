@@ -68,5 +68,20 @@
         margin-top: -16px;
      }
  }
- 
- 
+ /* xs currency-drop down */
+ .currency-dropdownmenu{
+    z-index: 99;
+    background: #fff;
+    position: absolute;
+    top: 37px;
+    left: 14px;display: none;
+    border: 1px solid #d4d4d4;
+}
+.currency-dropdownmenu.show{display: block !important}
+ @media(max-width:450px){
+     .top-search-input{min-width: 16rem;}
+ }
+ /* category sm */
+ .allcat-xs{cursor: pointer;}
+ #categorysm{padding: 0.5rem 0; border-top: 1px solid #e8e4e4;display: none}
+ .shown{display: block !important}
