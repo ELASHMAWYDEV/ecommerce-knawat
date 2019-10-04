@@ -25,6 +25,10 @@ Vue.component('currency', require('./components/Currency.vue'));
 Vue.component('currencylg', require('./components/CurrencyLg.vue'));
 Vue.component('loginmodal', require('./components/Login.vue'));
 Vue.component('searchproducts',require('./components/Search.vue'));
+Vue.component('sortproducts',require('./components/SortProducts.vue'))
+Vue.component('sizefilter',require('./components/SizeFilter.vue'));
+Vue.component('productdetails',require('./components/ProductDetails.vue'));
+
 const store = new Vuex.Store({
     state:{
       categories :[],

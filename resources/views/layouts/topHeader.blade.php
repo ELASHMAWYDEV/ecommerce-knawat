@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark  container">
         <div class="navbar-brand  logo">
               <a  id="site-name" href="{{route('frontEnd.home')}}">
-                <img src="img/logo.png"  alt="site logo">
+                <img src="{{asset('img/logo.png')}}"  alt="site logo">
               </a>
         </div>
        

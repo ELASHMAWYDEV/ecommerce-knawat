@@ -7,18 +7,18 @@
              <ul class="dropdown-menu" v-if="this.loading">
                    <img  src="/img/loadingP.gif" alt="loading" style="margin: auto;display:list-item">
              </ul>
-             <ul class="dropdown-menu" v-else >
-                <li class="dropdown-item" 
+             <ul class="dropdown-menu"  v-else >
+                <li class="dropdown-item"  
                     v-for="c in categories"
                     :key="c.id"
-                    @click="filterproducts(c.name.en)">
-                    <a tabindex="-1">{{c.name.en}}</a>
+                    @click="filterproducts(c.name.en)" >
+                    <a tabindex="-1" @mouseenter="hiderestc()">{{c.name.en}}</a>
                 </li>
                 <li v-if="restOfCategories.length > 0" class="dropdown-submenu">
-                    <a class="test dropdown-item" tabindex="-1" >
+                    <a class="test dropdown-item"  @mouseenter="showrestc()" tabindex="-1" >
                         More <i class="fa fa-caret-right float-right"></i>
                     </a>
-                    <ul class="dropdown-menu" style="left: 103%; margin-top: -139%;">
+                    <ul class="dropdown-menu" id="showrc" style="left: 103%; margin-top: -139%;">
                     <li class="dropdown-item" 
                      v-for="rc in restOfCategories"
                      :key="rc.id" 
@@ -64,7 +64,7 @@ export default {
 
         }); 
         this.$store.state.currentProducts = fil;
-    
+        this.hiderestc();
     },
       setCategories(){
         this.loading = true;
@@ -86,6 +86,13 @@ export default {
           
      }
       this.loading = false;
+     },
+     //show rest categories menu 
+      showrestc(){
+       document.querySelector('#showrc').classList.add('show')
+     },
+      hiderestc(){
+       document.querySelector('#showrc').classList.remove('show')
      }
    }
    ,
@@ -113,10 +120,12 @@ export default {
 /*/ toggle to the rest of categories button */
 $(document).ready(function(){
   $('.dropdown-submenu a.test').on("click", function(e){
-    $(this).next('ul').toggle();
-    e.stopPropagation();
-    e.preventDefault();
+   
+    console.log('yeyyy')
+    $(this).siblings('ul').addClass('show');
+   
   });
+   
 });
 
 

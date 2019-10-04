@@ -42,7 +42,7 @@
                                                    <i class="fa fa-star-o main-b-color"></i>
                                            </div>
                                            <h4 class="product-name text-center">
-                                               <a href="#"><strong>{{index + 1}} </strong>- {{product.name.en}} </a>
+                                               <a :href="'/products/'+product.sku"><strong>{{index + 1}} </strong>- {{product.name.en}} </a>
                                            </h4>
                                            <div class="price-box text-center">
                                              <span class="new-price">
@@ -59,7 +59,7 @@
                                 </div>                          
     </div>                                  
     <h5 v-else class="alert alert-info text-weight w-100 text-center">
-      There is no product avalaible in this cateogry !
+      There is no product avalaible !
     </h5>                             
   </div>
  </div>

@@ -24,8 +24,10 @@ Route::group(['as'=>'frontEnd.','middleware'=>'web'],function(){
     Route::get('/getCategories', 'HomeController@getCategories');
     Route::get('/get10Products', 'HomeController@get10Products');
     Route::get('/getProducts', 'HomeController@getProducts');
+    Route::get('/getProductBySku/{sku}', 'HomeController@getProductBySku');
     //the product page
     Route::get('/products', 'HomeController@products')->name('products');
+    Route::get('/products/{sku}', 'HomeController@productDetails')->name('productDetails');
     //the  lang status 
     Route::get('/lang/{lang}','HomeController@setLang')->name('setLang');
     //register new user

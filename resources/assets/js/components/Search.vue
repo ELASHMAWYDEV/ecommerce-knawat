@@ -13,7 +13,22 @@ export default {
     watch:{
      searchproducts:function(query){
          console.log(query)
+         if(query.length > 2){
+    
+              let fil = this.allproducts
+                    .filter(product =>{
+                         return (product.name.en).includes(query) || (product.name.ar).includes(query)
+                    })
+                this.$store.state.currentProducts = fil;
+            
+
+         }
      }
-    }
+    },
+     computed:{
+         allproducts(){
+             return this.$store.state.products;
+         }
+     }
 }
 </script>

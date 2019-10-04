@@ -9,7 +9,7 @@
           <div class="col-lg-9 col-12">
              <div class="row">
                  <div class="col">
-                     <div class="shop-top-bar mb-30 pb-0 pt-3">
+                     <div class="shop-top-bar mb-30 pb-1 pt-2">
                            <div class="shop-bar-inner">
                                    <div class="product-view-mode">
                                    <!-- shop-item-filter-list start -->
@@ -29,19 +29,7 @@
                            </div>
            
                                <div class="product-select-box">
-                               <div class="product-show pt-1">
-                                   <label for="SortBy" >Sort by</label>
-                                   <select name="SortBy" id="SortBy" style="padding: 4px;">
-                                   <option value="manual">Featured</option>
-                                   <option value="best-selling">Best Selling</option>
-                                   <option value="title-ascending">Alphabetically, A-Z</option>
-                                   <option value="title-descending">Alphabetically, Z-A</option>
-                                   <option value="price-ascending">Price, low to high</option>
-                                   <option value="price-descending">Price, high to low</option>
-                                   <option value="created-descending">Date, new to old</option>
-                                   <option value="created-ascending">Date, old to new</option>
-                                   </select>
-                               </div>
+                                <sortproducts></sortproducts>
                                </div>
                      </div>
                      <!--products-->
@@ -444,20 +432,7 @@
                          <div class="section-title">
                            <h5 class="font-weight-bold">SIZE</h5>
                          </div>
-                          <div class="sidebar-categores-inner">
-                               <div class="filter-group">
-       
-                                       <a href="all/s.html" class="active"><i class="fa fa-check main-b-color "></i> s</a>
-                                               
-                                       <a href="all/m.html"><i class="fa fa-check main-b-color "></i> m</a>
-                                               
-                                       <a href="all/l.html"><i class="fa fa-check main-b-color "></i> l</a>
-                                               
-                                       <a href="all/xl.html"><i class="fa fa-check main-b-color "></i> xl</a>
-                                               
-                                       <a href="all/xxl.html"><i class="fa fa-check main-b-color "></i> xxl</a>
-                               </div>
-                          </div>
+                        <sizefilter></sizefilter>
                    </div>
               </div>
           </div>

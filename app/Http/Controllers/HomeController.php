@@ -56,6 +56,9 @@ class HomeController extends Controller
         
         return response()->json($this->p->get10Products()); 
     }
+    public function getProductBySku($sku){
+        return response()->json($this->p->getProductBySku($sku));
+    }
     public function loginPage(){
         return view($this->lang().'.login');
     }
@@ -66,5 +69,9 @@ class HomeController extends Controller
        // $categories = collect($this->p->getCategories())->splice(20);
        // return view($this->lang().'.products',compact('products','categories'));
         return view($this->lang().'.products');
+    }
+    public function productDetails($sku){
+        //$product = $this->p->getProductBySku($sku); 
+        return view($this->lang().'.productDetails',compact('sku'));
     }
 }
