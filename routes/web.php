@@ -32,6 +32,13 @@ Route::group(['as'=>'frontEnd.','middleware'=>'web'],function(){
     Route::get('/lang/{lang}','HomeController@setLang')->name('setLang');
     //register new user
     Route::post('/users/store','UserController@store')->name('users.store');
+    //verify email
+
+    Route::get('/verifyEmailpage',function(){
+       return view('En.verifyEmail');
+    })->name('email.activation');
+    Route::get('/verifyEmail/{emailtokenv}','UserController@verifyEmailg')->name('email.verifyg');
+    Route::post('/verifyEmail','UserController@verifyEmail')->name('email.verify');
 });
 
 Route::get('json-api', 'ApiController@index');

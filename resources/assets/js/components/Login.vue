@@ -2,7 +2,7 @@
     <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
           <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header ">
               <h5 class="modal-title" id="exampleModalLabel">Login</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -83,7 +83,7 @@ export default{
                 return (false)
         },
         isPasswordValide(){
-            return this.password.lengh > 5
+            return this.password.length > 5
         },
         validateForm(){
             
@@ -95,7 +95,7 @@ export default{
                 window.location.reload();
             })
             .catch(errors => {
-                console.log(errors)
+                //console.log(errors)
                 if(errors.response.status ==  '422'){
                   this.errors.push('the email or password is incorrect')
                 }else{

@@ -26,6 +26,7 @@
       @include('layouts.footer')
        <!-- Modal login -->
        <loginmodal></loginmodal>
+       <registermodal></registermodal>
    </div>
    
 

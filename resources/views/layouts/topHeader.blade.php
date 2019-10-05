@@ -20,7 +20,8 @@
               <div class="dropdown-menu" aria-labelledby="loginWhishlistdropdown">
                 <a class="dropdown-item" href="#"><i class="fa fa-heart-o main-r-color mr-2"></i> Whishlist <i class="badge-info rounded-badge main-b-bg">5</i></a>
                 @guest
-                <a href="#" class="dropdown-item" data-target="#login-modal" data-toggle="modal"> <i class="fa fa-sign-in main-r-color mr-2"></i> Login </a>
+                 <a href="#" class="dropdown-item" data-target="#login-modal" data-toggle="modal"> <i class="fa fa-sign-in main-r-color mr-2"></i> Login </a>
+                 <a href="#" class="dropdown-item" data-target="#register-modal" data-toggle="modal"> <i class="fa fa-unlock-alt main-r-color mr-2"></i> Register </a>
                 @else
                 <a class="dropdown-item" href="{{route('logout')}}"> <i class="fa fa-sign-out main-r-color mr-2"></i> Logout </a>
                 @endguest
@@ -46,6 +47,7 @@
                 
                   @guest
                   <a href="#" class="dropdown-item" data-target="#login-modal" data-toggle="modal"> <i class="fa fa-sign-in main-r-color mr-2"></i> Login </a>
+                  <a href="#" class="dropdown-item" data-target="#register-modal" data-toggle="modal"> <i class="fa fa-unlock-alt main-r-color mr-2"></i> Register </a>
                   @else
                   <a class="dropdown-item" href="{{route('logout')}}"> <i class="fa fa-sign-out main-r-color mr-2"></i> Logout </a>
                   @endguest
