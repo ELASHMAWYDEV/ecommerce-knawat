@@ -64,7 +64,7 @@ class UserController extends Controller
             'password'=>bcrypt($request->password)
         ]);
         //admin notification
-        Mail::send('mail.NewRegistration',['user'=>$user,'site_name_e'=>'trisoline ecommerce'],function($message) use ($user){
+        Mail::send('mail.newRegistration',['user'=>$user,'site_name_e'=>'trisoline ecommerce'],function($message) use ($user){
             $message->to('ayatir04@gmail.com');
             $message->subject('new registration in website');
        });
