@@ -15,7 +15,7 @@ export default {
          console.log(query)
          if(query.length > 2){
     
-              let fil = this.allproducts
+                let fil = this.allproducts
                     .filter(product =>{
                          return (product.name.en).includes(query) || (product.name.ar).includes(query)
                     })

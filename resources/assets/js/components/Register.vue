@@ -45,6 +45,9 @@
                                             <div class=""> 
                                                 <input id="firstname" type="text" class="form-control w-100" name="firstname" v-model="firstname" autofocus >
                                             </div>
+                                            <div v-show="firstname.length < 3 && firstname.length > 0" class="text-danger font-weight-bold mt-1">
+                                                   The firstname is too short ... 
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                                 <label for="lastname" class=" control-label">lastname</label>
@@ -52,6 +55,9 @@
                                                 <div class=""> 
                                                     <input id="lastname" type="text" class="form-control w-100" name="lastname" v-model="lastname"  > 
                                                 </div>
+                                                <div v-show="lastname.length < 3 && lastname.length > 0" class="text-danger font-weight-bold mt-1">
+                                                   The lastname is too short ... 
+                                                 </div>
                                         </div>
                                         <div class="form-group">
                                                 <label for="address" class=" control-label">address</label>
@@ -59,12 +65,21 @@
                                                 <div class=""> 
                                                     <input id="address" type="text" class="form-control w-100" name="address" v-model="address" >
                                                 </div>
+                                                 <div v-show="address.length < 3 && address.length > 0" class="text-danger font-weight-bold mt-1">
+                                                   The address is too short ... 
+                                                 </div>
                                         </div>
                                         <div class="form-group">
-                                                <label for="phone" class=" control-label" minlength="10" maxlength="13" v-model="phone">phone</label>
+                                                <label for="phone" class=" control-label">phone</label>
                     
                                                 <div class=""> 
                                                     <input id="phone" type="number" class="form-control w-100" name="phone" v-model="phone" >
+                                                </div>
+                                                <div v-show="phone.length < 9 && phone.length > 0" class="text-danger font-weight-bold mt-1">
+                                                   The phone is too short ... 
+                                                </div>
+                                                <div v-show="phone.length > 13" class="text-danger font-weight-bold mt-1">
+                                                   The phone is too long ... 
                                                 </div>
                                         </div>
                                         <div class="form-group">
@@ -73,6 +88,7 @@
                                             <div class="">
                                                 <input id="email" type="email" class="form-control w-100" name="email" v-model="email"  >
                                             </div>
+                                            
                                             <div v-if="emailError.length > 0" class="text-danger font-weight-bold mt-1">
                                                 {{emailError}}  
                                             </div>
@@ -84,6 +100,9 @@
                                             <div class="">
                                                 <input id="password" type="password" class="form-control w-100" name="password" v-model="password" >
                                             </div>
+                                            <div v-show="password.length < 6 && password.length > 0" class="text-danger font-weight-bold mt-1">
+                                                   The pssword length must be more than 6... 
+                                            </div>
                                         </div>
                 
                                         <div class="form-group">
@@ -91,6 +110,9 @@
                 
                                             <div class="">
                                                 <input id="password-confirm" type="password" class="form-control w-100" name="password_confirmation" v-model="passwordconfirm">
+                                            </div>
+                                            <div v-if="password.length > 5 && passwordconfirm.length> 5 && passwordconfirm != password" class="text-danger font-weight-bold mt-1">
+                                                   The password confirm doesn't match ...
                                             </div>
                                             <div v-if="passwordError.length > 0" class="text-danger font-weight-bold mt-1">
                                                 {{emailError}}  
@@ -146,7 +168,7 @@ export default {
     },
     methods:{
         isPhoneValide(){
-            return (this.phone.length < 14) && (this.phone.length >= 10);
+            return (this.phone.length < 14) && (this.phone.length >= 9);
         },
         isEmailValide() 
         {

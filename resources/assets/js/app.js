@@ -28,6 +28,7 @@ Vue.component('searchproducts',require('./components/Search.vue'));
 Vue.component('sortproducts',require('./components/SortProducts.vue'))
 Vue.component('sizefilter',require('./components/SizeFilter.vue'));
 Vue.component('productdetails',require('./components/ProductDetails.vue'));
+Vue.component('relatedproducts',require('./components/RelatedProducts.vue'));
 //login and register modals 
 Vue.component('loginmodal', require('./components/Login.vue'));
 Vue.component('registermodal', require('./components/Register.vue'));
@@ -45,7 +46,8 @@ const store = new Vuex.Store({
       },
       currentCurrency:'USD',
       currencyRate :1,
-      currencySign:'$'
+      currencySign:'$',
+      productDetails:{},
     }
 })
 

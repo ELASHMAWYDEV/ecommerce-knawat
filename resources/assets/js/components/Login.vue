@@ -92,7 +92,7 @@ export default{
             })
             .then(res =>{
                 
-                window.location.reload();
+                window.location.href = "/home";
             })
             .catch(errors => {
                 //console.log(errors)

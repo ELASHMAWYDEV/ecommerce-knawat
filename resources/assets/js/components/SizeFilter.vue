@@ -47,15 +47,20 @@ export default {
                 case 'all': fil=JSON.parse(sessionStorage.getItem('products')); break;
                 case "Age 9-11":
                    fil = this.allproducts
-                    .filter((element) => 
-                      element.attributes[1].options.some((opt) => ( opt.en =='Age 9-10' ) || (opt.en == 'Age 10-11')))
-            
+                    .filter((element) => {
+                     if(element.attributes[1] != undefined){
+                       return  element.attributes[1].options.some((opt) => ( opt.en =='Age 9-10' ) || (opt.en == 'Age 10-11'))
+                      }
+                       })
                   
                     break;
                 default:
                    fil = this.allproducts
-                    .filter((element) => 
-                     element.attributes[1].options.some((opt) => ( opt.en ==size )))
+                    .filter((element) => {
+                     if(element.attributes[1] != undefined){ 
+                       return element.attributes[1].options.some((opt) => ( opt.en ==size ))
+                       }
+                       })
 
                     
                     break;

@@ -42,7 +42,7 @@
                                                    <i class="fa fa-star-o main-b-color"></i>
                                            </div>
                                            <h4 class="product-name text-center">
-                                               <a :href="'/products/'+product.sku"><strong>{{index + 1}} </strong>- {{product.name.en}} </a>
+                                               <a :href="'/products/'+product.sku" target="_blink"><strong>{{index + 1}} </strong>- {{product.name.en}} </a>
                                            </h4>
                                            <div class="price-box text-center">
                                              <span class="new-price">
