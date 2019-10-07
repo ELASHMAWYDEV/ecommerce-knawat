@@ -36,7 +36,7 @@
                      <div class="shop-products-wrapper">
                          <div id="grid">
 
-                               <Products></Products>
+                               <Products userId="{{Auth::id()}}"></Products>
                             
                          </div>
                          <paginateProducts></paginateProducts>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Session;
 use App\User;
+use App\Favorites;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Validator;
@@ -118,7 +119,7 @@ class UserController extends Controller
       }
       return view($this->lang().'.emailIsVerified');
     }
-
+  
     /**
      * Display the specified resource.
      *
@@ -162,5 +163,34 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+    //////////////////////////////////////////////
+    //get the user favorite page 
+    public function favorites_page(){
+      return view($this->lang().'.favorites') ;
+    }
+    //favorited items 
+    public function getFavorites($user_id){
+        $favorites = User::findorfail($user_id)->favorites();
+ 
+        return response()->json($favorites->pluck('sku'));
+    }
+    //add to favorites
+    public function addFavorite(Request $request){
+         $validator = Validator::make($request->all(),[
+           'user_id'=>'required',
+           'sku'=>'required'
+         ]);
+         if($validator->passes()){
+           $fav = Favorites::where('user_id',$request->user_id)->where('sku',$request->sku)->first();
+           if($fav){
+             return response()->json(['data'=>'the product already favorited']);
+           }
+           $favorite = Favorites::create([
+             'user_id'=>$request->user_id,
+             'sku'=>$request->sku
+           ]);
+           return response()->json(['data'=>'the product added to favorite successfuly']);
+         }
     }
 }

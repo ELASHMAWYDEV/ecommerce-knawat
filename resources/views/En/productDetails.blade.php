@@ -1,5 +1,5 @@
 @extends('En.app')
-@section('title','products')
+@section('title','product |'.$sku)
 @section('content')
 <!-- mian product content-->
 <div class="container pt-4 pb-4">
@@ -7,7 +7,7 @@
     <!-- single product--> 
    
      
-       <productdetails vid="{{$sku}}"></productdetails>
+       <productdetails vid="{{$sku}}" userId="{{Auth::id()}}"></productdetails>
          
 
    

@@ -32,6 +32,8 @@ Route::group(['as'=>'frontEnd.','middleware'=>'web'],function(){
     Route::get('/lang/{lang}','HomeController@setLang')->name('setLang');
     //register new user
     Route::post('/users/store','UserController@store')->name('users.store');
+    //get the favorite page 
+    Route::get('/favorites','UserController@favorites_page')->name('user.favorites');
     //verify email
 
     Route::get('/verifyEmailpage',function(){
@@ -40,7 +42,11 @@ Route::group(['as'=>'frontEnd.','middleware'=>'web'],function(){
     Route::get('/verifyEmail/{emailtokenv}','UserController@verifyEmailg')->name('email.verifyg');
     Route::post('/verifyEmail','UserController@verifyEmail')->name('email.verify');
 });
-
+Route::group(['as'=>'user.','middleware'=>'auth'],function(){
+   // create favorite
+   Route::get('/users/{user_id}/favorites','UserController@getFavorites')->name('getFavorites');
+   Route::post('/user/favorites/add','UserController@addFavorite')->name('addFavorite');
+});
 Route::get('json-api', 'ApiController@index');
 
 

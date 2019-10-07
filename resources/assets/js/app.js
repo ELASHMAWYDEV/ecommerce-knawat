@@ -32,6 +32,8 @@ Vue.component('relatedproducts',require('./components/RelatedProducts.vue'));
 //login and register modals 
 Vue.component('loginmodal', require('./components/Login.vue'));
 Vue.component('registermodal', require('./components/Register.vue'));
+Vue.component('favorites',require('./components/user/Favorites.vue'));
+Vue.component('favoritescount',require('./components/user/FavoritesCount.vue'));
 const store = new Vuex.Store({
     state:{
       categories :[],
@@ -48,6 +50,8 @@ const store = new Vuex.Store({
       currencyRate :1,
       currencySign:'$',
       productDetails:{},
+      authId:null,
+      favoritesCount : 0
     }
 })
 

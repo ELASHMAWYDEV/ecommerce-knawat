@@ -10,6 +10,10 @@ export default {
             searchproducts : ''
         }
     },
+    created(){
+       this.$store.state.authId = this.userid;
+    },
+    props :['userid'],
     watch:{
      searchproducts:function(query){
          console.log(query)
@@ -28,7 +32,8 @@ export default {
      computed:{
          allproducts(){
              return this.$store.state.products;
-         }
+         },
+        
      }
 }
 </script>

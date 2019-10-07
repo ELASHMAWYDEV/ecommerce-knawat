@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="user_id" content="<?php echo str_random(4).''.optional(Auth::user())->id.'' ?>">
      <!-- CSRF Token -->
      <meta name="csrf-token" content="{{ csrf_token() }}">
      <script>window.laravel= {csrfToken : '{{csrf_token()}}'}</script>
@@ -58,8 +59,29 @@
           </div>
       </div>
     </div>
+    <!-- to show the user login to do something -->
+    <div class="modal fade" id="loginto" tabindex="-1" role="dialog"
+    aria-labelledby="loginto" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">login required</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                 only logged user can manipulate this
+                 <br>
+                 <a href="" data-target="#login-modal" data-modal="modal" >login</a>
+            </div>
+         
+            </div>
+        </div>
+    </div>
     <script type="text/javascript" src="{{asset('assets/js/jquery-3.3.1.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('assets/js/bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/sweetalert.min.js')}}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
     function scrollToTop() {

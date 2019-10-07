@@ -10,7 +10,7 @@
         <div class="navbar-collapse p-0" id="navbarNavDropdown">
           <ul class="navbar-nav header-area">
            
-            <searchproducts></searchproducts>
+            <searchproducts  userId="{{Auth::id()}}"></searchproducts>
             <i class="fa fa-search fa-2x text-light bg-dark  top-search-btn"></i>
             
             <li class="nav-item dropdown d-292-none ">
@@ -18,7 +18,7 @@
                 My Account <i class="fa fa-chevron-down"></i>
               </a>
               <div class="dropdown-menu" aria-labelledby="loginWhishlistdropdown">
-                <a class="dropdown-item" href="#"><i class="fa fa-heart-o main-r-color mr-2"></i> Whishlist <i class="badge-info rounded-badge main-b-bg">5</i></a>
+                <a class="dropdown-item" href="{{route('frontEnd.user.favorites')}}"><i class="fa fa-heart-o main-r-color mr-2"></i> Favorites <favoritesCount></favoritesCount></a>
                 @guest
                  <a href="#" class="dropdown-item" data-target="#login-modal" data-toggle="modal"> <i class="fa fa-sign-in main-r-color mr-2"></i> Login </a>
                  <a href="#" class="dropdown-item" data-target="#register-modal" data-toggle="modal"> <i class="fa fa-unlock-alt main-r-color mr-2"></i> Register </a>
@@ -43,7 +43,7 @@
                 My Account
               </a>
               <div class="dropdown-menu" aria-labelledby="loginWhishlistdropdown">
-                <a class="dropdown-item" href="#"><i class="fa fa-heart-o main-r-color mr-2"></i> Whishlist <i class="badge-info rounded-badge main-b-bg">5</i></a>
+                <a class="dropdown-item" href="{{route('frontEnd.user.favorites')}}"><i class="fa fa-heart-o main-r-color mr-2"></i> Favorites <i class="badge-info rounded-badge main-b-bg">5</i></a>
                 
                   @guest
                   <a href="#" class="dropdown-item" data-target="#login-modal" data-toggle="modal"> <i class="fa fa-sign-in main-r-color mr-2"></i> Login </a>

@@ -1,3 +1,6 @@
+<style scoped>
+.favorited{    background: #0879c9;}
+</style>
 <template>
 
  <div  class="shop-product-wrap box-module">
@@ -17,7 +20,7 @@
      
 
 
-                                       <a class="wishlist action-btn btn-wishlist"  title="Wishlist">
+                                       <a class="wishlist action-btn btn-wishlist" :datasku="product.sku" @click="addToFavorite(product.sku,$event)"  title="Wishlist">
                                          <i class="fa fa-heart-o fa-lg text-white"></i>
                                        </a>
                                        <a class="action-btn btn-quickview" data-toggle="modal" data-target="#view-product" >
@@ -71,10 +74,14 @@ export default{
       return {
         products :[],
         loading: false,
+        favoritedProducts:[]
       }
    },
- 
+   props:['userid']
+   ,
    created(){
+          //set the authenticated id
+          this.setAuthId();
           let sessionproducts = sessionStorage.getItem('products');
            if(sessionproducts != null){
             
@@ -90,6 +97,12 @@ export default{
             
        
      
+   },
+   mounted(){
+     if( this.userid != null){
+       this.getFavoritedProducts();
+     }
+    
    },
     computed:{
       currentProducts(){
@@ -107,13 +120,13 @@ export default{
       currencySign(){
         
         return this.$store.state.currencySign
+      },
+      authId(){
+        return this.$store.state.authId
       }
      
     }
    ,
-   mounted(){
-    
-   },
    methods:{
        
         fetchfirstProducts(){
@@ -197,7 +210,54 @@ export default{
           .filter(e => arr[e]).map(e => arr[e]);
 
         return unique;
+      },
+      //get favorited items 
+      getFavoritedProducts(){
+        
+        
+        axios.get('/users/'+this.authId+'/favorites')
+        .then(res => {
+          
+          //console.log(res.data)
+          this.favoritedProducts = res.data;
+          //set the favorites count in store 
+          console.log('leengt',this.favoritedProducts.length)
+          this.$store.state.favoritesCount = this.favoritedProducts.length;
+          document.querySelectorAll('.wishlist').forEach(item =>{
+            if(this.favoritedProducts.indexOf(item.getAttribute("datasku")) > -1 ){
+              item.classList.add('favorited');
+            }
+          })
+        })
+        .catch(err => console.log(err))
+      },
+      /// add to favorite fonctionality
+      addToFavorite(sku,event){
+        if(this.authId.length > 0){
+        event.target.parentNode.classList.add('favorited')
+        axios.post('/user/favorites/add',{user_id:this.authId,sku:sku})
+        .then(res => {
+          //console.log(res)
+         
+          Swal.fire({
+            type: 'success',
+            html: res.data.data,
+          })
+           this.$store.state.favoritesCount =  this.$store.state.favoritesCount + 1 ;
+        })
+        }else{
+          Swal.fire({
+            type: 'error',
+            html: 'please login to add to your favorites <br>\
+             <a href="" data-target="#login-modal" data-toggle="modal">login</a>',
+          })
+         // document.querySelector('#loginto').style.display = 'block';
+        }
+      },
+      setAuthId(){
+        this.$store.state.authId = this.userid;
       }
+
    }
 }
 </script>
