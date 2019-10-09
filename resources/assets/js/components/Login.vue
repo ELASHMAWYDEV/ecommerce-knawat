@@ -86,17 +86,22 @@ export default{
             return this.password.length > 5
         },
         validateForm(){
-            
+            this.errors = [];
             axios.post('/login',{
                 email : this.email, password : this.password,remember : this.remember
             })
             .then(res =>{
+                if((window.location.pathname == "/verifyEmailpage") || (window.location.pathname == "/verifyEmail")){
+                  window.location.href = "/home";  
+                }else{
+                    window.location.reload();
+                }
                 
-                window.location.href = "/home";
             })
             .catch(errors => {
                 //console.log(errors)
                 if(errors.response.status ==  '422'){
+                  
                   this.errors.push('the email or password is incorrect')
                 }else{
                     this.errors.push('Something went wrong please refresh \

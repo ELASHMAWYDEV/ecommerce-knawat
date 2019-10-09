@@ -190,7 +190,16 @@ class UserController extends Controller
              'user_id'=>$request->user_id,
              'sku'=>$request->sku
            ]);
-           return response()->json(['data'=>'the product added to favorite successfuly']);
+           return response()->json(['data'=>'the product added to favorites successfuly']);
          }
+    }
+    public function removeFavorite($id){
+    
+      $favorite = Favorites::where('sku',$id)->first();
+      $favorite->delete();
+      return response()->json(['msg'=>'removed from favorites successfuly']);
+    }
+    public function cart(){
+      return view($this->lang().'.cart');
     }
 }

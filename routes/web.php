@@ -46,6 +46,8 @@ Route::group(['as'=>'user.','middleware'=>'auth'],function(){
    // create favorite
    Route::get('/users/{user_id}/favorites','UserController@getFavorites')->name('getFavorites');
    Route::post('/user/favorites/add','UserController@addFavorite')->name('addFavorite');
+   Route::get('/user/favorites/{id}/delete','UserController@removeFavorite')->name('removeFavorite');
+   Route::get('/cart','UserController@cart')->name('cart');
 });
 Route::get('json-api', 'ApiController@index');
 

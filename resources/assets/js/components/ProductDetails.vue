@@ -30,7 +30,7 @@
         <div class="col-md-5">
                 <div>
                     <img class="mr-3 h-100 w-100" id="img_01" :data-zoom-image="this.product.images[0]"
-                    onerror="this.onerror=null; this.src='/img/1.jpg'" 
+                     onerror="this.onerror=null; this.src='/img/1.jpg'" 
                      :src="this.product.images[0]" alt="single product image">
 
                 </div>
@@ -75,7 +75,9 @@
                 Quantity : <input type="number" id="quantity" style="width: 60px;">
             </div>
             <a  class="btn main-b-bg add-to-cart-single mt-3">Add to cart</a>
-            <a  class="btn main-r-bg add-to-cart-single mt-3">Add to favorite <i class="fa fa-heart-o fa-lg text-light"></i></a>
+            <a  class="btn main-r-bg add-to-cart-single mt-3" id="add-to-cart-single" @click="addToFavorite(product.sku,$event)">Add to favorite 
+                <i class="fa fa-heart-o text-light" style="position:relative;top:2px"></i>
+            </a>
 
         </div>
        </div>
@@ -243,7 +245,7 @@ export default {
            product:null,
            loading:true,
            relatedProducts :[],
-           rloading:true
+           rloading:true,
         }
     },
     created(){
@@ -253,6 +255,11 @@ export default {
        }, 1000);
        this.rloading = true;
        
+    },
+    mounted(){
+      setTimeout(() => {
+          this.checkIfProductFavorited();
+      }, 7000);
     },
     props : ['vid'],
     methods:{
@@ -336,6 +343,42 @@ export default {
                    }, 5000);
           }
         },
+        /// add to favorite fonctionality
+      addToFavorite(sku,event){
+        if(this.authId.length > 0){
+       
+        axios.post('/user/favorites/add',{user_id:this.authId,sku:sku})
+        .then(res => {
+          //console.log(res)
+         
+          Swal.fire({
+            type: 'success',
+            html: res.data.data,
+          })
+         if(res.data.data !== "the product already favorited"){
+            this.$store.state.favoritedProducts.push(this.vid);
+         }
+           event.target.innerHTML = 'Already favorited \
+                <i class="fa fa-heart-o text-light" style="position:relative;top:2px"></i>';
+         
+        })
+        }else{
+          Swal.fire({
+            type: 'error',
+            html: 'please login to add to your favorites <br>\
+             <a href="" data-target="#login-modal" data-toggle="modal">login</a>',
+          })
+         // document.querySelector('#loginto').style.display = 'block';
+        }
+      },
+      //check if the product  favorited  
+      checkIfProductFavorited(){
+
+          if(this.favoritedProducts.indexOf(this.vid) > -1){
+              document.querySelectorAll('#add-to-cart-single').innerHTML='Already favorited \
+                <i class="fa fa-heart-o text-light" style="position:relative;top:2px"></i>';
+          }  
+    }
     },
     computed:{
         allproducts(){
@@ -347,6 +390,12 @@ export default {
         currencySign(){
             
             return this.$store.state.currencySign
+        },
+        authId(){
+            return this.$store.state.authId
+        },
+        favoritedProducts(){
+            return this.$store.state.favoritedProducts;
         }
     }
     

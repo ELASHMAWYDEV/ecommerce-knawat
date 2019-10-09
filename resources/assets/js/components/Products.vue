@@ -74,7 +74,6 @@ export default{
       return {
         products :[],
         loading: false,
-        favoritedProducts:[]
       }
    },
    props:['userid']
@@ -99,9 +98,7 @@ export default{
      
    },
    mounted(){
-     if( this.userid != null){
-       this.getFavoritedProducts();
-     }
+     
     
    },
     computed:{
@@ -123,6 +120,9 @@ export default{
       },
       authId(){
         return this.$store.state.authId
+      },
+      favoritedProducts(){
+        return this.$store.state.favoritedProducts;
       }
      
     }
@@ -211,25 +211,13 @@ export default{
 
         return unique;
       },
-      //get favorited items 
-      getFavoritedProducts(){
-        
-        
-        axios.get('/users/'+this.authId+'/favorites')
-        .then(res => {
-          
-          //console.log(res.data)
-          this.favoritedProducts = res.data;
-          //set the favorites count in store 
-          console.log('leengt',this.favoritedProducts.length)
-          this.$store.state.favoritesCount = this.favoritedProducts.length;
+      //set the color of button to favorited items 
+      checkFavoritedProducts(){
           document.querySelectorAll('.wishlist').forEach(item =>{
             if(this.favoritedProducts.indexOf(item.getAttribute("datasku")) > -1 ){
               item.classList.add('favorited');
             }
           })
-        })
-        .catch(err => console.log(err))
       },
       /// add to favorite fonctionality
       addToFavorite(sku,event){
@@ -243,7 +231,10 @@ export default{
             type: 'success',
             html: res.data.data,
           })
-           this.$store.state.favoritesCount =  this.$store.state.favoritesCount + 1 ;
+           if(res.data.data !== "the product already favorited"){
+            this.$store.state.favoritedProducts.push(sku) ;
+           }
+           
         })
         }else{
           Swal.fire({
@@ -256,6 +247,11 @@ export default{
       },
       setAuthId(){
         this.$store.state.authId = this.userid;
+        setTimeout(() => {
+          if( this.userid != null){
+          this.checkFavoritedProducts();
+        }
+        }, 7000);
       }
 
    }
