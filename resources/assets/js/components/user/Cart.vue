@@ -37,13 +37,13 @@
         </div>
         <div class="row p-2 border">
             <div class="col-sm-9 cart-product">
-                <div class="media  w-100">
-                <img class="mr-3" src="/img/2.jpg" alt="Generic placeholder image">
+                <div class="media  w-100" v-for="(p,key) in products" :key="key">
+                <img class="mr-3" :src="p.images[0]" alt="Generic placeholder image">
                 <div class="media-body pt-2">
-                    <a href="" class="product-title">title of product</a>
+                    <a :href="'/products/'+product.sku" class="product-title">{{p.name.en}}</a>
                     <p class="text-muted"></p>
                     <h6 class="font-weight-normal" style="font-size: 1.4rem;">
-                        Price : <span class="font-weight-bold"><sup>$</sup>12</span>
+                        Price : <span class="font-weight-bold"><sup>$</sup>{currencySign}}{{ (currencyRate * (p.variations[0].sale_price)).toFixed(2)}}</span>
                     </h6>
                     
                    
@@ -68,22 +68,22 @@ export default {
         }
     },
     created(){
-       /*  this.loading = true;
+        this.loading = true;
         setTimeout(() => {
-          this.setFavoritedProducts();   
-        }, 2000); */
+          this.setcartItems();   
+        }, 2000);
        
     },
     computed:{
       
-        /* favoritedProducts(){
-            return this.$store.state.favoritedProducts;
-        } */
+        cartItems(){
+            return this.$store.state.cartItems;
+        }
     },
     methods:{
-                 /*
+                setcartItems(){
                 let requests =  [];
-                this.favoritedProducts.forEach((product)=>{
+                this.cartItems.forEach((product)=>{
                 console.log('i enter')
                 requests.push(axios.get('/getProductBySku/'+product));
                 });
@@ -109,9 +109,9 @@ export default {
             
          
           },
-          removeFavorite($sku){
+          removecartItem($sku){
             Swal.fire({
-            text: 'Are you sure to remove this product from favorites?',
+            text: 'Are you sure to remove this product from cart?',
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -120,10 +120,10 @@ export default {
             }).then((result) => {
                 
             if (result.value) {
-                axios.get('/user/favorites/'+$sku+'/delete')
+                axios.get('/user/carItems/'+$sku+'/delete')
                 .then(res => {
                    this.products = this.products.filter(item => item.sku != $sku)
-                   this.$store.state.favoritedProducts = this.favoritedProducts.filter(item => item != $sku)
+                   this.$store.state.cartItems = this.cartItems.filter(item => item != $sku)
                    Swal.fire({
                      title:'Deleted!',
                      text:res.data.msg,
@@ -133,7 +133,7 @@ export default {
                 
             }
           })
-          } */
+          } 
     }
 }
 </script>

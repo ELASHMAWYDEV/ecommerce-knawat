@@ -136,6 +136,31 @@ export default {
                 
             }
           })
+          },
+          addCartItem(sku){
+              Swal.fire({
+            text: 'please choose the quantity',
+            type: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#E64545',
+            confirmButtonText: 'Yes !'
+            }).then((result) => {
+                
+            if (result.value) {
+                axios.get('/user/favorites/'+$sku+'/delete')
+                .then(res => {
+                   this.products = this.products.filter(item => item.sku != $sku)
+                   this.$store.state.favoritedProducts = this.favoritedProducts.filter(item => item != $sku)
+                   Swal.fire({
+                     title:'Deleted!',
+                     text:res.data.msg,
+                     type:'success'
+                   }) 
+                })
+                
+            }
+          })
           }
     }
 }

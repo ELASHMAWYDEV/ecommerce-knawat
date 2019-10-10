@@ -199,7 +199,32 @@ class UserController extends Controller
       $favorite->delete();
       return response()->json(['msg'=>'removed from favorites successfuly']);
     }
-    public function cart(){
+    public function cart_page(){
       return view($this->lang().'.cart');
+    }
+    public function addCartItem(Request $request){
+      $validator = Validator::make($request->all(),[
+        'user_id'=>'required',
+        'sku'=>'required',
+        'quantity'=>'required|number'
+      ]);
+      if($validator->passes()){
+        $cartitem = Cart::where('user_id',$request->user_id)->where('sku',$request->sku)->first();
+        if($cartitem){
+          return response()->json(['data'=>'the product already in cart']);
+        }
+        $cartitem = Cart::create([
+          'user_id'=>$request->user_id,
+          'sku'=>$request->sku,
+          'quantitty'=>$request->quantity,
+        ]);
+        return response()->json(['data'=>'the product added to cart successfuly']);
+      }
+    }
+    public function removeCartItem($id){
+        
+      $cart = Cart::where('sku',$id)->first();
+      $cart->delete();
+      return response()->json(['msg'=>'removed from cart successfuly']);
     }
 }

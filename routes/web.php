@@ -34,8 +34,10 @@ Route::group(['as'=>'frontEnd.','middleware'=>'web'],function(){
     Route::post('/users/store','UserController@store')->name('users.store');
     //get the favorite page 
     Route::get('/favorites','UserController@favorites_page')->name('user.favorites');
-    //verify email
+    //get the cart page
+    Route::get('/cart','UserController@cart_page')->name('user.cart');
 
+    //verify email
     Route::get('/verifyEmailpage',function(){
        return view('En.verifyEmail');
     })->name('email.activation');
@@ -43,11 +45,15 @@ Route::group(['as'=>'frontEnd.','middleware'=>'web'],function(){
     Route::post('/verifyEmail','UserController@verifyEmail')->name('email.verify');
 });
 Route::group(['as'=>'user.','middleware'=>'auth'],function(){
-   // create favorite
+   // favorite operations 
    Route::get('/users/{user_id}/favorites','UserController@getFavorites')->name('getFavorites');
    Route::post('/user/favorites/add','UserController@addFavorite')->name('addFavorite');
    Route::get('/user/favorites/{id}/delete','UserController@removeFavorite')->name('removeFavorite');
-   Route::get('/cart','UserController@cart')->name('cart');
+   // cart operations
+   Route::get('/users/{user_id}/cartItems','UserController@getCartItems')->name('getCartItems');
+   Route::post('/user/carItems/add','UserController@addCartItem')->name('addCartItem');
+   Route::get('/user/carItems/{id}/delete','UserController@removeCartItem')->name('removeCartItem');
+   
 });
 Route::get('json-api', 'ApiController@index');
 

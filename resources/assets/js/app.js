@@ -52,7 +52,8 @@ const store = new Vuex.Store({
       currencySign:'$',
       productDetails:{},
       authId:null,
-      favoritedProducts : []
+      favoritedProducts : [],
+      cartItems:[],
     }
 })
 

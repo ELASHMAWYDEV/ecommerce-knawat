@@ -28,7 +28,7 @@
               </div>
             </li>
             <li class="nav-item dropdown d-292-none">
-              <a class="nav-link header-nav-link " href="{{route('user.cart')}}" id="loginWhishlistdropdown" role="button" >
+              <a class="nav-link header-nav-link " href="{{route('frontEnd.user.cart')}}" id="loginWhishlistdropdown" role="button" >
                 <i class="fa fa-shopping-cart fa-lg ">
                     <i class="badge-info main-r-bg rounded-badge" style="font-size: 15px;position: relative;top: -10px;">5</i>
                 </i> 
@@ -55,7 +55,7 @@
               </div>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link text-weight header-nav-link" href="{{route('user.cart')}}" id="loginWhishlistdropdown" role="button" >
+              <a class="nav-link text-weight header-nav-link" href="{{route('frontEnd.user.cart')}}" id="loginWhishlistdropdown" role="button" >
                 <i class="fa fa-shopping-cart fa-lg ">
                     <i class="badge-info main-r-bg rounded-badge" style="font-size: 15px;position: relative;top: -10px;">5</i>
                 </i> 
