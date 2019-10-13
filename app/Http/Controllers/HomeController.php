@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Util\Products;
+use App\Cart;
+use auth;
 use Session;
 class HomeController extends Controller
 {
@@ -71,7 +73,9 @@ class HomeController extends Controller
         return view($this->lang().'.products');
     }
     public function productDetails($sku){
-        //$product = $this->p->getProductBySku($sku); 
-        return view($this->lang().'.productDetails',compact('sku'));
+        //check if the item is in cart or not
+        $cartitem = Cart::where('user_id',Auth::id())->where('sku',$sku)->first();
+        $incart =  $cartitem ? true : false;
+        return view($this->lang().'.productDetails',compact('sku','incart'));
     }
 }

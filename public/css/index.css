@@ -202,6 +202,10 @@ a:hover {
  color: #fff !important;border-radius: 26px;
  padding: 0.3rem 2rem;
 }.add-to-cart-single:hover{color: #fff !important}
+
+@media(max-width:575px) and (min-width:370px){
+    .related-products .row{padding: 0.5rem 5.5rem;}
+}
 /* the animation appear when hover products  */
 
 .single-product-item:hover > .add-to-cart-btn{
@@ -306,10 +310,18 @@ a:hover {
 }
 /*single product page */
 .p-rate,.p-color,.p-size{cursor: pointer}
-.p-size span:hover{
-   color: #999999;
+.p-size span{
+   color:#212529
 }
-.p-size span.active{    color: #988d8d;}
+@media(max-width:500px){
+    .p-size span{
+        padding: .2rem!important;
+    }
+    .add-to-cart-single{    padding: 0.2rem 1rem;
+        font-size: 0.9rem;}
+}
+.p-size span.active{    color: #fff;
+    background: #17a2b8;}
 .p-color span {    border: 1px solid #dcdcdc;
     padding: 0 9px;
     margin: 0 4px;}

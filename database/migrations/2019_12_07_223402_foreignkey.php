@@ -21,6 +21,14 @@ class Foreignkey extends Migration
             ->onUpdate('cascade')
             ->onDelete('cascade');
         });
+        Schema::table('carts', function (Blueprint $table) {
+            
+            $table->foreign('user_id')
+            ->references('id')
+            ->on('users')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+        });
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Session;
 use App\User;
 use App\Favorites;
+use App\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Validator;
@@ -203,22 +204,29 @@ class UserController extends Controller
       return view($this->lang().'.cart');
     }
     public function addCartItem(Request $request){
+    
       $validator = Validator::make($request->all(),[
         'user_id'=>'required',
         'sku'=>'required',
-        'quantity'=>'required|number'
+        'quantity'=>'required'
       ]);
       if($validator->passes()){
         $cartitem = Cart::where('user_id',$request->user_id)->where('sku',$request->sku)->first();
         if($cartitem){
-          return response()->json(['data'=>'the product already in cart']);
+          return response()->json([
+            'msg'=>'the product already in cart',
+            'type'=> 'info'
+          ]);
         }
         $cartitem = Cart::create([
           'user_id'=>$request->user_id,
           'sku'=>$request->sku,
-          'quantitty'=>$request->quantity,
+          'quantity'=>$request->quantity,
         ]);
-        return response()->json(['data'=>'the product added to cart successfuly']);
+          return response()->json([
+            'msg'=>'the product added to cart successfuly',
+            'type'=> 'success'
+          ]);
       }
     }
     public function removeCartItem($id){

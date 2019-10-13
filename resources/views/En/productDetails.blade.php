@@ -7,7 +7,7 @@
     <!-- single product--> 
    
      
-       <productdetails vid="{{$sku}}" userId="{{Auth::id()}}"></productdetails>
+       <productdetails vid="{{$sku}}" userId="{{Auth::id()}}" incart="{{$incart}}"></productdetails>
          
 
    
@@ -23,7 +23,7 @@
 <script>
 $(document).ready(function(){
   
-    $("#img_01").ezPlus({
+    $(".p-im").ezPlus({
             zoomType: 'lens',
             lensShape: 'round',
             lensSize: 100

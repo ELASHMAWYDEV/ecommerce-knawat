@@ -41,7 +41,7 @@
                             </td>
                             <td><span class="btn p-1 font-weight-bolder " >{{product.variations[0].quantity}}</span></td>
                             <td>
-                                <button type="button" class="action-btn main-b-bg  text-white btn p-1 btn" :disabled="true">Add to cart</button>
+                                <button type="button" class="action-btn main-b-bg  text-white btn p-1 btn" @click="addCartItem(product.sku,product.variations[0].quantity)" >Add to cart</button>
                                 <button type="button" class="action-btn main-r-bg  text-white btn p-1" @click="removeFavorite(product.sku)">Remove</button>
                             </td>
                           </tr>
@@ -128,7 +128,7 @@ export default {
                    this.products = this.products.filter(item => item.sku != $sku)
                    this.$store.state.favoritedProducts = this.favoritedProducts.filter(item => item != $sku)
                    Swal.fire({
-                     title:'Deleted!',
+                     title:'Removed!',
                      text:res.data.msg,
                      type:'success'
                    }) 
@@ -137,28 +137,36 @@ export default {
             }
           })
           },
-          addCartItem(sku){
+          addCartItem(sku,maxQTE){
+            if(maxQTE == 0){
               Swal.fire({
-            text: 'please choose the quantity',
-            type: 'info',
+                type:'warning',
+                title: 'Sorry the product is not available now !',
+              })
+              return false;
+            }
+            
+            Swal.fire({
+            title: 'please select a quantity',
+            input: 'number',
+            inputAttributes: {
+              min: 1,
+              max: maxQTE,
+              step: 1
+            },
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#E64545',
-            confirmButtonText: 'Yes !'
-            }).then((result) => {
-                
+            confirmButtonText: 'Submit',
+            showLoaderOnConfirm: true,
+            preConfirm: (quantity) => {
+              console.log(quantity)
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+          }).then((result) => {
             if (result.value) {
-                axios.get('/user/favorites/'+$sku+'/delete')
-                .then(res => {
-                   this.products = this.products.filter(item => item.sku != $sku)
-                   this.$store.state.favoritedProducts = this.favoritedProducts.filter(item => item != $sku)
-                   Swal.fire({
-                     title:'Deleted!',
-                     text:res.data.msg,
-                     type:'success'
-                   }) 
-                })
-                
+              Swal.fire({
+                title: `${result.value.login}'s avatar`,
+                imageUrl: result.value.avatar_url
+              })
             }
           })
           }

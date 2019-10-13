@@ -17,6 +17,21 @@
     border-bottom:1px dashed #efefef;
     margin-bottom:25px;
 }
+.carousel.slide{
+    height: 30rem;border: 2px solid rgba(25, 24, 24, 0.23);
+}
+.car-ind{ 
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    border: 1px solid #879096;
+    background-color: #d7e5ef;
+}
+.car-ind-ol{    bottom: -0.8rem;}
+.car-ind.active{background-color:#0879c9}
+.quantity-badge{    padding: 5px 5px;
+    border-radius: 50%;
+    margin-right: 5px;}
 </style>
 <template>
 <div>
@@ -29,9 +44,30 @@
     <div class="media single-product-item row m-0">
         <div class="col-md-5">
                 <div>
-                    <img class="mr-3 h-100 w-100" id="img_01" :data-zoom-image="this.product.images[0]"
-                     onerror="this.onerror=null; this.src='/img/1.jpg'" 
-                     :src="this.product.images[0]" alt="single product image">
+                   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                  <ol class="carousel-indicators car-ind-ol">
+                                       <li v-for="(image,key) in this.product.images" :key="key"
+                                        data-target="#carouselExampleIndicators" data-slide-to="key"
+                                         class="car-ind" :class="key == 0 ? 'active' : ''">
+                                       </li>             
+                                  </ol>
+                                  <div class="carousel-inner">
+                                                                                         
+                                      <div v-for="(image,key) in this.product.images" :key="key" class="carousel-item  " :class="key ==1 ? 'active' : ''" >
+                                         <img class="d-block w-100 p-im" :src="image" 
+                                         alt="product image" style=" padding: 0.5rem;cursor: zoom-in;"
+                                        :data-zoom-image="image" :id="'img_'+key">
+                                      </div>
+                                  </div>
+                                 <!--  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                  </a>
+                                  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                  </a> -->
+                                </div>
 
                 </div>
                 <div class="sale-title label-product">Sale</div>
@@ -52,17 +88,28 @@
                 <!-- <span class="ml-2" style="text-decoration:line-through;color: #9da9b3!important;">125$</span> -->
             </h3>
             <p class="p-description" >
-               This is the default variation of this product the others are in the description
+               This is a part of details of this product ,the rest are in attributes part.
             </p>
-            <div class="p-size mt-3">
-                 <strong class="mb-2">available sizes : <br></strong> 
-                     <br>
-                    <span v-for="(size,index) in this.product.attributes[1].options" :key="index" class="border p-2 ml-2">
-                        {{size.en}}
-                    </span>
-               
-                
-                
+            <div class="weight-a" v-if="product.variations[0].weight">
+                <label for=""><strong class="mb-2" >Weight : <br></strong></label>  
+                {{product.variations[0].weight}}
+            </div>
+            <div v-for="(attr,i) in this.product.attributes" :key="i">
+             <div class="p-size mt-3" v-if="attr.name.en == 'Size'" >
+                     <label for=""><strong class="mb-2"  >sizes : <br></strong></label>
+                     
+                     <span  v-for="(opt,i) in attr.options" :key="i"   class="border p-2 ml-2"
+                     >
+                       <!-- tr value is always available so its good to work on it -->
+                       {{opt.tr}}
+                     </span>   
+                   
+            </div>   
+            </div>
+            
+            <div class="quantity-a mt-4">
+                <label for=""><strong class="mb-2" >Quantity : <br></strong> </label>
+                <span class="badge-info quantity-badge">{{getQuantity()}}</span>products for <span class="badge-info quantity-badge">{{product.variations.length}}</span> variations
             </div>
             <!--
             <div class="p-color mt-3">
@@ -71,10 +118,14 @@
                 <span colorname="" style="background: blue"></span>
             </div>
             -->
-            <div class="quantity mt-3">
+            <!-- <div class="quantity mt-3">
                 Quantity : <input type="number" id="quantity" style="width: 60px;">
-            </div>
-            <a  class="btn main-b-bg add-to-cart-single mt-3">Add to cart</a>
+            </div> -->
+            <br>
+            <a v-if="this.incart"  class="btn main-b-bg add-to-cart-single a1 mt-3">Already in cart
+                <i class="fa fa-check text-light" style="position:relative;top:2px"></i>
+            </a>
+            <a v-else class="btn main-b-bg add-to-cart-single a1 mt-3" id="add-to-cart" @click="addCartItem()">Add to cart</a>
             <a  class="btn main-r-bg add-to-cart-single mt-3" id="add-to-cart-single" @click="addToFavorite(product.sku,$event)">Add to favorite 
                 <i class="fa fa-heart-o text-light" style="position:relative;top:2px"></i>
             </a>
@@ -108,10 +159,10 @@
                     
                     <tr v-for="(attrs,key) in product.attributes" :key="key">
                     <th scope="row">
-                        <span class="mr-2" v-for="(v,key2) in Object.values(attrs.name)" :key="key2">{{v}},</span>
+                        <span class="mr-2"  >{{(attrs.name.en) ? (attrs.name.en) : ''}},</span>
                     </th>
                     <td>
-                     <span class="mr-2" v-for="(v,key2) in Object.values(attrs.options[0])" :key="key2">{{v}},</span> 
+                     <span class="mr-2" v-for="(v,key2) in Object.values(attrs.options)" :key="key2">{{v.en ? v.en : transColorturky(v.tr)}},</span> 
                     </td>
                  
                     </tr>
@@ -184,10 +235,10 @@
          <img src="/img/loadingP.gif" alt="loading" style="margin: auto;display:list-item">
         </div>
         <div class="row">
-                <div class="col-lg-3 col-md-6 col-12" v-for="(p,index) in this.relatedProducts" v-bind:key="index" >
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-3" v-for="(p,index) in this.relatedProducts" v-bind:key="index" >
                   <div class=" single-product-item" >
                   <img class="card-img-top" 
-                     onerror="this.onerror=null; this.src='/img/1.jpg'" 
+                     onerror="this.onerror=null; this.src='/img/notfound.png'" 
                      :src="p.images[0]" alt="product image">
                   
                       <a href="#" class="btn btn-primary add-to-cart-btn">Add to cart</a>
@@ -246,6 +297,7 @@ export default {
            loading:true,
            relatedProducts :[],
            rloading:true,
+           availableVariationsSize:[]
         }
     },
     created(){
@@ -261,7 +313,7 @@ export default {
           this.checkIfProductFavorited();
       }, 7000);
     },
-    props : ['vid'],
+    props : ['vid','incart'],
     methods:{
         getProduct(){
              this.loading = true
@@ -343,8 +395,8 @@ export default {
                    }, 5000);
           }
         },
-        /// add to favorite fonctionality
-      addToFavorite(sku,event){
+        /// add this product to favorites
+       addToFavorite(sku,event){
         if(this.authId.length > 0){
        
         axios.post('/user/favorites/add',{user_id:this.authId,sku:sku})
@@ -359,7 +411,7 @@ export default {
             this.$store.state.favoritedProducts.push(this.vid);
          }
            event.target.innerHTML = 'Already favorited \
-                <i class="fa fa-heart-o text-light" style="position:relative;top:2px"></i>';
+                <i class="fa fa-heart text-light" style="position:relative;top:2px"></i>';
          
         })
         }else{
@@ -368,17 +420,123 @@ export default {
             html: 'please login to add to your favorites <br>\
              <a href="" data-target="#login-modal" data-toggle="modal">login</a>',
           })
+        }
+       },
+        //check if the product  favorited  
+       checkIfProductFavorited(){
+
+            if(this.favoritedProducts.indexOf(this.vid) > -1){
+                document.querySelector('#add-to-cart-single').innerHTML='Already favorited \
+                  <i class="fa fa-heart text-light" style="position:relative;top:2px"></i>';
+            }  
+       },   
+       //translate colors from turkey to english
+       transColorturky(color){
+           
+        let colors = [{'White':'Beyaz',},{'Grey':'Gri'},,{"Turquoise"	:"Türküaz"},{"Blue":	"Mavi"},{"Navy"	: "Lacivert"},
+        {"Green":	"Yeşil"},{"Yellow":	"Sarı"},{"Orange"	:"Turuncu"},{"Red" :	"Kırmızı"},{"Pink":	"Pembe"},
+        {"Purple"	:"Mor"},{"Brown"	:"Kahverengi"},{"Black":	"Siyah"}
+        ];
+        let filc =  colors.filter(c => Object.values(c).toString().toLowerCase() == color.toString().toLowerCase());
+        if(filc.length == 0){
+            return color;
+        }
+        return Object.keys(filc[0])[0];
+       },
+       //get the product quantity   by calculating sum of variations quantity
+       getQuantity(){
+           let sum = 0;
+           let availables = [];
+           //get all index of the size attribute in list of attributes
+           let ind=0;
+           this.product.variations[0].attributes.forEach((attr,index) =>{
+               if(attr.name.en == "Size"){ind = index};   
+           })
+           this.product.variations.forEach( variation =>{
+               //we test if a quantity is > 0 so the size is available for this variation
+               if(variation.quantity > 0){
+                  availables.push(variation.attributes[ind].option.tr);
+               }
+               sum+= variation.quantity;
+           })
+           this.availableVariationsSize = availables;
+           // active the availabe sizes 
+           this.testAvailableSizes();
+           return sum;
+          
+       },
+       //test if a size is available from sizes of product
+       testAvailableSizes(){
+         
+           document.querySelectorAll('.p-size span').forEach(size =>{
+      
+               if(this.availableVariationsSize.indexOf(size.textContent.trim()) > -1){
+                   size.classList.add('active')
+               }
+           })
+          /*  if(this.availableVariationsSize.indexOf(opt) > -1){
+               return true;
+           }
+           return false; */
+       },
+       //the main add to cart fonctionality
+       addCartItem(){
+           if(this.authId.length > 0){
+            let  maxQTE =0;
+            this.product.variations.forEach( variation =>{
+               maxQTE+= variation.quantity;
+            })
+            if(maxQTE == 0){
+              Swal.fire({
+                type:'warning',
+                title: 'Sorry the product is not available now !',
+              })
+              return false;
+            }
+            
+            Swal.fire({
+                title: 'please select a quantity',
+                html:'<h6>max quantity :'+maxQTE+'</h6>',
+                input: 'number',
+                inputAttributes: {
+                min: 1,
+                max: maxQTE,
+                step: 1
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Submit',
+                showLoaderOnConfirm: true,
+                preConfirm: (quantity) => {
+                    
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            }).then((quantity) => {
+            
+             axios.post('/user/carItems/add',{
+                      user_id : this.authId,sku:this.vid,quantity:quantity.value
+                  })
+                  .then(res => {
+                      document.querySelector('#add-to-cart').innerHTML='\
+                      Already in cart \
+                      <i class="fa fa-check text-light" style="position:relative;top:2px"></i>';
+                      Swal.fire({
+                             title: res.data.msg,
+                             type: res.data.type,
+                      })
+                  })
+                  .catch(err =>{alert(err)})
+          })
+          }else{
+          Swal.fire({
+            type: 'error',
+            html: 'please login to add to your favorites <br>\
+             <a href="" data-target="#login-modal" data-toggle="modal">login</a>',
+          })
          // document.querySelector('#loginto').style.display = 'block';
         }
-      },
-      //check if the product  favorited  
-      checkIfProductFavorited(){
+       }
+          
 
-          if(this.favoritedProducts.indexOf(this.vid) > -1){
-              document.querySelectorAll('#add-to-cart-single').innerHTML='Already favorited \
-                <i class="fa fa-heart-o text-light" style="position:relative;top:2px"></i>';
-          }  
-    }
     },
     computed:{
         allproducts(){
@@ -400,5 +558,16 @@ export default {
     }
     
 }
+$(document).ready(function(){
 
+      setTimeout(() => {
+          let imagetotal= document.querySelectorAll(".carousel-item img").length
+      for(let i=0;i<imagetotal;i++){
+          
+          $('#img_'+i).ezPlus({
+                zoomType: 'inner',    cursor: 'crosshair'
+          });
+      }
+      }, 8000);
+})
 </script>
