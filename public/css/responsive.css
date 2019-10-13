@@ -41,7 +41,7 @@
  padding:5px 25px
  }
  }
-  .single-product-item .carousel-item img{    height: 28rem !important;}
+  .single-product-item .carousel-item img{    height: 0rem !important;}
  @media(max-width:767px){
      #navbarNavDropdown{
          text-align: center;

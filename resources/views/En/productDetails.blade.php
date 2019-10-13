@@ -23,11 +23,12 @@
 <script>
 $(document).ready(function(){
   
-    $(".p-im").ezPlus({
+    $("#img_1").ezPlus({
             zoomType: 'lens',
             lensShape: 'round',
             lensSize: 100
         });
 })
+
 </script>
 @endsection

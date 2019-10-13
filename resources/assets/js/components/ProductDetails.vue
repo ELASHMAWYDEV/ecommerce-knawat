@@ -17,17 +17,19 @@
     border-bottom:1px dashed #efefef;
     margin-bottom:25px;
 }
-.carousel.slide{
-    height: 30rem;border: 2px solid rgba(25, 24, 24, 0.23);
+.carousel.slide{height: 60px;
+    /* height: 30rem;border: 2px solid rgba(25, 24, 24, 0.23); */
 }
+.full-img img{height:26rem}
 .car-ind{ 
-    height: 16px;
-    width: 16px;
+  height: 50px;
+    width: 50px;
     border-radius: 50%;
     border: 1px solid #879096;
     background-color: #d7e5ef;
 }
-.car-ind-ol{    bottom: -0.8rem;}
+.car-ind img{height:100%;width:100%}
+.car-ind-ol{   margin: 0}
 .car-ind.active{background-color:#0879c9}
 .quantity-badge{    padding: 5px 5px;
     border-radius: 50%;
@@ -43,12 +45,18 @@
     </div>
     <div class="media single-product-item row m-0">
         <div class="col-md-5">
-                <div>
+                <div style="border: 2px solid #d4d4d8;">
+                  <div class="full-img">
+                      <img class="d-block w-100 p-im" :src="this.product.images[0]" 
+                                         alt="product image" style=" padding: 0.5rem;"
+                                        :data-zoom-image="this.product.images[0]" id="img_1">
+                  </div>
                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                                   <ol class="carousel-indicators car-ind-ol">
                                        <li v-for="(image,key) in this.product.images" :key="key"
                                         data-target="#carouselExampleIndicators" data-slide-to="key"
-                                         class="car-ind" :class="key == 0 ? 'active' : ''">
+                                         class="car-ind" :class="key == 0 ? 'active' : ''" @click="changeImg($event)">
+                                          <img class="d-block  p-im" :src="image" alt="product image" >
                                        </li>             
                                   </ol>
                                   <div class="carousel-inner">
@@ -67,7 +75,7 @@
                                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                     <span class="sr-only">Next</span>
                                   </a> -->
-                                </div>
+                </div>
 
                 </div>
                 <div class="sale-title label-product">Sale</div>
@@ -146,7 +154,7 @@
             </nav>
             <div class="tab-content p-3" id="nav-tabContent " style="    border: 1px solid #dee2e6;border-top: 0;">
             <div v-if="product.description" class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" v-html="product.description.tr"></div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <div class="tab-pane fade table-responsive" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                
                 <table class="table table-bordered">
                 <thead>
@@ -535,7 +543,18 @@ export default {
          // document.querySelector('#loginto').style.display = 'block';
         }
        }
-          
+        ,
+        changeImg(event){
+             let src= document.querySelectorAll('.carousel-item.active img')[0].getAttribute('src');
+             console.log('amine src'+src) 
+             document.querySelector('#img_1').setAttribute('src',src)
+             document.querySelector('#img_1').setAttribute('data-zoom-image',src)
+             $("#img_1").data('zoom-image', src).ezPlus({
+                responsive: true,
+                zoomType: "inner", 
+                cursor: 'crosshair'
+                }); 
+        }
 
     },
     computed:{
@@ -565,9 +584,12 @@ $(document).ready(function(){
       for(let i=0;i<imagetotal;i++){
           
           $('#img_'+i).ezPlus({
+              responsive: true,
                 zoomType: 'inner',    cursor: 'crosshair'
           });
       }
       }, 8000);
+
+    
 })
 </script>

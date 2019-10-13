@@ -48657,7 +48657,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.comment-wrapper .panel-body[data-v-43ce86ca] {\r\n    max-height:650px;\r\n    overflow:auto;\n}\n.comment-wrapper .media-list .media img[data-v-43ce86ca] {\r\n    width:64px;\r\n    height:64px;\r\n       border: 1px solid #e5e7e8;\r\n    border-radius: 50%;\r\n    margin-right: 6px;\n}\n.comment-wrapper .media-list .media[data-v-43ce86ca] {\r\n    border-bottom:1px dashed #efefef;\r\n    margin-bottom:25px;\n}\n.carousel.slide[data-v-43ce86ca]{\r\n    height: 30rem;border: 2px solid rgba(25, 24, 24, 0.23);\n}\n.car-ind[data-v-43ce86ca]{ \r\n    height: 16px;\r\n    width: 16px;\r\n    border-radius: 50%;\r\n    border: 1px solid #879096;\r\n    background-color: #d7e5ef;\n}\n.car-ind-ol[data-v-43ce86ca]{    bottom: -0.8rem;\n}\n.car-ind.active[data-v-43ce86ca]{background-color:#0879c9\n}\n.quantity-badge[data-v-43ce86ca]{    padding: 5px 5px;\r\n    border-radius: 50%;\r\n    margin-right: 5px;\n}\r\n", ""]);
+exports.push([module.i, "\n.comment-wrapper .panel-body[data-v-43ce86ca] {\r\n    max-height:650px;\r\n    overflow:auto;\n}\n.comment-wrapper .media-list .media img[data-v-43ce86ca] {\r\n    width:64px;\r\n    height:64px;\r\n       border: 1px solid #e5e7e8;\r\n    border-radius: 50%;\r\n    margin-right: 6px;\n}\n.comment-wrapper .media-list .media[data-v-43ce86ca] {\r\n    border-bottom:1px dashed #efefef;\r\n    margin-bottom:25px;\n}\n.carousel.slide[data-v-43ce86ca]{height: 60px;\r\n    /* height: 30rem;border: 2px solid rgba(25, 24, 24, 0.23); */\n}\n.full-img img[data-v-43ce86ca]{height:26rem\n}\n.car-ind[data-v-43ce86ca]{ \r\n  height: 50px;\r\n    width: 50px;\r\n    border-radius: 50%;\r\n    border: 1px solid #879096;\r\n    background-color: #d7e5ef;\n}\n.car-ind img[data-v-43ce86ca]{height:100%;width:100%\n}\n.car-ind-ol[data-v-43ce86ca]{   margin: 0\n}\n.car-ind.active[data-v-43ce86ca]{background-color:#0879c9\n}\n.quantity-badge[data-v-43ce86ca]{    padding: 5px 5px;\r\n    border-radius: 50%;\r\n    margin-right: 5px;\n}\r\n", ""]);
 
 // exports
 
@@ -48668,6 +48668,14 @@ exports.push([module.i, "\n.comment-wrapper .panel-body[data-v-43ce86ca] {\r\n  
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -49219,6 +49227,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
                 // document.querySelector('#loginto').style.display = 'block';
             }
+        },
+        changeImg: function changeImg(event) {
+            var src = document.querySelectorAll('.carousel-item.active img')[0].getAttribute('src');
+            console.log('amine src' + src);
+            document.querySelector('#img_1').setAttribute('src', src);
+            document.querySelector('#img_1').setAttribute('data-zoom-image', src);
+            $("#img_1").data('zoom-image', src).ezPlus({
+                responsive: true,
+                zoomType: "inner",
+                cursor: 'crosshair'
+            });
         }
     },
     computed: {
@@ -49248,6 +49267,7 @@ $(document).ready(function () {
         for (var i = 0; i < imagetotal; i++) {
 
             $('#img_' + i).ezPlus({
+                responsive: true,
                 zoomType: 'inner', cursor: 'crosshair'
             });
         }
@@ -49282,7 +49302,20 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "media single-product-item row m-0" }, [
             _c("div", { staticClass: "col-md-5" }, [
-              _c("div", [
+              _c("div", { staticStyle: { border: "2px solid #d4d4d8" } }, [
+                _c("div", { staticClass: "full-img" }, [
+                  _c("img", {
+                    staticClass: "d-block w-100 p-im",
+                    staticStyle: { padding: "0.5rem" },
+                    attrs: {
+                      src: this.product.images[0],
+                      alt: "product image",
+                      "data-zoom-image": this.product.images[0],
+                      id: "img_1"
+                    }
+                  })
+                ]),
+                _vm._v(" "),
                 _c(
                   "div",
                   {
@@ -49297,15 +49330,29 @@ var render = function() {
                       "ol",
                       { staticClass: "carousel-indicators car-ind-ol" },
                       _vm._l(this.product.images, function(image, key) {
-                        return _c("li", {
-                          key: key,
-                          staticClass: "car-ind",
-                          class: key == 0 ? "active" : "",
-                          attrs: {
-                            "data-target": "#carouselExampleIndicators",
-                            "data-slide-to": "key"
-                          }
-                        })
+                        return _c(
+                          "li",
+                          {
+                            key: key,
+                            staticClass: "car-ind",
+                            class: key == 0 ? "active" : "",
+                            attrs: {
+                              "data-target": "#carouselExampleIndicators",
+                              "data-slide-to": "key"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.changeImg($event)
+                              }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              staticClass: "d-block  p-im",
+                              attrs: { src: image, alt: "product image" }
+                            })
+                          ]
+                        )
                       }),
                       0
                     ),
@@ -49588,7 +49635,7 @@ var render = function() {
                 _c(
                   "div",
                   {
-                    staticClass: "tab-pane fade",
+                    staticClass: "tab-pane fade table-responsive",
                     attrs: {
                       id: "nav-profile",
                       role: "tabpanel",
