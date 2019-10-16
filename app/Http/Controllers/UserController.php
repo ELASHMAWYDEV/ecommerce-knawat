@@ -203,6 +203,12 @@ class UserController extends Controller
     public function cart_page(){
       return view($this->lang().'.cart');
     }
+    //cart items 
+    public function getCartItems($user_id){
+      $cartitems = User::findorfail($user_id)->cartItems()->select('sku','quantity')->get()->toJson();;
+      return ( $cartitems);
+      return response()->json($cartitems->toArray());
+    }
     public function addCartItem(Request $request){
     
       $validator = Validator::make($request->all(),[

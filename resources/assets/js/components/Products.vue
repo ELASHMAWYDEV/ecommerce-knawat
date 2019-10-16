@@ -1,5 +1,9 @@
+
 <style scoped>
-.favorited{    background: #0879c9;}
+.favorited {
+    background: #0879c9;
+}
+
 </style>
 <template>
 
@@ -12,7 +16,8 @@
                                        <img :src="product.images[0]" 
                                        onerror="this.onerror=null; this.src='img/1.jpg'" class="card-img-top" alt="...">
                                        
-                                       <a href="#" class="btn main-b-bg add-to-cart-btn">Add to cart</a>
+                                       <a v-if="checkItemIsInCart(product.sku)"  class="btn incartbtn add-to-cart-btn" >In cart</a>
+                                       <a  v-else class="btn main-b-bg add-to-cart-btn" @click="addToCart(product,$event)">Add to cart</a>
                                       
                                        <div class="sale-title label-product">Sale</div>
                                        <div class="percent-count label-product bg-danger ">-15%</div>
@@ -20,7 +25,7 @@
      
 
 
-                                       <a class="wishlist action-btn btn-wishlist" :datasku="product.sku" @click="addToFavorite(product.sku,$event)"  title="Wishlist">
+                                       <a class="wishlist action-btn btn-wishlist" :datasku="product.sku" @click="addPToFavorite(product.sku,$event)"  title="Wishlist">
                                          <i class="fa fa-heart-o fa-lg text-white"></i>
                                        </a>
                                        <a class="action-btn btn-quickview" data-toggle="modal" data-target="#view-product" >
@@ -68,7 +73,7 @@
  </div>
 </template>
 <script>
-
+import mixins from '../mixins/mixins.js';
 export default{
    data(){
       return {
@@ -76,8 +81,8 @@ export default{
         loading: false,
       }
    },
-   props:['userid']
-   ,
+   props:['userid'],
+   mixins:[mixins],
    created(){
           //set the authenticated id
           this.setAuthId();
@@ -96,36 +101,7 @@ export default{
             
        
      
-   },
-   mounted(){
-     
-    
-   },
-    computed:{
-      currentProducts(){
-        return this.$store.state.currentProducts ;
-      },
-      allproducts(){
-        return this.$store.state.products;
-      },
-      ploading(){
-          return this.loading
-      },
-      currencyRate(){
-            return this.$store.state.currencyRate;
-        },
-      currencySign(){
-        
-        return this.$store.state.currencySign
-      },
-      authId(){
-        return this.$store.state.authId
-      },
-      favoritedProducts(){
-        return this.$store.state.favoritedProducts;
-      }
-     
-    }
+   }
    ,
    methods:{
        
@@ -198,62 +174,54 @@ export default{
           sessionStorage.setItem('categories',JSON.stringify(this.getUnique(Array.from(cat),'id')))
         },
         /*filter duplicated objects **/
-        getUnique(arr, comp) {
+        getUnique(arr, comp) {   
 
-        const unique = arr
-            .map(e => e[comp])
+          const unique = arr
+              .map(e => e[comp])
 
-          // store the keys of the unique objects
-          .map((e, i, final) => final.indexOf(e) === i && i)
+            // store the keys of the unique objects
+            .map((e, i, final) => final.indexOf(e) === i && i)
 
-          // eliminate the dead keys & store unique objects
-          .filter(e => arr[e]).map(e => arr[e]);
+            // eliminate the dead keys & store unique objects
+            .filter(e => arr[e]).map(e => arr[e]);
 
-        return unique;
-      },
-      //set the color of button to favorited items 
-      checkFavoritedProducts(){
-          document.querySelectorAll('.wishlist').forEach(item =>{
-            if(this.favoritedProducts.indexOf(item.getAttribute("datasku")) > -1 ){
-              item.classList.add('favorited');
-            }
-          })
-      },
-      /// add to favorite fonctionality
-      addToFavorite(sku,event){
-        if(this.authId.length > 0){
-        event.target.parentNode.classList.add('favorited')
-        axios.post('/user/favorites/add',{user_id:this.authId,sku:sku})
-        .then(res => {
-          //console.log(res)
-         
-          Swal.fire({
-            type: 'success',
-            html: res.data.data,
-          })
-           if(res.data.data !== "the product already favorited"){
-            this.$store.state.favoritedProducts.push(sku) ;
-           }
-           
-        })
-        }else{
-          Swal.fire({
-            type: 'error',
-            html: 'please login to add to your favorites <br>\
-             <a href="" data-target="#login-modal" data-toggle="modal">login</a>',
-          })
-         // document.querySelector('#loginto').style.display = 'block';
+          return unique;
+        },
+        setAuthId(){
+          this.$store.state.authId = this.userid;
+          setTimeout(() => {
+            if( this.userid != null){
+            this.checkFavoritedProducts();
+          }
+          }, 7000);
         }
+        
+
+   },
+    computed:{
+      currentProducts(){
+        return this.$store.state.currentProducts ;
       },
-      setAuthId(){
-        this.$store.state.authId = this.userid;
-        setTimeout(() => {
-          if( this.userid != null){
-          this.checkFavoritedProducts();
-        }
-        }, 7000);
+      allproducts(){
+        return this.$store.state.products;
+      },
+      ploading(){
+          return this.loading
+      },
+      currencyRate(){
+            return this.$store.state.currencyRate;
+        },
+      currencySign(){
+        
+        return this.$store.state.currencySign
+      },
+      authId(){
+        return this.$store.state.authId
+      },
+      favoritedProducts(){
+        return this.$store.state.favoritedProducts;
       }
-
-   }
+     
+    }
 }
 </script>

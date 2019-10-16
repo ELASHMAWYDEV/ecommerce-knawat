@@ -3,7 +3,7 @@
 @section('content')
 @if(Auth::check())
 
-<cart auth="{{Auth::id()}}"></cart>
+<cart></cart>
 @else
 <div class="container p-3">
 <div class="columns-container p-3 bg-white col-md-8 m-auto text-center" style="box-shadow: rgb(193, 179, 179) 0px 0px 8px 0px;">

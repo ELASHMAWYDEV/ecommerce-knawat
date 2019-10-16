@@ -202,7 +202,10 @@ a:hover {
  color: #fff !important;border-radius: 26px;
  padding: 0.3rem 2rem;
 }.add-to-cart-single:hover{color: #fff !important}
-
+.favorited {
+    background: #0879c9;
+}
+.incartbtn{    background: #94c341;}
 @media(max-width:575px) and (min-width:370px){
     .related-products .row{padding: 0.5rem 5.5rem;}
 }

@@ -18,7 +18,8 @@
     margin-top: 0.6rem;
 }
 .cart-total-info{
-    background: #FAFAFA;
+    background: #FAFAFA;max-height: 11rem;
+
     padding: 1rem;
     text-align: center;
 }
@@ -28,30 +29,140 @@
 @media(max-width:576px){
     .row .cart-product{   padding: 0 !important;}
 }
+/***** */
+.cart-section tbody tr td .mobile-cart-content, .wishlist-section tbody tr td .mobile-cart-content {
+    display: none;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+.cart-section tbody tr td .mobile-cart-content .col-xs-3, .wishlist-section tbody tr td .mobile-cart-content .col-xs-3 {
+    -ms-flex-item-align: center;
+    align-self: center;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.cart-section tbody tr td .mobile-cart-content .qty-box, .wishlist-section tbody tr td .mobile-cart-content .qty-box {
+    border-radius: 5px;
+}
+.cart-section .cart-table thead th, .wishlist-section .cart-table thead th {
+    border-bottom-width: 1px;
+    font-weight: 900;
+    color: #222222;
+    text-transform: uppercase;
+    font-size: 14px;
+    border-top: 0;
+    text-align: center;
+    padding: 0 0.75rem 0.75rem 0.75rem;
+}
+.cart-section tbody tr td, .wishlist-section tbody tr td {
+    color: #777777;
+    text-align: center;
+}
+.cart-section tbody tr td .mobile-cart-content .qty-box .input-group .form-control, .wishlist-section tbody tr td .mobile-cart-content .qty-box .input-group .form-control {
+    width: 48px;
+    padding: 6px;
+}
+.cart-section tbody tr td .mobile-cart-content h2, .wishlist-section tbody tr td .mobile-cart-content h2 {
+    font-size: 20px;
+}
+@media (max-width: 767px){
+.cart-section tbody tr td .mobile-cart-content {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.cart-section tbody tr td:nth-last-child(-n+4) {
+    display: none;
+}
+.cart-section .cart-table thead th:nth-last-child(-n+4) {
+    display: none;
+}
+}
+.td-color{    color: #31363a !important;}
 </style>
 <template>
     <div class="container p-4 bg-white mt-3 mb-3 border">
-    
-        <div v-if="this.loading" class="columns-container p-3 bg-white" style="box-shadow: 0px 0px 8px 0 #c1b3b3;">
-             <img src="/img/loadingP.gif" alt="loading" style="margin: auto;display:list-item">
-        </div>
+       <!-- notice to the selected quantity whene adding to cart -->
+        <div class="row alert bg-info text-white ">The values of quantity is the values choosen <span style="text-decoration: underline;margin-left:5px"> whene adding to cart</span></div>
+      
         <div class="row p-2 border">
-            <div class="col-sm-9 cart-product">
-                <div class="media  w-100" v-for="(p,key) in products" :key="key">
+            <div v-if="this.loading" class="col-sm-9 cart-product columns-container p-3 bg-white" style="box-shadow: 0px 0px 8px 0 #c1b3b3;">
+             <img src="/img/loadingP.gif" alt="loading" style="margin: auto;display:list-item">
+            </div>
+            <div v-else class="col-sm-9 cart-product cart-section">
+                <!-- <div class="media  w-100 p-1" v-for="(p,key) in products" :key="key">
                 <img class="mr-3" :src="p.images[0]" alt="Generic placeholder image">
                 <div class="media-body pt-2">
-                    <a :href="'/products/'+product.sku" class="product-title">{{p.name.en}}</a>
+                    <a :href="'/products/'+p.sku" class="product-title">{{p.name.en}}</a>
                     <p class="text-muted"></p>
                     <h6 class="font-weight-normal" style="font-size: 1.4rem;">
-                        Price : <span class="font-weight-bold"><sup>$</sup>{currencySign}}{{ (currencyRate * (p.variations[0].sale_price)).toFixed(2)}}</span>
+                        Price : <span class="font-weight-bold"><sup>{{currencySign}}</sup>{{ (currencyRate * (p.variations[0].sale_price)).toFixed(2)}}</span>
                     </h6>
                     
                    
                 </div>
                   <a class="delete-p-btn">X</a>
-                </div>
+                </div> -->
+                <table class="table cart-table table-responsive-xs striped-table">
+                    <thead>
+                    <tr class="table-head">
+                        <th scope="col">image</th>
+                        <th scope="col">product name</th>
+                        <th scope="col">price</th>
+                        <th scope="col">quantity</th>
+                        <th scope="col">action</th>
+                        <th scope="col">total</th>
+                    </tr>
+                    </thead>
+                    <tbody v-for="(p,key) in products" :key="key">
+                        <tr>
+                            <td>
+                                <a href="#"><img :src="p.images[0]" alt="product image"></a>
+                            </td>
+                            <td><a :href="'/products/'+p.sku" target="_blink">{{p.name.en}}</a>
+                                <div class="mobile-cart-content row">
+                                    <div class="col-xs-3">
+                                        <div class="qty-box">
+                                            <div class="input-group">
+                                                <input type="number"  name="quantity" class="form-control input-number" 
+                                                :max="getMaxQuantity(p)" min="1"
+                                                :value="getCommandedQuantity(p.sku)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <h5 class="td-color">
+                                            {{currencySign}}{{ (currencyRate * (p.variations[0].sale_price)).toFixed(2)}}
+                                        </h5></div>
+                                    <div class="col-xs-3">
+                                        <h5 class="td-color"><a href="#" class="icon">X</a></h5></div>
+                                </div>
+                            </td>
+                            <td>
+                                <h5 class="td-color">{{currencySign}}{{ (currencyRate * (p.variations[0].sale_price)).toFixed(2)}}</h5></td>
+                            <td>
+                                <div class="qty-box">
+                                    <div class="input-group" :id="'lg-quantity'+key">
+                                        <input type="number"  name="quantity"
+                                         class="form-control lg-quantity"
+                                         :max="getMaxQuantity(p)" min="1"
+                                         :value="getCommandedQuantity(p.sku)"
+                                         :datasku="p.sku">
+                                    </div>
+                                </div>
+                            </td>
+                            <td><a href="#" class="icon">X</a></td>
+                            <td>
+                                <h5 class="td-color" :datasku="p.sku"></h5>
+                            </td>
+                        </tr>
+                    </tbody>
+                    
+                </table>
             </div>
-            <div class="col-sm-3 border cart-total-info mt-2 mt-sm-0">
+            <div class="col-sm-3 border cart-total-info mt-2 mt-sm-0" >
                <h5 class="mb-3 font-weight-normal">Your Cart Total</h5>
                <h3>USD <sup>$</sup>12</h3>
                <button type="button" class="btn checkout-btn text-white">Secure Checkout</button>
@@ -60,6 +171,8 @@
 </div>
 </template>
 <script>
+import headerMixins from '../../mixins/headerMixins.js'
+import currencyMixins from '../../mixins/currencyMixins.js'
 export default {
     data(){
         return {
@@ -67,6 +180,7 @@ export default {
             loading:false
         }
     },
+    mixins:[headerMixins,currencyMixins],
     created(){
         this.loading = true;
         setTimeout(() => {
@@ -78,34 +192,40 @@ export default {
       
         cartItems(){
             return this.$store.state.cartItems;
-        }
+        },
+    
+    },
+    mounted(){
+       this.watchandsettotal();
+    
     },
     methods:{
-                setcartItems(){
-                let requests =  [];
-                this.cartItems.forEach((product)=>{
-                console.log('i enter')
-                requests.push(axios.get('/getProductBySku/'+product));
-                });
-                //send multiple requests
-                axios.all(requests).then(axios.spread((...responses) => {
-                
-                  responses.forEach(res => {
-                      console.log(res.data)
-                      this.products.push(res.data.product);
-                  });
-                  setTimeout(() => {
-                      
-                  }, 2000);
-                  this.loading = false
-                })).catch(errors => {
-                // react on errors.
-                   swal.fire('there is error in fetching products')
+          setcartItems(){
+                    let requests =  [];
+                    this.cartItems.forEach((product)=>{
+                    
+                    requests.push(axios.get('/getProductBySku/'+product.sku));
+                    });
+                    //send multiple requests
+                    axios.all(requests).then(axios.spread((...responses) => {
+                    
+                    responses.forEach(res => {
+                        //console.log(res.data)
+                        this.products.push(res.data.product);
+                    });
                     setTimeout(() => {
-                      
-                  }, 2000);
-                   
-                })
+                        
+                    }, 2000);
+                    this.loading = false
+                    this.getItemsTotal();
+                    })).catch(errors => {
+                    // react on errors.
+                    swal.fire('there is error in fetching products')
+                        setTimeout(() => {
+                        
+                    }, 2000);
+                    
+                    })
             
          
           },
@@ -133,7 +253,46 @@ export default {
                 
             }
           })
-          } 
+          },
+          //get a product quantity
+          getMaxQuantity(product){
+           let sum = 0;
+           product.variations.forEach( variation =>{
+               //we test if a quantity is > 0 so the size is available for this variation
+               sum+= variation.quantity;
+           })
+           return sum;
+          
+          }, 
+          getCommandedQuantity(sku){
+              return this.cartItems.filter(item => item.sku == sku)[0].quantity
+          },
+          watchandsettotal(){
+             $('#lg-quantity0').ready(function(){
+                 console.log("im ready amine")
+                 console.log($(this).val())
+             })
+          
+          },
+          getItemsTotal(){
+               
+               console.log("called")
+               let currentquantity=0;let price =0;let priceTotal = 0;
+                document.querySelectorAll('.lg-quantity').forEach(item =>{
+                    console.log("i enter"+item)
+                    currentquantity =item.value;
+                    console.log("currentquantity"+currentquantity)
+                    price= this.products.filter(p => p.sku == item.getAttribute('datasku'))[0].variations[0].sale_price;
+                    console.log("currentquantity"+price)
+                    priceTotal = ((currencyRate * price).toFixed(2)) * currentquantity;
+                    console.log("pricetotal"+priceTotal)
+                })
+                if( document.querySelectorAll('.lg-quantity').length ==0){
+                setTimeout( getItemsTotal(), 200 );
+                }
+            
+          }
+
     }
 }
 </script>

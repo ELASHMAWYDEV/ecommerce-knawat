@@ -35,6 +35,7 @@ Vue.component('registermodal', require('./components/Register.vue'));
 Vue.component('favorites',require('./components/user/Favorites.vue'));
 Vue.component('favoritescount',require('./components/user/FavoritesCount.vue'));
 Vue.component('cart',require('./components/user/cart.vue'));
+Vue.component('cartitemscount',require('./components/user/CartCount.vue'));
 const store = new Vuex.Store({
     state:{
       categories :[],

@@ -29,9 +29,7 @@
             </li>
             <li class="nav-item dropdown d-292-none">
               <a class="nav-link header-nav-link " href="{{route('frontEnd.user.cart')}}" id="loginWhishlistdropdown" role="button" >
-                <i class="fa fa-shopping-cart fa-lg ">
-                    <i class="badge-info main-r-bg rounded-badge" style="font-size: 15px;position: relative;top: -10px;">5</i>
-                </i> 
+                <cartitemscount></cartitemscount> 
                  Cart
               </a>
             
@@ -43,7 +41,7 @@
                 My Account
               </a>
               <div class="dropdown-menu" aria-labelledby="loginWhishlistdropdown">
-                <a class="dropdown-item" href="{{route('frontEnd.user.favorites')}}"><i class="fa fa-heart-o main-r-color mr-2"></i> Favorites <i class="badge-info rounded-badge main-b-bg">5</i></a>
+                <a class="dropdown-item" href="{{route('frontEnd.user.favorites')}}"><i class="fa fa-heart-o main-r-color mr-2"></i> Favorites <favoritesCount></favoritesCount></a>
                 
                   @guest
                   <a href="#" class="dropdown-item" data-target="#login-modal" data-toggle="modal"> <i class="fa fa-sign-in main-r-color mr-2"></i> Login </a>
@@ -56,9 +54,7 @@
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link text-weight header-nav-link" href="{{route('frontEnd.user.cart')}}" id="loginWhishlistdropdown" role="button" >
-                <i class="fa fa-shopping-cart fa-lg ">
-                    <i class="badge-info main-r-bg rounded-badge" style="font-size: 15px;position: relative;top: -10px;">5</i>
-                </i> 
+                <cartitemscount></cartitemscount>
                  Cart
               </a>
           </ul>

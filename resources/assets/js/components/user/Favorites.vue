@@ -39,9 +39,10 @@
                                         <i class="fa fa-star-o main-b-color"></i>
                                 </div>
                             </td>
-                            <td><span class="btn p-1 font-weight-bolder " >{{product.variations[0].quantity}}</span></td>
+                            <td><span class="btn p-1 font-weight-bolder " >{{getQuantity(product)}}</span></td>
                             <td>
-                                <button type="button" class="action-btn main-b-bg  text-white btn p-1 btn" @click="addCartItem(product.sku,product.variations[0].quantity)" >Add to cart</button>
+                                <button v-if="checkItemIsInCart(product.sku)" type="button" class="action-btn incartbtn text-white btn p-1 btn" >In cart</button>
+                                <button v-else type="button" class="action-btn main-b-bg  text-white btn p-1 btn" @click="addToCart(product,$event)" >Add to cart</button>
                                 <button type="button" class="action-btn main-r-bg  text-white btn p-1" @click="removeFavorite(product.sku)">Remove</button>
                             </td>
                           </tr>
@@ -53,6 +54,7 @@
 </div>
 </template>
 <script>
+import mixins from '../../mixins/mixins.js'
 export default {
     data(){
         return {
@@ -60,6 +62,7 @@ export default {
             loading:false
         }
     },
+    mixins:[mixins],
     created(){
         this.loading = true;
         setTimeout(() => {
@@ -75,16 +78,7 @@ export default {
     },
     methods:{
           setFavoritedProducts(){
-           /* //deleted because we cant work without connection
-           let  products = sessionStorage.getItem('products');
-            if(products != null){
-                let allproducts = JSON.parse(products);
-                
-                this.products = allproducts.filter(item => 
-                     ((this.favoritedProducts.indexOf(item.sku)) > -1));
-                 this.loading = false
-                
-            }else{ */
+         
                 let requests =  [];
                 this.favoritedProducts.forEach((product)=>{
                 console.log('i enter')
@@ -137,39 +131,17 @@ export default {
             }
           })
           },
-          addCartItem(sku,maxQTE){
-            if(maxQTE == 0){
-              Swal.fire({
-                type:'warning',
-                title: 'Sorry the product is not available now !',
-              })
-              return false;
-            }
-            
-            Swal.fire({
-            title: 'please select a quantity',
-            input: 'number',
-            inputAttributes: {
-              min: 1,
-              max: maxQTE,
-              step: 1
-            },
-            showCancelButton: true,
-            confirmButtonText: 'Submit',
-            showLoaderOnConfirm: true,
-            preConfirm: (quantity) => {
-              console.log(quantity)
-            },
-            allowOutsideClick: () => !Swal.isLoading()
-          }).then((result) => {
-            if (result.value) {
-              Swal.fire({
-                title: `${result.value.login}'s avatar`,
-                imageUrl: result.value.avatar_url
-              })
-            }
-          })
-          }
+          //get the product quantity   by calculating sum of variations quantity
+       getQuantity(product){
+           let sum = 0;
+           product.variations.forEach( variation =>{
+               //we test if a quantity is > 0 so the size is available for this variation
+               sum+= variation.quantity;
+           })
+         
+           return sum;
+          
+       },
     }
 }
 </script>

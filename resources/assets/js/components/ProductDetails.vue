@@ -34,6 +34,9 @@
 .quantity-badge{    padding: 5px 5px;
     border-radius: 50%;
     margin-right: 5px;}
+.favorited {
+    background: #0879c9;
+}
 </style>
 <template>
 <div>
@@ -112,7 +115,7 @@
                        {{opt.tr}}
                      </span>   
                    
-            </div>   
+             </div>   
             </div>
             
             <div class="quantity-a mt-4">
@@ -130,7 +133,7 @@
                 Quantity : <input type="number" id="quantity" style="width: 60px;">
             </div> -->
             <br>
-            <a v-if="this.incart"  class="btn main-b-bg add-to-cart-single a1 mt-3">Already in cart
+            <a v-if="this.incart"  class="btn incartbtn add-to-cart-single a1 mt-3">Already in cart
                 <i class="fa fa-check text-light" style="position:relative;top:2px"></i>
             </a>
             <a v-else class="btn main-b-bg add-to-cart-single a1 mt-3" id="add-to-cart" @click="addCartItem()">Add to cart</a>
@@ -248,13 +251,19 @@
                   <img class="card-img-top" 
                      onerror="this.onerror=null; this.src='/img/notfound.png'" 
                      :src="p.images[0]" alt="product image">
-                  
-                      <a href="#" class="btn btn-primary add-to-cart-btn">Add to cart</a>
+                     <!--the add to cart btn -->
+                       <a v-if="checkItemIsInCart(p.sku)"  class="btn incartbtn add-to-cart-btn" >In cart 
+                           <i class="fa fa-check text-light" style="position:relative;top:2px"></i>
+                       </a>
+                      <a v-else  class="btn btn-primary add-to-cart-btn" @click="addToCart(p,$event)">Add to cart</a>
                  
                   <div class="sale-title label-product">Sale</div>
                   <div class="percent-count label-product bg-danger ">-15%</div>
                   <div class="action-links">
-                        <a class="wishlist action-btn btn-wishlist" href="" title="Wishlist">
+                        <a class="wishlist action-btn btn-wishlist"
+                         :class="(favoritedProducts.indexOf(p.sku) >-1) ? 'favorited' : ''"
+                        :datasku="p.sku" @click.stop="addPToFavorite(p.sku,$event)"
+                         title="Wishlist">
                             <i class="fa fa-heart-o fa-lg text-white text-white"></i>
                         </a>
                         <a class="action-btn btn-quickview" data-toggle="modal" data-target="#view-product" >
@@ -298,6 +307,7 @@
 </div>
 </template>
 <script>
+import mixins from '../mixins/mixins.js';
 export default {
     data(){
         return {
@@ -322,6 +332,7 @@ export default {
       }, 7000);
     },
     props : ['vid','incart'],
+    mixins:[mixins],
     methods:{
         getProduct(){
              this.loading = true
@@ -524,9 +535,12 @@ export default {
                       user_id : this.authId,sku:this.vid,quantity:quantity.value
                   })
                   .then(res => {
+                      if(res.data.type == "success"){
+                          this.$store.state.cartItems.push(this.vid);
+                      }
                       document.querySelector('#add-to-cart').innerHTML='\
-                      Already in cart \
-                      <i class="fa fa-check text-light" style="position:relative;top:2px"></i>';
+                      added in cart \
+                      <i class="fa fa-check text-light ml-2" style="position:relative;top:2px"></i>';
                       Swal.fire({
                              title: res.data.msg,
                              type: res.data.type,

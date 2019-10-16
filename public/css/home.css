@@ -38,10 +38,14 @@
 #home-slide-1 .shop-btn{ 
     background: rgba(0,0,0,0);
     border: 2px solid #0879c9;
-    color: #0879c9;padding: 3px 6px;
+    color: #0879c9;text-decoration: none;text-transform: uppercase;
+    padding: 9px 14px;font-weight: 600;
+    position: relative;
+    top: 29px; animation: shpbtn-anim 3s 1 2s linear;
 }
+#home-slide-1 .shop-btn:hover{color: #fff;background: #0879c9}
 
-
+#home-slide-1 .slider-2-des p{color: #fff;}
 @media (max-width: 767px){
 #home-slide-1 .slider-1-des p span {
     font-size: 35px;
@@ -49,5 +53,135 @@
 #home-slide-1 .slider-1-des p {
     font-size: 14px;
     margin-top: 5px;
+    animation: discount-anim 3s 1 2s linear;
 }
 }
+@keyframes discount-anim{
+    0%{opacity: 0;
+        }
+    42%{
+        opacity: 0.6;
+        }
+    98%{
+        opacity: 1;
+        }
+}
+@keyframes shopbtn-anim{
+    0%{right: -15rem;
+        opacity: 0;
+        }
+    42%{
+        right: -5rem;
+    opacity: 0.5;
+        }
+    98%{
+        right: 0;
+        opacity: 1;
+        }
+}
+.you-may-like img{height: 50px;
+    width: 50px;}
+    .you-may-like .media{background-color: white}
+    .you-may-like .fa-shopping-cart{
+      border-radius: 50%;
+      background: #DEDEDE;
+      padding: 10px 11px;   font-size: 1rem;
+      float: right;
+      cursor: pointer;    margin-top: -18px;
+      }
+    .you-may-like .fa-shopping-cart:hover{   color: white; background: #0879c9;}
+    .about-our-services i.fa{   font-size: 1.6em;
+    margin: 6px 6px 6px 0;
+    top: 1px;
+    position: relative;}
+    .about-our-services i.fa-heart-o{top: 3px}
+    .about-our-services h6 {color: #575151;}
+    .about-our-services h6 strong {color: #201f1f;}
+     .section-t::after {
+      background: #0879c9 none repeat scroll 0 0;
+    top: inherit;
+    content: "";
+    height: 2px;
+    left: 32px;
+    position: absolute;
+    width: 70px;
+    margin-top: 31px;
+    }
+    
+    .you-may-like .carousel-control{    border: 2px solid #695e5e;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;}
+    .you-may-like .carousel-control-prev{    right: 4rem;left:auto;
+    top: 8px;}
+    .you-may-like .carousel-control-next{  
+    top: 8px;    right: 1.5rem;}
+    .carousel-control .fa-chevron-left{color: #695e5e;
+    margin-right: 3px;
+    font-size: 0.8rem;}
+    .carousel-control .fa-chevron-right{color: #695e5e;
+    margin-left: 3px;
+    font-size: 0.8rem;}
+    .carousel-control:hover{background:#0879c9;border:none}
+    .carousel-control:hover i{color: #fff}
+    .center-home #allcategory{
+    padding: 15px 20px;
+    position: relative;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+    text-transform: uppercase;
+    cursor: pointer;
+    }
+    .center-home .dropdown-menu > li > a {
+        display: block;
+        text-decoration: none;
+        clear: both;
+        cursor: pointer;
+        font-weight: normal;
+        line-height: 20px;
+        color: #333333;
+        white-space: nowrap;
+    }
+    .categories-options .row > div{padding: 1rem;text-align: center}
+    .single-category img{height: 150px;width: 200px;    margin-bottom: 4px;}
+    .single-category img:hover{transform: scale(1.1,1.1)}
+    .single-category a{    color: #52585d;text-decoration: none}
+    .single-category a:hover{color: #0879c9}
+    .categories-options .section-t::after,.ft-p .section-t::after{left:138px;margin-top: 45px}
+    .categories-options .section-t,.ft-p .section-t{    padding-bottom: 14px;}
+    .categories-options .carousel-control,.ft-p .carousel-control{position: inherit;
+    float: right;}
+    .categories-options .carousel-control-prev,.ft-p .carousel-control-prev{
+    margin-right: 7px;}
+    .categories-options .carousel-control-next,.ft-p .carousel-control-next{
+    margin-right: 18px;}
+    .products-link img{
+      height: fit-content;
+    }.products-link img:hover{    border: 6px solid #b9b9bf6e;}
+    .social-link-follow li {
+    margin-bottom: 5px;
+    margin-right: 10px;
+    display: inline-block;
+   }.social-link-follow li a {
+    background: #365493 none repeat scroll 0 0;
+    border-radius: 100%;    color: #ffffff;    display: block;   
+     font-size: 16px;    height: 36px;    line-height: 36px;    color: #fff;    padding: 0;
+    position: relative;
+    text-align: center;    -webkit-transition: all 0.3s ease-in-out 0s;    transition: all 0.3s ease-in-out 0s;    width: 36px;z-index: 1;
+}
+.social-link-follow li a i{color: #fff !important}
+
+.social-link-follow li a.twitter {
+    background: #33ccff;
+}.social-link-follow li a.Facebook {
+    background: #365493 none repeat scroll 0 0;
+}.social-link-follow li a.Youtube {
+    background: #cb2027;
+}.social-link-follow li a.instagram {
+    background: #5351e0;
+}
+.social-link-follow li a:hover{background: #365493}
+.PHONE img,.SHIRTS img{    height: 77px;
+    width: 65px;}
+
