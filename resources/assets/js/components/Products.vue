@@ -79,6 +79,7 @@ export default{
       return {
         products :[],
         loading: false,
+        activeCategory:'',
       }
    },
    props:['userid'],
@@ -87,7 +88,7 @@ export default{
           //set the authenticated id
           this.setAuthId();
           let sessionproducts = sessionStorage.getItem('products');
-           if(sessionproducts != null){
+           if((sessionproducts != null) && sessionproducts != "undifined" ){
             
               //this.products =  sessionproducts;
               this.$store.state.products = JSON.parse(sessionproducts)
@@ -96,97 +97,28 @@ export default{
               //this.fetchallProducts();
            }else{
               this.fetchfirstProducts();
-
            }
-            
+           //test if the catalogue name came from home page
+           if(this.currentCategory && this.currentCategory.length > 0){
+             this.activeCategory = this.currentCategory;
+             
+              this.filterproducts(this.activeCategory)
+             
+              
+              
+              
+          }else{
+            console.log('no no catalogue')
+          } 
        
      
    }
    ,
    methods:{
        
-        fetchfirstProducts(){
-          this.loading = true;
-          axios.get('/get10Products')
-          .then(res => {
-            console.log(res)
-            
-            this.$store.state.currentProducts = res.data.products;
-            setTimeout(() => {
-              this.loading = false;
-            }, 3000);
-            
-            sessionStorage.setItem('products',JSON.stringify(res.data.products))
-            //this.$store.state.products = res.data.products
-            setTimeout(this.setfirstCategories(),2000)
-            setTimeout(this.fetchallProducts(), 4000);
-          })
-          .catch(error => {
-                    this.loading = false
-                    //do whatever with response
-                })
-        },
-        fetchallProducts(){
-          
-          axios.get('/getProducts')
-          .then(res => {
-            console.log("all",res)
-           // this.products = res.data.products;
-            //sessionStorage.setItem('products',JSON.stringify(this.products))
-            this.$store.state.products = res.data.products
-             sessionStorage.setItem('products',JSON.stringify(res.data.products))
-             /* set alll the categories */
-             setTimeout(this.setCategories(),2000)
-           
-          })
-          .catch(error => {
-                  alert("error")
-                })
-        },
-        setfirstCategories(){
-          let cat = new Set();
-
-          
-          this.currentProducts.forEach(product=>{
-            product.categories.forEach(element => {
-              
-              cat.add(element);
-            });             
-             
-            
-          })
-          this.$store.state.categories = this.getUnique(Array.from(cat),'id');
-          sessionStorage.setItem('categories',JSON.stringify(this.getUnique(Array.from(cat),'id')))
-        },
-        setCategories(){
-          let cat = new Set();
-
-          
-          this.allproducts.forEach(product=>{
-            product.categories.forEach(element => {
-              
-              cat.add(element);
-            });             
-             
-            
-          })
-          this.$store.state.categories = this.getUnique(Array.from(cat),'id');
-          sessionStorage.setItem('categories',JSON.stringify(this.getUnique(Array.from(cat),'id')))
-        },
-        /*filter duplicated objects **/
-        getUnique(arr, comp) {   
-
-          const unique = arr
-              .map(e => e[comp])
-
-            // store the keys of the unique objects
-            .map((e, i, final) => final.indexOf(e) === i && i)
-
-            // eliminate the dead keys & store unique objects
-            .filter(e => arr[e]).map(e => arr[e]);
-
-          return unique;
-        },
+        
+        
+       
         setAuthId(){
           this.$store.state.authId = this.userid;
           setTimeout(() => {
@@ -199,9 +131,7 @@ export default{
 
    },
     computed:{
-      currentProducts(){
-        return this.$store.state.currentProducts ;
-      },
+      
       allproducts(){
         return this.$store.state.products;
       },
@@ -220,8 +150,14 @@ export default{
       },
       favoritedProducts(){
         return this.$store.state.favoritedProducts;
+      },
+      currentCategory(){
+        return localStorage.getItem('activeCategory');
       }
      
+    },
+    destroyed(){
+      localStorage.clear('activeCategory');
     }
 }
 </script>

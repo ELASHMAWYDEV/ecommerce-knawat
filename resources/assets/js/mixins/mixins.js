@@ -1,6 +1,113 @@
 export default {
    
     methods: {
+       /* filte products by categorie */
+      filterproducts(type){
+
+          let products = this.$store.state.products;
+        
+          let fil = products
+          .filter((element) => 
+              element.categories.some((c) => c.name.en == type))
+          .map(element => {
+              return Object.assign({}, element, {categories : element.categories.filter(subElement => subElement.name.en == type)});
+
+          }); 
+          this.$store.state.currentProducts = fil;
+          localStorage.clear('activeCategory')
+          this.hiderestc();
+      },
+      fetchfirstProducts(){
+          this.loading = true;
+          axios.get('/get10Products')
+          .then(res => {
+            console.log(res)
+            
+            this.$store.state.currentProducts = res.data.products;
+            setTimeout(() => {
+              this.loading = false;
+            }, 3000);
+            if(res.data.products == "undifined"){
+                 this.fetchfirstProducts();
+            }else{
+            sessionStorage.setItem('products',JSON.stringify(res.data.products))
+            this.shuffleYouMayLike();
+            //this.$store.state.products = res.data.products
+            setTimeout(this.setfirstCategories(),2000)
+            setTimeout(this.fetchallProducts(), 4000);
+            }
+          })
+          .catch(error => {
+                    this.loading = false
+                    //do whatever with response
+                })
+      },
+      setfirstCategories(){
+        let cat = new Set();
+
+        
+        this.currentProducts.forEach(product=>{
+          product.categories.forEach(element => {
+            
+            cat.add(element);
+          });             
+           
+          
+        })
+        this.$store.state.categories = this.getUnique(Array.from(cat),'id');
+        sessionStorage.setItem('categories',JSON.stringify(this.getUnique(Array.from(cat),'id')))
+        //here the cat shuffle in home page
+        this.shuffleCategories();
+      },
+      fetchallProducts(){
+          
+        axios.get('/getProducts')
+        .then(res => {
+          console.log("all",res)
+         // this.products = res.data.products;
+          //sessionStorage.setItem('products',JSON.stringify(this.products))
+          this.$store.state.products = res.data.products
+           sessionStorage.setItem('products',JSON.stringify(res.data.products))
+           this.setShirtsProducts();
+           this.setPhoneProducts(); 
+           /* set alll the categories */
+           setTimeout(this.setCategories(),2000)
+         
+        })
+        .catch(error => {
+                alert("error")
+              })
+      },
+      setCategories(){
+        let cat = new Set();
+
+        
+        this.allproducts.forEach(product=>{
+          product.categories.forEach(element => {
+            
+            cat.add(element);
+          });             
+           
+          
+        })
+        this.$store.state.categories = this.getUnique(Array.from(cat),'id');
+        sessionStorage.setItem('categories',JSON.stringify(this.getUnique(Array.from(cat),'id')))
+        
+      },
+       /*filter duplicated objects **/
+       getUnique(arr, comp) {   
+
+        const unique = arr
+            .map(e => e[comp])
+
+          // store the keys of the unique objects
+          .map((e, i, final) => final.indexOf(e) === i && i)
+
+          // eliminate the dead keys & store unique objects
+          .filter(e => arr[e]).map(e => arr[e]);
+
+        return unique;
+      },
       /// add to favorite fonctionality
        addPToFavorite(sku,event){
           if(this.authId.length > 0){
@@ -106,6 +213,9 @@ export default {
       computed:{
          cartItems(){
            return this.$store.state.cartItems;
-         }
+         },
+         currentProducts(){
+          return this.$store.state.currentProducts ;
+        },
       }
   };

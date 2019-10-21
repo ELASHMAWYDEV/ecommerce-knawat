@@ -3,6 +3,9 @@
     padding-bottom: 60px;
     background: #fff;
 }
+.slider-main-area .carousel-indicators li{    height: 12px;
+    width: 12px;
+    border-radius: 50%;}
 .mainSlider{
     box-shadow: 0 0 4px #99999969;
 }
@@ -52,9 +55,10 @@
 }
 #home-slide-1 .slider-1-des p {
     font-size: 14px;
-    margin-top: 5px;
+    margin-top: 5px;color: #fff;
     animation: discount-anim 3s 1 2s linear;
 }
+#home-slide-1 h1.title-1,#home-slide-1 h2.title-2{color:#fff}
 }
 @keyframes discount-anim{
     0%{opacity: 0;
@@ -90,6 +94,7 @@
       cursor: pointer;    margin-top: -18px;
       }
     .you-may-like .fa-shopping-cart:hover{   color: white; background: #0879c9;}
+    .about-our-services div.media{background-color: #fff;}
     .about-our-services i.fa{   font-size: 1.6em;
     margin: 6px 6px 6px 0;
     top: 1px;
@@ -108,10 +113,19 @@
     margin-top: 31px;
     }
     
-    .you-may-like .carousel-control{    border: 2px solid #695e5e;
+    .you-may-like .carousel-control,.ft-p .carousel-control{    border: 2px solid #695e5e;
     height: 30px;
     width: 30px;
     border-radius: 50%;}
+    .p-name a {
+        color: #222222;
+        display: block;
+        font-size: 14px;
+        font-weight: 400;
+        overflow: hidden;
+        padding: 0;
+        text-transform: capitalize;
+    }
     .you-may-like .carousel-control-prev{    right: 4rem;left:auto;
     top: 8px;}
     .you-may-like .carousel-control-next{  
@@ -144,11 +158,13 @@
         white-space: nowrap;
     }
     .categories-options .row > div{padding: 1rem;text-align: center}
-    .single-category img{height: 150px;width: 200px;    margin-bottom: 4px;}
+    .single-category img{    height: 145px;
+        width: 155px;   margin-bottom: 4px;}
     .single-category img:hover{transform: scale(1.1,1.1)}
     .single-category a{    color: #52585d;text-decoration: none}
     .single-category a:hover{color: #0879c9}
-    .categories-options .section-t::after,.ft-p .section-t::after{left:138px;margin-top: 45px}
+    .ft-p >div{position: relative;}
+    .categories-options .section-t::after,.ft-p .section-t::after{left: 19px;margin-top: 45px}
     .categories-options .section-t,.ft-p .section-t{    padding-bottom: 14px;}
     .categories-options .carousel-control,.ft-p .carousel-control{position: inherit;
     float: right;}
@@ -159,6 +175,9 @@
     .products-link img{
       height: fit-content;
     }.products-link img:hover{    border: 6px solid #b9b9bf6e;}
+    @media(max-width:992px){
+        .products-link img{    max-height: 200px;}
+    }
     .social-link-follow li {
     margin-bottom: 5px;
     margin-right: 10px;
@@ -185,3 +204,7 @@
 .PHONE img,.SHIRTS img{    height: 77px;
     width: 65px;}
 
+@media(max-width:576px){
+    .container{padding-left:2.5rem;padding-right: 2.5rem }
+    
+}

@@ -40,6 +40,8 @@
  </nav>
 </template>
 <script>
+import mixins from '../mixins/mixins';
+import categoryMixins from '../mixins/categoryMixins';
 export default {
     data(){
        return {
@@ -49,6 +51,7 @@ export default {
        }
        
    },
+   mixins:[mixins,categoryMixins],
    methods:{
 
 

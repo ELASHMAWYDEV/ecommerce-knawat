@@ -12,7 +12,11 @@
                     v-for="c in categories"
                     :key="c.id"
                     @click="filterproducts(c.name.en)" >
-                    <a tabindex="-1" @mouseenter="hiderestc()">{{c.name.en}}</a>
+                    <!--if its the home page then the link will be with href -->
+                    <a v-if="isHome" tabindex="-1" @mouseenter="setCurrentCategory(c.name.en)" href="/products" target="_blink">
+                    {{c.name.en}}</a>
+                    <a v-else tabindex="-1" @mouseenter="hiderestc()" >
+                    {{c.name.en}}</a>
                 </li>
                 <li v-if="restOfCategories.length > 0" class="dropdown-submenu">
                     <a class="test dropdown-item"  @mouseenter="showrestc()" tabindex="-1" >
@@ -22,8 +26,13 @@
                     <li class="dropdown-item" 
                      v-for="rc in restOfCategories"
                      :key="rc.id" 
-                     @click="filterproducts(rc.name.en)">
-                       <a class="" >
+                     
+                     @click="filterproducts(rc.name.en)"
+                     >
+                       <a v-if="isHome" class="" href="/products" @mouseenter="setCurrentCategory(rc.name.en)" target="_blink"> 
+                           {{rc.name.en}}
+                       </a>
+                       <a v-else class="" >
                            {{rc.name.en}}
                        </a>
                     </li>
@@ -35,85 +44,35 @@
              
 </template>
 <script>
+import mixins from '../mixins/mixins';
+import categoryMixins from '../mixins/categoryMixins';
+
 export default {
    data(){
        return {
          categories :[], 
          restOfCategories :[] ,
-         loading:false
+         loading:false,
+         isHome:true,
        }
        
    },
+   mixins:[mixins,categoryMixins],
    created(){
-    
+       if(window.location.pathname =='/products'){
+         this.isHome = false;
+       }
     
    },
    methods:{
 
-
-    /* filte products by categorie */
-    filterproducts(type){
-
-       let products = this.$store.state.products;
       
-       let fil = products
-        .filter((element) => 
-            element.categories.some((c) => c.name.en == type))
-        .map(element => {
-            return Object.assign({}, element, {categories : element.categories.filter(subElement => subElement.name.en == type)});
-
-        }); 
-        this.$store.state.currentProducts = fil;
-        this.hiderestc();
-    },
-      setCategories(){
-        this.loading = true;
-     let categories =sessionStorage.getItem('categories');
-     if(categories != null){
-        
-       console.log("there is categories")
-       this.categories = JSON.parse(categories).splice(1,10);
-       this.restOfCategories = JSON.parse(categories).splice(10);
-    
-     }else{
      
-             
-             this.categories = this.allcategories.splice(1,10);
-             this.restOfCategories = this.allcategories.splice(10);
-            
-           
-         
-          
-     }
-      this.loading = false;
-     },
-     //show rest categories menu 
-      showrestc(){
-       document.querySelector('#showrc').classList.add('show')
-     },
-      hiderestc(){
-       document.querySelector('#showrc').classList.remove('show')
-     }
+     
    }
    ,
     computed:{
-      /*get all categories in store */
-      allcategories(){
-        return this.$store.state.categories;
-      },
-      /* get all products in the store */
-      allproducts(){
-        return this.$store.state.products;
-      },
-      /* the current products shown in the page */
-      currentProducts :{
-          get(){
-              return this.$store.state.currentProducts;
-          },
-          set(value){
-              this.$store.state.currentProducts = value;
-          }
-      }
+     
       
     }
 }
@@ -121,7 +80,6 @@ export default {
 $(document).ready(function(){
   $('.dropdown-submenu a.test').on("click", function(e){
    
-    console.log('yeyyy')
     $(this).siblings('ul').addClass('show');
    
   });

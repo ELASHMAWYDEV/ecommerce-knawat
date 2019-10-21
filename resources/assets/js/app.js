@@ -16,7 +16,8 @@ Vue.use(Vuex)
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('home', require('./components/home/Home.vue'));
+Vue.component('catalogue', require('./components/home/Catalogue.vue'));
 Vue.component('products', require('./components/Products.vue'));
 Vue.component('categories', require('./components/Categories.vue'));
 Vue.component('categoriessm', require('./components/Categoriessm.vue'));
@@ -27,6 +28,8 @@ Vue.component('currencylg', require('./components/CurrencyLg.vue'));
 Vue.component('searchproducts',require('./components/Search.vue'));
 Vue.component('sortproducts',require('./components/SortProducts.vue'))
 Vue.component('sizefilter',require('./components/SizeFilter.vue'));
+Vue.component('bestsellers',require('./components/BestSellers.vue'));
+Vue.component('popularcategories',require('./components/PopularCategories.vue'));
 Vue.component('productdetails',require('./components/ProductDetails.vue'));
 Vue.component('relatedproducts',require('./components/RelatedProducts.vue'));
 //login and register modals 
@@ -39,6 +42,7 @@ Vue.component('cartitemscount',require('./components/user/CartCount.vue'));
 const store = new Vuex.Store({
     state:{
       categories :[],
+      activeCategory:'',
       products :[],
       currentProducts :[],
       currencies :{},
@@ -55,6 +59,7 @@ const store = new Vuex.Store({
       authId:null,
       favoritedProducts : [],
       cartItems:[],
+     
     }
 })
 
