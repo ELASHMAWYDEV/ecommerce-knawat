@@ -81,6 +81,12 @@
 }
 }
 .td-color{    color: #31363a !important;}
+tbody tr td:not(:first-of-type){    padding-top: 1.9rem;}
+.delete-cart-item{    font-size: 19px;
+    text-decoration: none;}
+.qty-box-lg{
+        width: 72px;margin: -7px auto;    margin: -5px auto;
+    }
 </style>
 <template>
     <div class="container p-4 bg-white mt-3 mb-3 border">
@@ -128,7 +134,8 @@
                                             <div class="input-group">
                                                 <input type="number"  name="quantity" class="form-control input-number" 
                                                 :max="getMaxQuantity(p)" min="1"
-                                                :value="getCommandedQuantity(p.sku)">
+                                                :value="getCommandedQuantity(p.sku)"
+                                                @change="getItemTotal(p,$event)">
                                             </div>
                                         </div>
                                     </div>
@@ -137,25 +144,27 @@
                                             {{currencySign}}{{ (currencyRate * (p.variations[0].sale_price)).toFixed(2)}}
                                         </h5></div>
                                     <div class="col-xs-3">
-                                        <h5 class="td-color"><a href="#" class="icon">X</a></h5></div>
+                                        <h5 class="td-color"><a href="#" @click="removecartItem(p.sku)" class="icon delete-cart-item">X</a></h5></div>
                                 </div>
                             </td>
                             <td>
                                 <h5 class="td-color">{{currencySign}}{{ (currencyRate * (p.variations[0].sale_price)).toFixed(2)}}</h5></td>
                             <td>
-                                <div class="qty-box">
+                                <div class="qty-box qty-box-lg" >
                                     <div class="input-group" :id="'lg-quantity'+key">
                                         <input type="number"  name="quantity"
                                          class="form-control lg-quantity"
                                          :max="getMaxQuantity(p)" min="1"
                                          :value="getCommandedQuantity(p.sku)"
-                                         :datasku="p.sku">
+                                         @change="getItemTotal(p,$event)">
                                     </div>
                                 </div>
                             </td>
-                            <td><a href="#" class="icon">X</a></td>
+                            <td><a @click="removecartItem(p.sku)" href="#" class="icon delte-cart-item">X</a></td>
                             <td>
-                                <h5 class="td-color" :datasku="p.sku"></h5>
+                                <h5 class="td-color singleitemtotal " :datasku="'t-'+p.sku">
+                                 {{currencySign}}{{ (((currencyRate * (p.variations[0].sale_price)).toFixed(2)) * getCommandedQuantity(p.sku)).toFixed(2) }}
+                                </h5>
                             </td>
                         </tr>
                     </tbody>
@@ -164,7 +173,7 @@
             </div>
             <div class="col-sm-3 border cart-total-info mt-2 mt-sm-0" >
                <h5 class="mb-3 font-weight-normal">Your Cart Total</h5>
-               <h3>USD <sup>$</sup>12</h3>
+               <h3>USD <sup>$</sup> {{totaltopay}}</h3>
                <button type="button" class="btn checkout-btn text-white">Secure Checkout</button>
             </div>
         </div>
@@ -177,7 +186,9 @@ export default {
     data(){
         return {
             products:[],
-            loading:false
+            loading:false,
+            totaltopay:0,
+            realItemsToal:[]
         }
     },
     mixins:[headerMixins,currencyMixins],
@@ -193,10 +204,6 @@ export default {
         cartItems(){
             return this.$store.state.cartItems;
         },
-    
-    },
-    mounted(){
-       this.watchandsettotal();
     
     },
     methods:{
@@ -217,13 +224,11 @@ export default {
                         
                     }, 2000);
                     this.loading = false
-                    this.getItemsTotal();
+                    //calculate the initil commanded price when adding item to cart
+                    this.initItemsTotal();
                     })).catch(errors => {
                     // react on errors.
-                    swal.fire('there is error in fetching products')
-                        setTimeout(() => {
-                        
-                    }, 2000);
+                       console.log(errors)
                     
                     })
             
@@ -267,32 +272,42 @@ export default {
           getCommandedQuantity(sku){
               return this.cartItems.filter(item => item.sku == sku)[0].quantity
           },
-          watchandsettotal(){
-             $('#lg-quantity0').ready(function(){
-                 console.log("im ready amine")
-                 console.log($(this).val())
-             })
-          
-          },
-          getItemsTotal(){
-               
-               console.log("called")
-               let currentquantity=0;let price =0;let priceTotal = 0;
-                document.querySelectorAll('.lg-quantity').forEach(item =>{
-                    console.log("i enter"+item)
-                    currentquantity =item.value;
-                    console.log("currentquantity"+currentquantity)
-                    price= this.products.filter(p => p.sku == item.getAttribute('datasku'))[0].variations[0].sale_price;
-                    console.log("currentquantity"+price)
-                    priceTotal = ((currencyRate * price).toFixed(2)) * currentquantity;
-                    console.log("pricetotal"+priceTotal)
-                })
-                if( document.querySelectorAll('.lg-quantity').length ==0){
-                setTimeout( getItemsTotal(), 200 );
-                }
+          getItemTotal(p,event){
+            let price = (this.currencyRate * (p.variations[0].sale_price)).toFixed(2);
+            let demandedQte = event.target.value;
+            //change the commanded quantity in cartitem
+            this.cartItems.filter(item => item.sku == p.sku)[0].quantity = demandedQte;
             
+            let total = (price * demandedQte).toFixed(2);
+           
+            document.querySelectorAll(".singleitemtotal[datasku = 't-"+p.sku+"']")[0].textContent = this.currencySign+""+total;
+            //here we set the real item total in real items total array
+            let prod = this.realItemsToal.filter(item => item.sku == p.sku)[0];
+          
+            prod.total = total;
+            
+            //reset the total price to pay
+            this.setTotalToPay();
+            
+          },
+          //calculate the initil commanded price when adding item to cart
+          initItemsTotal(){
+              let itemtotal = 0;
+              this.products.forEach(p =>{
+                 itemtotal = (((this.currencyRate * (p.variations[0].sale_price)).toFixed(2)) * this.getCommandedQuantity(p.sku)).toFixed(2)
+                 this.realItemsToal.push({
+                     sku:p.sku,
+                     total:itemtotal,
+                 })
+              })
+              //set the total price to pay 
+              this.setTotalToPay();
+          },
+          setTotalToPay(){
+              this.totaltopay = this.realItemsToal
+              .map(item => item.total)
+              .reduce((sum,curr) => +sum + +curr ,0).toFixed(2);
           }
-
     }
 }
 </script>
