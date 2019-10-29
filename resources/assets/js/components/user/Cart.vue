@@ -133,7 +133,7 @@ tbody tr td:not(:first-of-type){    padding-top: 1.9rem;}
                                         <div class="qty-box">
                                             <div class="input-group">
                                                 <input type="number"  name="quantity" class="form-control input-number" 
-                                                :max="getMaxQuantity(p)" min="1"
+                                                :max="getMaxQuantity(p)" min="0"
                                                 :value="getCommandedQuantity(p.sku)"
                                                 @change="getItemTotal(p,$event)">
                                             </div>
@@ -154,7 +154,7 @@ tbody tr td:not(:first-of-type){    padding-top: 1.9rem;}
                                     <div class="input-group" :id="'lg-quantity'+key">
                                         <input type="number"  name="quantity"
                                          class="form-control lg-quantity"
-                                         :max="getMaxQuantity(p)" min="1"
+                                         :max="getMaxQuantity(p)" min="0"
                                          :value="getCommandedQuantity(p.sku)"
                                          @change="getItemTotal(p,$event)">
                                     </div>
@@ -277,7 +277,7 @@ export default {
             let demandedQte = event.target.value;
             //change the commanded quantity in cartitem
             this.cartItems.filter(item => item.sku == p.sku)[0].quantity = demandedQte;
-            
+
             let total = (price * demandedQte).toFixed(2);
            
             document.querySelectorAll(".singleitemtotal[datasku = 't-"+p.sku+"']")[0].textContent = this.currencySign+""+total;

@@ -86,9 +86,9 @@ export default{
    mixins:[mixins],
    created(){
           //set the authenticated id
-          this.setAuthId();
+          this.setAuthId(); 
           let sessionproducts = sessionStorage.getItem('products');
-           if((sessionproducts != null) && sessionproducts != "undifined" ){
+           if((sessionproducts != null) && sessionproducts != "undefined" ){
             
               //this.products =  sessionproducts;
               this.$store.state.products = JSON.parse(sessionproducts)

@@ -25,6 +25,7 @@ Route::group(['as'=>'frontEnd.','middleware'=>'web'],function(){
     Route::get('/get10Products', 'HomeController@get10Products');
     Route::get('/getProducts', 'HomeController@getProducts');
     Route::get('/getProductBySku/{sku}', 'HomeController@getProductBySku');
+    Route::get('/deleteProductBySku/{sku}', 'HomeController@getProductBySku');
     //the product page
     Route::get('/products', 'HomeController@products')->name('products');
     Route::get('/products/{sku}', 'HomeController@productDetails')->name('productDetails');
@@ -43,6 +44,10 @@ Route::group(['as'=>'frontEnd.','middleware'=>'web'],function(){
     })->name('email.activation');
     Route::get('/verifyEmail/{emailtokenv}','UserController@verifyEmailg')->name('email.verifyg');
     Route::post('/verifyEmail','UserController@verifyEmail')->name('email.verify');
+    //the static pages 
+    Route::get('/about_us','HomeController@about_us')->name('about_us');
+    Route::get('/terms','HomeController@terms')->name('terms');
+    Route::get('/faq','HomeController@faq')->name('faq');
 });
 Route::group(['as'=>'user.','middleware'=>'auth'],function(){
    // favorite operations 
@@ -59,6 +64,9 @@ Route::get('json-api', 'ApiController@index');
 
 
 Route::group(['prefix' => 'admin','as'=>'admin.'], function () {
+
+  Route::get('/', 'AdminController@index')->name('index');
+  Route::get('/home', 'AdminController@index')->name('index');
   Route::get('/login', 'AdminAuth\LoginController@showLoginForm')->name('login');
   Route::post('/login', 'AdminAuth\LoginController@login');
   Route::post('/logout', 'AdminAuth\LoginController@logout')->name('logout');
@@ -71,8 +79,20 @@ Route::group(['prefix' => 'admin','as'=>'admin.'], function () {
   Route::get('/password/reset', 'AdminAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
   Route::get('/password/reset/{token}', 'AdminAuth\ResetPasswordController@showResetForm');
   // in the admin controler 
+  Route::get('/settings','AdminController@settingsPage')->name('settings');
+  Route::get('/users','AdminController@usersPage')->name('users');
+  Route::get('/block_user/{user_id}','AdminController@block_user')->name('block_user');
+  Route::get('/unblock_user/{user_id}','AdminController@unblock_user')->name('unblock_user');
   Route::post('/updateSiteSettings','AdminController@updateSiteSettings')->name('updateSiteSettings');
-
+  Route::post('/updateAdmin','AdminController@updateSiteSettings')->name('update_admin');
+  //the products page 
+  Route::get('/products','AdminController@productsPage')->name('products');
+  Route::get('/getFavoritedproducts','AdminController@getFavoritedproducts')->name('getFavoritedproducts');
+  //the tickets page
+  Route::get('/tickets','AdminController@tickets')->name('tickets'); 
+  //the static pages
+  Route::get('/pages/{slug}','AdminController@staticpages')->name('pages');
+  Route::post('/updatePage/{slug}','AdminController@updatePage')->name('updatePage');
 });
 
 

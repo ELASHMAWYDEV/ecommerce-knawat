@@ -6,18 +6,18 @@
                     <h5>Quick links</h5>
                     <ul class="list-unstyled quick-links">
                         <li><a href="/"><i class="fa fa-angle-double-right"></i>Home</a></li>
-                        <li><a href=""><i class="fa fa-angle-double-right"></i>About</a></li>
-                        <li><a href=""><i class="fa fa-angle-double-right"></i>Services</a></li>
-                        <li><a href=""><i class="fa fa-angle-double-right"></i>Offers</a></li>
+                        <li><a href="{{route('frontEnd.about_us')}}"><i class="fa fa-angle-double-right"></i>About</a></li>
+                        <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Services</a></li>
+                        <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Offers</a></li>
                     </ul>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4">
                     <h5>Additional links</h5>
                     <ul class="list-unstyled quick-links">
-                        <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Terms of use</a></li>
-                        <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Terms and Conditions  </a></li>
-                        <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>FAQ</a></li>
-                        <li><a href=""><i class="fa fa-angle-double-right"></i>Contact Us</a></li>
+                        <li><a href="{{route('frontEnd.about_us')}}"><i class="fa fa-angle-double-right"></i>About Us</a></li>
+                        <li><a href="{{route('frontEnd.terms')}}"><i class="fa fa-angle-double-right"></i>Terms and Conditions  </a></li>
+                        <li><a href="{{route('frontEnd.faq')}}"><i class="fa fa-angle-double-right"></i>FAQ</a></li>
+                        {{-- <li><a href="{{route('frontEnd.terms')}}"><i class="fa fa-angle-double-right"></i>Contact Us</a></li> --}}
 
                     </ul>
                 </div>

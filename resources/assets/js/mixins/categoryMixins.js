@@ -5,7 +5,7 @@ export default {
      setCategories(){
         this.loading = true;
      let categories =sessionStorage.getItem('categories');
-     if(categories != null && categories != "undifined"){
+     if(categories != null && categories != "undefined"){
         
        console.log("there is categories")
        this.categories = JSON.parse(categories).splice(1,10);

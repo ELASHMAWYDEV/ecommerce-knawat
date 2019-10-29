@@ -1,5 +1,5 @@
 <?php
-
+/* 
 Route::get('/home', function () {
     $users[] = Auth::user();
     $users[] = Auth::guard()->user();
@@ -8,5 +8,5 @@ Route::get('/home', function () {
     //dd($users);
 
     return view('admin.home');
-})->name('home');
+})->name('home'); */
 

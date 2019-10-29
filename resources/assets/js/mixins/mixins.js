@@ -27,7 +27,7 @@ export default {
             setTimeout(() => {
               this.loading = false;
             }, 3000);
-            if(res.data.products == "undifined"){
+            if(res.data.products == "undefined"){
                  this.fetchfirstProducts();
             }else{
             sessionStorage.setItem('products',JSON.stringify(res.data.products))

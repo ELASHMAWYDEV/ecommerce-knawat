@@ -7,6 +7,7 @@ use App\Util\Products;
 use App\Cart;
 use auth;
 use Session;
+use App\Pages;
 class HomeController extends Controller
 {
     /**
@@ -61,6 +62,9 @@ class HomeController extends Controller
     public function getProductBySku($sku){
         return response()->json($this->p->getProductBySku($sku));
     }
+    public function deleteProductBySku($sku){
+        return response()->json($this->p->deleteProduct($sku));
+    }
     public function loginPage(){
         return view($this->lang().'.login');
     }
@@ -78,4 +82,19 @@ class HomeController extends Controller
         $incart =  $cartitem ? true : false;
         return view($this->lang().'.productDetails',compact('sku','incart'));
     }
+    public $pageContent = null;
+    //the static pages 
+    public function getPageBySlug($slug){
+        $pageContent =  Pages::findBySlug($slug);
+        return view($this->lang().'.staticpages',compact('pageContent'));
+     }
+     public function about_us(){ 
+          return  $this->getPageBySlug('about_us');
+     }
+     public function terms(){ 
+         return  $this->getPageBySlug('terms');
+     }
+     public function faq(){ 
+         return  $this->getPageBySlug('faq');
+        }
 }
