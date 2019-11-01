@@ -48,6 +48,9 @@ Route::group(['as'=>'frontEnd.','middleware'=>'web'],function(){
     Route::get('/about_us','HomeController@about_us')->name('about_us');
     Route::get('/terms','HomeController@terms')->name('terms');
     Route::get('/faq','HomeController@faq')->name('faq');
+
+    //the dashboard 
+    Route::get('/dashboard','HomeController@dashboard')->name('dashboard');
 });
 Route::group(['as'=>'user.','middleware'=>'auth'],function(){
    // favorite operations 
@@ -90,6 +93,8 @@ Route::group(['prefix' => 'admin','as'=>'admin.'], function () {
   Route::get('/getFavoritedproducts','AdminController@getFavoritedproducts')->name('getFavoritedproducts');
   //the tickets page
   Route::get('/tickets','AdminController@tickets')->name('tickets'); 
+  Route::get('/alltickets','AdminController@gettickets')->name('alltickets'); 
+  Route::get('/tickets/{id}','AdminController@showTicket')->name('showTicket'); 
   //the static pages
   Route::get('/pages/{slug}','AdminController@staticpages')->name('pages');
   Route::post('/updatePage/{slug}','AdminController@updatePage')->name('updatePage');

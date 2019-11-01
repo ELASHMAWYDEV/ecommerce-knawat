@@ -96,5 +96,8 @@ class HomeController extends Controller
      }
      public function faq(){ 
          return  $this->getPageBySlug('faq');
-        }
+     }
+     public function dashboard(){
+         return  view($this->lang().'.dashboard.index');
+     }
 }

@@ -28,7 +28,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-
+    public function fullName(){
+       return $this->firstname.' '.$this->lastname;
+    }
     public function favorites(){
         return $this->hasMany('App\Favorites');
     }

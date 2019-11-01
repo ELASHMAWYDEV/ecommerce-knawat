@@ -1772,7 +1772,7 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(19);
-module.exports = __webpack_require__(124);
+module.exports = __webpack_require__(127);
 
 
 /***/ }),
@@ -1826,6 +1826,7 @@ Vue.component('cartitemscount', __webpack_require__(118));
 
 //the admin part 
 Vue.component('productstable', __webpack_require__(121));
+Vue.component('tickets', __webpack_require__(124));
 
 var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
   state: {
@@ -57770,6 +57771,325 @@ if (false) {
 
 /***/ }),
 /* 124 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(125)
+/* template */
+var __vue_template__ = __webpack_require__(126)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/admin/Tickets.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7988a800", Component.options)
+  } else {
+    hotAPI.reload("data-v-7988a800", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 125 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            tickets: [],
+            filteredTickets: [],
+            searchTicket: ''
+        };
+    },
+    mounted: function mounted() {
+        this.getTickets();
+    },
+
+    watch: {
+        searchTicket: function searchTicket(query) {
+            if (query.toString().length == 0) {
+                return this.filteredTickets = this.tickets;
+            }
+            this.filteredTickets = this.tickets.filter(function (t) {
+                return t.title.includes(query) || t.user.firstname.includes(query) || t.user.lastname.includes(query);
+            });
+        }
+    },
+    methods: {
+        getTickets: function getTickets() {
+            var _this = this;
+
+            axios.get('alltickets').then(function (res) {
+                _this.tickets = res.data;
+                _this.filteredTickets = res.data;
+            });
+        },
+        paginateTickets: function paginateTickets($type) {}
+    }
+
+});
+
+/***/ }),
+/* 126 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card" }, [
+    _c("div", { staticClass: "card-header" }, [
+      _c("h3", { staticClass: "card-title" }, [_vm._v("قائمة التذاكر")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-tools" }, [
+        _c(
+          "div",
+          {
+            staticClass: "input-group input-group-sm",
+            staticStyle: { width: "150px" }
+          },
+          [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.searchTicket,
+                  expression: "searchTicket"
+                }
+              ],
+              staticClass: "form-control float-right",
+              attrs: {
+                type: "text",
+                name: "table_search",
+                placeholder: "بحث بالعنوان"
+              },
+              domProps: { value: _vm.searchTicket },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.searchTicket = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm._m(0)
+          ]
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-body" }, [
+      _c("table", { staticClass: "table table-bordered" }, [
+        _c(
+          "tbody",
+          [
+            _vm._m(1),
+            _vm._v(" "),
+            _vm._l(_vm.filteredTickets, function(t, key) {
+              return _c("tr", { key: key }, [
+                _c("td", [_vm._v(_vm._s(key))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(t.title))]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm._v(
+                    "\n                                " +
+                      _vm._s(t.user.firstname) +
+                      " " +
+                      _vm._s(t.user.firstname) +
+                      "\n                              "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(t.type == "r" ? "استفسار" : "مشكلة"))]),
+                _vm._v(" "),
+                _c("td", [
+                  t.state == 0
+                    ? _c("span", { staticClass: "badge bg-danger p-1" }, [
+                        _vm._v("مغلق")
+                      ])
+                    : _c("span", { staticClass: "badge bg-success p-1" }, [
+                        _vm._v("مفتوح")
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("a", { attrs: { href: "tickets/" + t.id } }, [
+                    _c("i", { staticClass: "fa fa-eye ml-2 " })
+                  ])
+                ])
+              ])
+            })
+          ],
+          2
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-footer clearfix" }, [
+      _c("ul", { staticClass: "pagination pagination-sm m-0 float-right" }, [
+        _c("li", { staticClass: "page-item" }, [
+          _c(
+            "a",
+            {
+              staticClass: "page-link",
+              on: {
+                click: function($event) {
+                  return _vm.paginateTickets("prev")
+                }
+              }
+            },
+            [_vm._v("«")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "page-item" }, [
+          _c(
+            "a",
+            {
+              staticClass: "page-link",
+              on: {
+                click: function($event) {
+                  return _vm.paginateTickets("next")
+                }
+              }
+            },
+            [_vm._v("»")]
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-append" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-default", attrs: { type: "submit" } },
+        [_c("i", { staticClass: "fa fa-search" })]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", { staticStyle: { width: "10px" } }, [_vm._v("#")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("العنوان")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("العميل")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("النوع")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("الحالة")]),
+      _vm._v(" "),
+      _c("th")
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-7988a800", module.exports)
+  }
+}
+
+/***/ }),
+/* 127 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

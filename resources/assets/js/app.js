@@ -42,6 +42,7 @@ Vue.component('cartitemscount',require('./components/user/CartCount.vue'));
 
 //the admin part 
 Vue.component('productstable',require('./components/admin/ProductsTable.vue'));
+Vue.component('tickets',require('./components/admin/Tickets.vue'));
 
 const store = new Vuex.Store({
     state:{

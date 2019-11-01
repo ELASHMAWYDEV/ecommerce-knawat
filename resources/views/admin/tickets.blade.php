@@ -62,7 +62,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body " style="overflow-x:scroll"> 
-                
+                    <tickets></tickets>
                
             </div>
 
@@ -76,16 +76,6 @@
              
               
 @section('js')
-<script src='https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js' referrerpolicy="origin"></script>
 
-
-<script>
- tinymce.init({
-    selector: '#des1'
-  });
- tinymce.init({
-    selector: '#des2'
-  });
-</script>
 @endsection
 @endsection

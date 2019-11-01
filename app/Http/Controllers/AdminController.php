@@ -114,9 +114,18 @@ class AdminController extends Controller
     }
     //the tickets page
     public function tickets(){
-        $tickets =  Ticket::latest();
+        $tickets =  Ticket::latest()->get();
         $settings = $this->settings();
         return view('admin.tickets',compact('tickets','settings'));
     }
+    //single page ticket 
+    public function showTicket($id){
+      $ticket =  Ticket::find($id);$settings = $this->settings();
+      return view('admin.singleTicket',compact('ticket','settings'));
+    }
+    public function gettickets(){
+        return response()->json(Ticket::with('user')->latest()->get());
+    }
+
     
 }
