@@ -20,14 +20,16 @@
             
     <!-- page wapper-->
     <div class="columns-container p-3 bg-white" style="box-shadow: 0px 0px 8px 0 #c1b3b3;">
-            <div class="container" id="columns">
+            <div class="container text-center" id="columns">
                
                 <!-- page heading-->
-                <h3 class="page-heading">
+                <h4 class="page-heading">
                     <span class="page-heading-title2">Authentication</span>
-                </h3>
+                </h4>
                 <!-- ../page heading-->
                 <div class="page-content">
+                    <button class="btn btn-primary"  data-target="#login-modal" data-toggle="modal">Login</button>
+                    <!--
                     <div class="row m-0">
                         <div class="col-sm-6 border">
                             <div class="box-authentication">
@@ -147,6 +149,7 @@
                         </div>
                         
                     </div>
+                    -->
                 </div>
             </div>
     </div>

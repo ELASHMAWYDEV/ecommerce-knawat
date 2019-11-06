@@ -42,4 +42,7 @@ class User extends Authenticatable
     public function tickets(){
         return $this->hasMany('App\Ticket');
     }
+    public function billingInfo(){
+        return $this->hasOne('\App\BillingInfo','user_id');
+    }
 }

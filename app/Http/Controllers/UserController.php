@@ -6,9 +6,13 @@ use Session;
 use App\User;
 use App\Favorites;
 use App\Cart;
+use App\BillingInfo;
+use App\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Validator;
+use Auth;
+use App\Reply;
 class UserController extends Controller
 {
     /**
@@ -65,6 +69,13 @@ class UserController extends Controller
             'address'=>$request->address,
             'password'=>bcrypt($request->password)
         ]);
+        $billinginfo = BillingInfo::create([
+            'user_id'=>$user->id,
+            'address_line1'=>'',
+            'address_line2'=>'',
+            'city'=>'',
+            'country'=>'',
+        ]);
         //admin notification
         Mail::send('mail.newRegistration',['user'=>$user,'site_name_e'=>'trisoline ecommerce'],function($message) use ($user){
             $message->to('ayatir04@gmail.com');
@@ -80,7 +91,34 @@ class UserController extends Controller
     //return the errors messages 
     return response()->json(['errors'=>$validator->errors()->all()]);
     }
-    public function verifyEmail(Request $request){
+  public function update(Request $request)
+    {
+        //dd($request->all());
+        $validator = Validator::make($request->all(), [
+           'firstname'=>'string|max:200',
+           'lastname'=>'string|max:200',
+           'phone'=>'required',
+           'address'=>'string|required',
+           'password' => 'required|string|min:6|confirmed',
+        ]);
+        if ($validator->passes()) {
+        
+      
+        $user = User::find($request->userid);
+        
+            $user->firstname = $request->firstname;
+            $user->lastname =$request->lastname;
+            $user->phone=$request->phone;
+            $user->address=$request->address;
+            $user->password=bcrypt($request->password);
+            $user->save();
+    
+       return response()->json(['success'=>'success']);
+       }
+    //return the errors messages 
+    return response()->json(['errors'=>$validator->errors()->all()]);
+    }
+  public function verifyEmail(Request $request){
        
       $this->validate($request,[
           'emailtokenv'=>'required'
@@ -120,7 +158,35 @@ class UserController extends Controller
       }
       return view($this->lang().'.emailIsVerified');
     }
-  
+    public function updatebillinginfo(Request $request){
+        if($request->image != null){
+        $imageName = time().'.'.$request->image->getClientOriginalExtension();
+        $request->image->move(public_path('profile_img'), $imageName);
+        }
+      $validator = Validator::make($request->all(), [
+        'address_line1'=>'string',
+        'address_line2'=>'string',
+        'city'=>'string|required',
+        'country'=>'string|required',
+      ]);
+      if ($validator->passes()) {
+
+
+        $billinginfo = BillingInfo::where('user_id',Auth::id())->first();
+        if($request->image != null){
+          $billinginfo->img = $imageName;
+        }
+        $billinginfo->address_line1 = $request->address_line1;
+        $billinginfo->address_line2 = $request->address_line2;
+        $billinginfo->city = $request->city;
+        $billinginfo->country = $request->country;
+        $billinginfo->save();
+
+      return response()->json(['success'=>'success']);
+      }
+        //return the errors messages 
+        return response()->json(['errors'=>$validator->errors()->all()]);
+    }
     /**
      * Display the specified resource.
      *
@@ -143,17 +209,6 @@ class UserController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -240,5 +295,48 @@ class UserController extends Controller
       $cart = Cart::where('sku',$id)->first();
       $cart->delete();
       return response()->json(['msg'=>'removed from cart successfuly']);
+    }
+    public function settings(){
+      return view($this->lang().'.dashboard.settings');
+    }
+    public function tickets(){
+      return view($this->lang().'.dashboard.tickets');
+    }
+     //single page ticket 
+    public function showTicket($id){
+      $ticket =  Ticket::find($id);
+      return view($this->lang().'.dashboard.singleTicket',compact('ticket'));
+    }
+    //get the user tickets
+    public function mytickets(){
+      return response()->json(Ticket::where('user_id',Auth::id())->with('user')->latest()->get());
+    }
+    public function add_ticket_reply($id,Request $request){
+     
+      $this->validate($request,[
+        'user_id'=>'required',
+        'content'=>'string|required',
+      ]);
+     
+      
+      $re = Reply::create([
+        'user_id'=>$request->user_id,
+        'ticket_id'=>$id,
+        'content'=>$request->content,
+        
+      ]);
+      if($request->addfile != null){
+        $fileName = time().'.'.$request->addfile->getClientOriginalExtension();
+        $request->addfile->move(public_path('replies_files'), $fileName);
+        $request->exfile = $fileName;
+        $request->save();
+      }
+      return back();
+    }
+    public function userLatestReplies(){
+      $ticket = Ticket::where('user_id',Auth::id())->latest()->first();
+      $user = $ticket->user->billingInfo->img;
+      return response()->json([
+        'replies'=>$ticket->replies->take(3),'user_img'=>$user]);
     }
 }

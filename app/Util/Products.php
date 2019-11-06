@@ -38,7 +38,10 @@ class Products {
     public function getCategories(){
         return $this->mp->get('/catalog/categories');
     }
-
+    //payments
+    public function payments($id){
+        return $this->mp->post('payments/'.$id);
+    }
     //orders 
     public function getOrders(){
         return $this->mp->get('/orders');

@@ -8,6 +8,7 @@ use App\Cart;
 use auth;
 use Session;
 use App\Pages;
+
 class HomeController extends Controller
 {
     /**
@@ -65,6 +66,10 @@ class HomeController extends Controller
     public function deleteProductBySku($sku){
         return response()->json($this->p->deleteProduct($sku));
     }
+    //payments 
+    public function payments($sku){
+        dd($this->p->payments($sku));
+    }
     public function loginPage(){
         return view($this->lang().'.login');
     }
@@ -99,5 +104,12 @@ class HomeController extends Controller
      }
      public function dashboard(){
          return  view($this->lang().'.dashboard.index');
+     }
+     public function userinfo(){
+       return Auth::user();
+     }
+     public function userBillinginfo(){
+         
+         return Auth::user()->billingInfo()->first();
      }
 }

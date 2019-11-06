@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Session;
-use App\Settings;
-use App\User;
-use App\Favorites;
-use App\Pages;
-use App\Ticket;
 use Auth;
+use Session;
+use App\User;
+use App\Pages;
+use App\Reply;
+use App\Ticket;
+use App\Settings;
+use App\Favorites;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
+
 class AdminController extends Controller
 {
     public function __construct(){
@@ -126,6 +130,49 @@ class AdminController extends Controller
     public function gettickets(){
         return response()->json(Ticket::with('user')->latest()->get());
     }
-
+    public function add_ticket_reply($id,Request $request){
+     
+        $this->validate($request,[
+          'user_id'=>'required',
+          'content'=>'string|required',
+        ]);
+      
+        
+        $re = Reply::create([
+          'user_id'=>$request->user_id,
+          'ticket_id'=>$id,
+          'content'=>$request->content,
+          'from_admin'=>true
+        ]);
+        if($request->addfile != null){
+          $fileName = time().'.'.$request->addfile->getClientOriginalExtension();
+          $request->addfile->move(public_path('replies_files'), $fileName);
+          $re->exfile = $fileName;
+          $re->save();
+        }
+        if($request->notify){
+            
+             //admin notification
+            $user = User::find($request->user_id);
+            $ticket_id = $request->id;
+        Mail::send('mail.newTicketReply',['user'=>$user,'reply'=>$re,'site_name_e'=>'trisoline ecommerce'],function($message) use ($user){
+            $message->to('ayatir04@gmail.com');
+            $message->subject(' رد جديد على التدكرة');
+       });
+        }
+        return back();
+    }
+    public function close_ticket($id){
+       $ticket = Ticket::find($id);
+       $ticket->state = 0;
+       $ticket->save();
+       return response()->json(['success'=>'1']);
+    }
+    public function open_ticket($id){
+       $ticket = Ticket::find($id);
+       $ticket->state = 1;
+       $ticket->save();
+       return response()->json(['success'=>'1']);
+    }
     
 }

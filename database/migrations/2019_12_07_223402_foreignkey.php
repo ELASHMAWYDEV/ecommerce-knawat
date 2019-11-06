@@ -37,6 +37,40 @@ class Foreignkey extends Migration
             ->onUpdate('cascade')
             ->onDelete('cascade');
         });
+        Schema::table('billing_infos', function (Blueprint $table) {
+            
+            $table->foreign('user_id')
+            ->references('id')
+            ->on('users')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+        });
+      
+
+        Schema::table('replies', function (Blueprint $table) {
+            
+            $table->foreign('user_id')
+            ->references('id')
+            ->on('users')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+        });
+        Schema::table('replies', function (Blueprint $table) {
+            
+            $table->foreign('ticket_id')
+            ->references('id')
+            ->on('tickets')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+        });
+        Schema::table('tickets', function (Blueprint $table) {
+            
+            $table->foreign('user_id')
+            ->references('id')
+            ->on('users')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+        });
     }
 
     /**

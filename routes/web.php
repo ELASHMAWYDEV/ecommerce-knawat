@@ -37,6 +37,7 @@ Route::group(['as'=>'frontEnd.','middleware'=>'web'],function(){
     Route::get('/favorites','UserController@favorites_page')->name('user.favorites');
     //get the cart page
     Route::get('/cart','UserController@cart_page')->name('user.cart');
+    Route::post('/payments/{sku}','HomeController@payments')->name('user.payments');
 
     //verify email
     Route::get('/verifyEmailpage',function(){
@@ -49,8 +50,7 @@ Route::group(['as'=>'frontEnd.','middleware'=>'web'],function(){
     Route::get('/terms','HomeController@terms')->name('terms');
     Route::get('/faq','HomeController@faq')->name('faq');
 
-    //the dashboard 
-    Route::get('/dashboard','HomeController@dashboard')->name('dashboard');
+    
 });
 Route::group(['as'=>'user.','middleware'=>'auth'],function(){
    // favorite operations 
@@ -61,7 +61,21 @@ Route::group(['as'=>'user.','middleware'=>'auth'],function(){
    Route::get('/users/{user_id}/cartItems','UserController@getCartItems')->name('getCartItems');
    Route::post('/user/carItems/add','UserController@addCartItem')->name('addCartItem');
    Route::get('/user/carItems/{id}/delete','UserController@removeCartItem')->name('removeCartItem');
-   
+   //the dashboard 
+   Route::get('/userinfo','HomeController@userinfo')->name('userinfo');
+   Route::get('/dashboard','HomeController@dashboard')->name('dashboard');
+   Route::get('/settings','UserController@settings')->name('settings');
+   Route::post('/user/update','UserController@update')->name('update');
+   Route::get('/userBillinginfo','HomeController@userBillinginfo')->name('userBillinginfo');
+   Route::post('/billinginfo/update','UserController@updatebillinginfo')->name('updatebillinginfo');
+   Route::get('/tickets','UserController@tickets')->name('tickets');
+   Route::get('/mytickets','UserController@mytickets')->name('mytickets');
+   Route::get('/tickets/{id}','UserController@showTicket')->name('showTicket'); 
+   Route::post('/ticket/{id}/reply','UserController@add_ticket_reply')->name('add_ticket_reply'); 
+   Route::get('/userLatestReplies','UserController@userLatestReplies')->name('userLatestReplies'); 
+   Route::get('/tickets/{id}/close','AdminController@close_ticket')->name('close_ticket'); 
+   Route::get('/tickets/{id}/open','AdminController@open_ticket')->name('open_ticket'); 
+
 });
 Route::get('json-api', 'ApiController@index');
 
@@ -98,6 +112,8 @@ Route::group(['prefix' => 'admin','as'=>'admin.'], function () {
   //the static pages
   Route::get('/pages/{slug}','AdminController@staticpages')->name('pages');
   Route::post('/updatePage/{slug}','AdminController@updatePage')->name('updatePage');
+  Route::post('/ticket/{id}/reply','AdminController@add_ticket_reply')->name('add_ticket_reply'); 
+
 });
 
 

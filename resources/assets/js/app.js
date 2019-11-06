@@ -39,6 +39,10 @@ Vue.component('favorites',require('./components/user/Favorites.vue'));
 Vue.component('favoritescount',require('./components/user/FavoritesCount.vue'));
 Vue.component('cart',require('./components/user/cart.vue'));
 Vue.component('cartitemscount',require('./components/user/CartCount.vue'));
+//the dashboard part
+Vue.component('dashboardindex',require('./components/user/dashboard/Index.vue'));
+Vue.component('settings',require('./components/user/dashboard/Settings.vue'));
+Vue.component('authtickets',require('./components/user/dashboard/Tickets.vue'));
 
 //the admin part 
 Vue.component('productstable',require('./components/admin/ProductsTable.vue'));
@@ -72,6 +76,7 @@ const app = new Vue({
     el: '#app',
     store : store
 });
+
 const adminapp = new Vue({
     el: '#adminapp',
     store : store
