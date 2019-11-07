@@ -72,6 +72,7 @@ class UserController extends Controller
         $billinginfo = BillingInfo::create([
             'user_id'=>$user->id,
             'address_line1'=>'',
+            'img'=>'avatar.png',
             'address_line2'=>'',
             'city'=>'',
             'country'=>'',
