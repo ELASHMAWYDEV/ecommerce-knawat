@@ -1,7 +1,7 @@
 <template>
     <div class="p-2">
     <div class="row">
-          <div class="col-md-3 ">
+          <div class="col-md-3 pb-2">
                     
             <div class="media favorited-stat">
                 <i class="fa fa-cubes  fa-2x ml-4" aria-hidden="true"></i>
@@ -17,7 +17,7 @@
             </div>
             
           </div>
-          <div class="col-md-3 ">
+          <div class="col-md-3 pb-2">
                     
             <div class="media product-stat">
                 <i class="fa fa-cubes  fa-2x ml-4" aria-hidden="true"></i>
@@ -34,7 +34,7 @@
             </div>
             
           </div>
-          <div class="col-md-3 ">
+          <div class="col-md-3 pb-2">
             
             <div class="media message-stat">
                 <i class="fa fa-envelope fa-2x ml-4"></i>
@@ -47,7 +47,7 @@
             
           </div>
     </div>
-    <div class="latest-messages mt-3 p-3" v-if="latestreplies != null && latestreplies.length > 0">
+    <div class="latest-messages mt-3 p-3" v-if="this.latestreplies != null && this.latestreplies.length > 0">
         
             <div class="row bootstrap snippets">
                     <div class="col-md-offset-2 col-sm-12">
@@ -56,19 +56,17 @@
                                 
                                 <div class="panel-body">
                                     
-                                    <ul class="media-list">
+                                    <ul class="media-list pl-0">
                                         <h5>latest tickets replies</h5>
                                         <li class="media border" v-for="(r,k) in latestreplies" :key="k">
                                             <a href="#" class="pull-left">
-                                                <img v-if="(!r.from_admin) &&  userImg.length > 0" :src="'/profile_img/'+userImg" alt="user_img" class="img-circle">
-                                                <img v-else src="/profile_img/admin.png" alt="admin icon" class="img-circle">
+                                                <img  src="/profile_img/admin.png" alt="admin icon" class="img-circle">
                                             </a>
                                             <div class="media-body">
                                                 <span class="text-muted pull-right">
                                                     <small class="text-muted font-weight-bold" >{{getFullDate(r.created_at)}}</small>
                                                 </span>
-                                                <strong v-if="(!r.from_admin)" class="text-success">@you</strong>
-                                                <strong v-else class="text-success">@support</strong>
+                                                <strong  class="text-success">@support</strong>
                                                 <p>
                                                     {{r.content}} <a :href="'/tickets/'+r.ticket_id">Consult </a>.
                                                 </p>
@@ -92,7 +90,6 @@ export default {
             prloading : true,
             pfloading :true,
             latestreplies:null,
-            userImg : ''
         }
     },
     mounted(){
@@ -116,7 +113,6 @@ export default {
           axios.get('/userLatestReplies')
           .then(res => {
               this.latestreplies = res.data.replies;
-              this.userImg = res.data.img
           })
         },
         getFullDate(date){

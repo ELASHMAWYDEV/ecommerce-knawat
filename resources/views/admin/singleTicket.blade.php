@@ -246,7 +246,7 @@ $(document).on('click','.closeTicket',function(){
     }).then((result) => {
       if (result.value) {
         $.ajax({
-          url:'/tickets/'+ticket_id+'/close',
+          url:'/admin/tickets/'+ticket_id+'/close',
           method:'get',
           data:{},
           dataType:'json',
@@ -286,7 +286,7 @@ $(document).on('click','.openTicket',function(){
     }).then((result) => {
       if (result.value) {
         $.ajax({
-          url:'/tickets/'+ticket_id+'/open',
+          url:'/admin/tickets/'+ticket_id+'/open',
           method:'get',
           data:{},
           dataType:'json',

@@ -73,8 +73,8 @@ Route::group(['as'=>'user.','middleware'=>'auth'],function(){
    Route::get('/tickets/{id}','UserController@showTicket')->name('showTicket'); 
    Route::post('/ticket/{id}/reply','UserController@add_ticket_reply')->name('add_ticket_reply'); 
    Route::get('/userLatestReplies','UserController@userLatestReplies')->name('userLatestReplies'); 
-   Route::get('/tickets/{id}/close','AdminController@close_ticket')->name('close_ticket'); 
-   Route::get('/tickets/{id}/open','AdminController@open_ticket')->name('open_ticket'); 
+   Route::get('/create_ticket','UserController@addTicket')->name('addTicket'); 
+   Route::post('/createTicket','UserController@createTicket')->name('createTicket'); 
 
 });
 Route::get('json-api', 'ApiController@index');
@@ -113,7 +113,8 @@ Route::group(['prefix' => 'admin','as'=>'admin.'], function () {
   Route::get('/pages/{slug}','AdminController@staticpages')->name('pages');
   Route::post('/updatePage/{slug}','AdminController@updatePage')->name('updatePage');
   Route::post('/ticket/{id}/reply','AdminController@add_ticket_reply')->name('add_ticket_reply'); 
-
+ Route::get('/tickets/{id}/close','AdminController@close_ticket')->name('close_ticket'); 
+   Route::get('/tickets/{id}/open','AdminController@open_ticket')->name('open_ticket'); 
 });
 
 

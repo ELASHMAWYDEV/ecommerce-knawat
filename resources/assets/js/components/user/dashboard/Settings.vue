@@ -23,7 +23,7 @@
                             </div>
                             <div v-else class=" border w-100 p-3" style="box-shadow: rgb(193, 179, 179) 0px 0px 8px 0px;">
                                 <div class="box-authentication">
-                                    <h6 class="alert text-white bg-success text-center">Update account informations</h6>
+                                    <h6 class="alert text-white bg-success "><i class="fa fa-user-circle-o mr-2" aria-hidden="true"></i>Update account informations</h6>
 
                                     <form class="form-horizontal" method="POST" 
                                     id="regform" novalidate>
@@ -118,7 +118,7 @@
                             </div>
                             <div v-else class=" border w-100 p-3" style="box-shadow: rgb(193, 179, 179) 0px 0px 8px 0px;">
                                 <div class="box-authentication">
-                                    <h6 class="alert text-white bg-success text-center">Update Billing informations</h6>
+                                    <h6 class="alert text-white bg-success " style="    font-size: 0.9rem;"><i class="fa fa-credit-card mr-2" aria-hidden="true"></i>Update Billing informations</h6>
 
                                     <form class="form-horizontal" method="POST" 
                                     id="billingform" novalidate enctype="multipart/form-data">
@@ -150,7 +150,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="addressline2" class="  control-label" >Address Line 2</label>
+                                                <label for="addressline2" class="  control-label" >Address Line 2 (optional)</label>
                     
                                                 <div class=""> 
                                                     <input id="addressline2" type="text" class="form-control w-100" name="addressline2" v-model="address_line2"  >
@@ -160,7 +160,18 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="city" class="  control-label" >City</label>
+                                                    <label for="country" class=" control-label">Country (*)</label>
+                        
+                                                    <div class=""> 
+                                                        <select name="country" id="country" v-model="country" class="form-control">
+                                                            <option v-for="(opt,key) in countries" :key="key" :value="opt.name"
+                                                            :selected="countries.indexOf(this.country) > -1"
+                                                            >{{opt.name}}</option>
+                                                        </select>
+                                                    </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="city" class="  control-label" >City (*)</label>
                     
                                                 <div class=""> 
                                                     <input id="city" type="text" class="form-control w-100" name="city" v-model="city"  >
@@ -170,15 +181,28 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                    <label for="country" class=" control-label">Country</label>
-                        
-                                                    <div class=""> 
-                                                        <select name="country" id="country" v-model="country" class="form-control">
-                                                            <option v-for="(opt,key) in countries" :key="key" :value="opt.name"
-                                                            :selected="countries.indexOf(this.country) > -1"
-                                                            >{{opt.name}}</option>
-                                                        </select>
-                                                    </div>
+                                                <label for="state" class="  control-label" >State (optional)</label>
+                    
+                                                <div class=""> 
+                                                    <input id="state" type="text" class="form-control w-100" name="state" v-model="state"  >
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="company" class="  control-label" >Company (optional)</label>
+                    
+                                                <div class=""> 
+                                                    <input id="company" type="text" class="form-control w-100" name="company" v-model="company"  >
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="postcode" class="  control-label" >Post Code (*)</label>
+                    
+                                                <div class=""> 
+                                                    <input id="postcode" type="text" class="form-control w-100" name="postcode" v-model="postcode"  >
+                                                </div>
+                                                <div v-show="postcode.length < 5 && postcode.length > 0" class="text-danger font-weight-bold mt-1">
+                                                    The postcode is too short ... 
+                                                </div>
                                             </div>
                     
                     
@@ -218,7 +242,7 @@ export default {
             picture:'',
             address_line1:'',
             address_line2:'',
-            city:'',country:'',
+            city:'',country:'',state:'',company:'',postcode:'',
             billinginfoupdated:false,
             countries:[],
             //image to upload
@@ -235,7 +259,7 @@ export default {
        },
       isVadlidBillingForm(){
           return (this.address_line1.length > 2 && this.address_line2.length > 2 
-          && this.city.length > 2 )
+          && this.city.length > 2 && this.postcode.length > 4 )
       },
        
     },
@@ -316,6 +340,9 @@ export default {
                this.address_line2 = userbillinginfo.address_line2;
                this.city = userbillinginfo.city;
                this.country = userbillinginfo.country;
+               this.state = userbillinginfo.state;
+               this.company = userbillinginfo.company;
+               this.postcode = userbillinginfo.postcode;
                this.getCountries();
            })
        },

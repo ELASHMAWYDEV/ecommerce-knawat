@@ -32,6 +32,7 @@
        display: none
   }
 }
+
 </style>
 <template>
     <div class="card">
@@ -66,8 +67,8 @@
                                   
                                   <td>{{t.type == 'r' ? 'استفسار' : 'مشكلة'}}</td>
                                   <td>
-                                      <span v-if="t.state == 0" class="badge bg-danger p-1">مغلق</span>
-                                      <span v-else class="badge bg-success p-2 text-white">مفتوح</span>
+                                      <span v-if="t.state == 0" class="badge bg-danger p-2 text-white" style="    width: 40px;">مغلق</span>
+                                      <span v-else class="badge bg-success p-2 text-white" style="    width: 40px;">مفتوح</span>
                                   </td>
                                   <td>
                                       <a :href="'tickets/'+t.id"><i class="fa fa-eye ml-2 "></i></a>
@@ -78,6 +79,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer clearfix">
+                              <a href="/create_ticket" class="btn btn-primary p-1">Add Ticket</a>
                               <ul class="pagination pagination-sm m-0 float-right">
                                 <li class="page-item"><a class="page-link" @click="paginateTickets('prev')">«</a></li>
                                 <li class="page-item"><a class="page-link" @click="paginateTickets('next')" >»</a></li>

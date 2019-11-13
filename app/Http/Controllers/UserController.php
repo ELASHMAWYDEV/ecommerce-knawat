@@ -76,6 +76,8 @@ class UserController extends Controller
             'address_line2'=>'',
             'city'=>'',
             'country'=>'',
+            'state'=>'',
+            'postcode'=>'',
         ]);
         //admin notification
         Mail::send('mail.newRegistration',['user'=>$user,'site_name_e'=>'trisoline ecommerce'],function($message) use ($user){
@@ -169,6 +171,7 @@ class UserController extends Controller
         'address_line2'=>'string',
         'city'=>'string|required',
         'country'=>'string|required',
+        'postcode'=>'string|required',
       ]);
       if ($validator->passes()) {
 
@@ -177,10 +180,14 @@ class UserController extends Controller
         if($request->image != null){
           $billinginfo->img = $imageName;
         }
+
         $billinginfo->address_line1 = $request->address_line1;
         $billinginfo->address_line2 = $request->address_line2;
         $billinginfo->city = $request->city;
         $billinginfo->country = $request->country;
+        $billinginfo->company = $request->company ? $request->company : '';
+        $billinginfo->state = $request->state ? $request->state : $billinginfo->city;
+        $billinginfo->postcode = $request->postcode;
         $billinginfo->save();
 
       return response()->json(['success'=>'success']);
@@ -329,15 +336,42 @@ class UserController extends Controller
       if($request->addfile != null){
         $fileName = time().'.'.$request->addfile->getClientOriginalExtension();
         $request->addfile->move(public_path('replies_files'), $fileName);
-        $request->exfile = $fileName;
-        $request->save();
+        $re->exfile = $fileName;
+        $re->save();
       }
       return back();
     }
     public function userLatestReplies(){
-      $ticket = Ticket::where('user_id',Auth::id())->latest()->first();
-      $user = $ticket->user->billingInfo->img;
+      $rep = Reply::where('user_id',Auth::id())->where('from_admin',true)->latest()->get()->take(5);
+      //$user = $rep[0]->user->billingInfo->img;
       return response()->json([
-        'replies'=>$ticket->replies->take(3),'user_img'=>$user]);
+        'replies'=>$rep,//'user_img'=>$user
+        ]);
+    }
+    public function addTicket(){
+      return view($this->lang().'.dashboard.addTicket');
+    }
+    public function createTicket(Request $request)
+    {
+
+      $this->validate($request,[
+        'user_id'=>'required',
+        'type'=>'required',
+        'content'=>'required',
+        'title'=>'string|required|max:300',
+      ]);
+      $ticket =  Ticket::create([
+        'user_id'=>$request->user_id,
+        'type'=>$request->type[0],
+        'title'=>$request->title,
+        'content'=>$request->content,
+      ]);
+      if($request->addfile != null){
+        $fileName = time().'.'.$request->addfile->getClientOriginalExtension();
+        $request->addfile->move(public_path('ticketsfolder'), $fileName);
+        $ticket->exfile = $fileName;
+        $ticket->save();
+      }
+      return redirect()->route('user.tickets');
     }
 }

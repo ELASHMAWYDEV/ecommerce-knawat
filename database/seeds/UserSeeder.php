@@ -20,5 +20,15 @@ class UserSeeder extends Seeder
          'address'=>'adrar algeria',
          'email_verification'=>true,
        ]);
+       \App\BillingInfo::create([
+         'user_id'=>1,
+         'img'=>'avatar.png',
+         'address_line1'=>'boudare',
+         'address_line2'=>'laghma',
+         'city'=>'adrea',
+         'country'=>'Algeria',
+         'state'=>'addrea',
+         'postcode'=>'01055',
+       ]);
     }
 }

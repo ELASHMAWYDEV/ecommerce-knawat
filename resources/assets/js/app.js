@@ -9,7 +9,10 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 import Vuex from 'vuex';
-Vue.use(Vuex)
+Vue.use(Vuex);
+import LoadScript from 'vue-plugin-load-script';
+
+Vue.use(LoadScript);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

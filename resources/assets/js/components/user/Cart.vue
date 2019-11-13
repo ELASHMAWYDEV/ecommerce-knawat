@@ -140,8 +140,8 @@ tbody tr td:not(:first-of-type){    padding-top: 1.9rem;}
                                         </div>
                                     </div>
                                     <div class="col-xs-3">
-                                        <h5 class="td-color">
-                                            {{currencySign}}{{ (currencyRate * (p.variations[0].sale_price)).toFixed(2)}}
+                                        <h5 class="td-color singleitemtotal">
+                                             {{currencySign}}{{ (((currencyRate * (p.variations[0].sale_price)).toFixed(2)) * getCommandedQuantity(p.sku)).toFixed(2) }}
                                         </h5></div>
                                     <div class="col-xs-3">
                                         <h5 class="td-color"><a href="#" @click="removecartItem(p.sku)" class="icon delete-cart-item">X</a></h5></div>
@@ -177,7 +177,8 @@ tbody tr td:not(:first-of-type){    padding-top: 1.9rem;}
                <button type="button" class="btn checkout-btn text-white">Secure Checkout</button>
             </div>
         </div>
-</div>
+        <div id="paypal-button"></div>
+    </div>
 </template>
 <script>
 import headerMixins from '../../mixins/headerMixins.js'
@@ -197,7 +198,7 @@ export default {
         setTimeout(() => {
           this.setcartItems();   
         }, 2000);
-       
+        this.paypalInit();
     },
     computed:{
       
@@ -307,7 +308,52 @@ export default {
               this.totaltopay = this.realItemsToal
               .map(item => item.total)
               .reduce((sum,curr) => +sum + +curr ,0).toFixed(2);
+          },
+          paypalInit(){
+              
+
           }
     }
 }
+Vue.loadScript('https://www.paypalobjects.com/api/checkout.js').then(()=>{
+    
+      paypal.Button.render({
+                // Configure environment
+                env: 'sandbox',
+                client: {
+                sandbox: 'ARnm5Kvnwl6NHCXKhr6a05Sb64PB6rOYTt2uUVCrFUndzYQ1QkrUNy6NJ-qUxQNDcoGRbyCWdXQ8xw5G',
+                production: 'demo_production_client_id'
+                },
+                // Customize button (optional)
+                locale: 'en_US',
+                style: {
+                size: 'small',
+                color: 'gold',
+                shape: 'pill',
+                },
+
+                // Enable Pay Now checkout flow (optional)
+                commit: true,
+
+                // Set up a payment
+                payment: function(data, actions) {
+                return actions.payment.create({
+                    transactions: [{
+                    amount: {
+                        total: '0.01',
+                        currency: 'USD'
+                    }
+                    }]
+                });
+                },
+                // Execute the payment
+                onAuthorize: function(data, actions) {
+                return actions.payment.execute().then(function() {
+                    // Show a confirmation message to the buyer
+                    window.alert('Thank you for your purchase!');
+                });
+                }
+            }, '#paypal-button');
+})
+
 </script>

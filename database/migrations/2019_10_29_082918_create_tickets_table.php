@@ -16,7 +16,11 @@ class CreateTicketsTable extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('user_id')->foreign('user_id')
+            ->references('id')
+            ->on('users')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->mediumText('content');
             $table->string('exfile')->nullable();
             // p means probleme r means question or request 

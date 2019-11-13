@@ -17,10 +17,13 @@ class CreateBillingInfosTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->string('img');
+            $table->string('company')->default('');
             $table->string('address_line1');
-            $table->string('address_line2');
+            $table->string('address_line2')->default('');
             $table->string('city');
+            $table->string('state');
             $table->string('country');
+            $table->string('postcode');
             $table->timestamps();
         });
     }
