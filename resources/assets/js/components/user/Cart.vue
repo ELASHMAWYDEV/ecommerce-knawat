@@ -317,43 +317,32 @@ export default {
 }
 Vue.loadScript('https://www.paypalobjects.com/api/checkout.js').then(()=>{
     
-      paypal.Button.render({
-                // Configure environment
-                env: 'sandbox',
-                client: {
-                sandbox: 'ARnm5Kvnwl6NHCXKhr6a05Sb64PB6rOYTt2uUVCrFUndzYQ1QkrUNy6NJ-qUxQNDcoGRbyCWdXQ8xw5G',
-                production: 'demo_production_client_id'
-                },
-                // Customize button (optional)
-                locale: 'en_US',
-                style: {
-                size: 'small',
-                color: 'gold',
-                shape: 'pill',
-                },
-
-                // Enable Pay Now checkout flow (optional)
-                commit: true,
-
-                // Set up a payment
-                payment: function(data, actions) {
-                return actions.payment.create({
-                    transactions: [{
-                    amount: {
-                        total: '0.01',
-                        currency: 'USD'
-                    }
-                    }]
-                });
-                },
-                // Execute the payment
-                onAuthorize: function(data, actions) {
-                return actions.payment.execute().then(function() {
-                    // Show a confirmation message to the buyer
-                    window.alert('Thank you for your purchase!');
-                });
-                }
-            }, '#paypal-button');
+       paypal.Button.render({
+    env: 'sandbox', // Or 'production'
+    // Set up the payment:
+    // 1. Add a payment callback
+    payment: function(data, actions) {
+      // 2. Make a request to your server
+      return actions.request.post('/api/create-payment/')
+        .then(function(res) {
+          // 3. Return res.id from the response
+          console.log(res)
+          return res.id;
+        });
+    },
+    // Execute the payment:
+    // 1. Add an onAuthorize callback
+    onAuthorize: function(data, actions) {
+      // 2. Make a request to your server
+      return actions.request.post('/api/execute-payment/', {
+        paymentID: data.paymentID,
+        payerID:   data.payerID
+      })
+        .then(function(res) {
+          // 3. Show the buyer a confirmation message.
+        });
+    }
+  }, '#paypal-button');
 })
 
 </script>

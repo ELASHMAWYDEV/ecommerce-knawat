@@ -49,5 +49,8 @@ class Products {
     public function getOrder($id){
         return $this->mp->get('/orders'.'/'.$id);
     }
+    public function getCurrencies(){
+        return $this->mp->get('/currencies');
+    }
 
 }

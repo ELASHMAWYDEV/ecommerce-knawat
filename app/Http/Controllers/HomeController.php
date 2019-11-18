@@ -66,6 +66,9 @@ class HomeController extends Controller
     public function deleteProductBySku($sku){
         return response()->json($this->p->deleteProduct($sku));
     }
+    public function getCurrencies(){
+        return response()->json($this->p->getCurrencies());
+    }
     //payments 
     public function payments($sku){
         dd($this->p->payments($sku));

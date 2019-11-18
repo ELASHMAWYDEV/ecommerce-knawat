@@ -217,5 +217,8 @@ export default {
          currentProducts(){
           return this.$store.state.currentProducts ;
         },
+        lang(){
+          return this.$store.state.lang;
+        }
       }
   };

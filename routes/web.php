@@ -38,7 +38,7 @@ Route::group(['as'=>'frontEnd.','middleware'=>'web'],function(){
     //get the cart page
     Route::get('/cart','UserController@cart_page')->name('user.cart');
     Route::post('/payments/{sku}','HomeController@payments')->name('user.payments');
-
+    Route::get('/currencies', 'HomeController@getCurrencies');
     //verify email
     Route::get('/verifyEmailpage',function(){
        return view('En.verifyEmail');
@@ -78,6 +78,7 @@ Route::group(['as'=>'user.','middleware'=>'auth'],function(){
 
 });
 Route::get('json-api', 'ApiController@index');
+
 
 
 Route::group(['prefix' => 'admin','as'=>'admin.'], function () {

@@ -1,6 +1,6 @@
 <template>
             <div class="product-show pt-1">
-                <label for="SortBy" >Sort by</label>
+                <label for="SortBy" >{{lang ? 'ترتيب حسب' : 'Sort by' }}</label>
                 <select name="SortBy" v-model="SortProperty"  id="SortBy" style="padding: 2px;">
                     <option value="title-ascending">Alphabetically, A-Z</option>
                     <option value="title-descending">Alphabetically, Z-A</option>
@@ -89,6 +89,9 @@ export default {
         },
         currentProducts(){
             return this.$store.state.currentProducts;
+        },
+        lang(){
+          return this.$store.state.lang;
         }
 
     }

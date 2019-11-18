@@ -7,10 +7,10 @@
            <div class="sidebar-categores-inner">
                     <div class="filter-group sizefilter">
                  
-                       <a @click="filterProducts('all',$event)" class="active"><i class="fa fa-check main-b-color "></i> all</a>                      
+                       <a @click="filterProducts('all',$event)" class="active"><i @click="filterProducts('all',$event)" class="fa fa-check main-b-color "></i> all</a>                      
                        <a v-for="size in sizelist" v-bind:key="size" class=""
                        @click="filterProducts(size,$event)"
-                       ><i class="fa fa-check main-b-color "></i>{{size}}</a>
+                       ><i @click="filterProducts(size,$event)" class="fa fa-check main-b-color "></i> {{size}}</a>
                                                
                       
                     </div>
@@ -41,6 +41,7 @@ export default {
                 item.classList.remove('active');
             })
             event.target.classList.add('active')
+            event.target.parentNode.classList.add('active')
             let all=this.allproducts;
 
             switch (size) {

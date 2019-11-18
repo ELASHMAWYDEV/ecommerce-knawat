@@ -1,8 +1,8 @@
 <template>
 <li class="nav-item dropdown text-light d-none d-lg-inline-block open">
-               <a href="#" id="allcategory" role="button" data-toggle="dropdown" aria-haspopup="true" 
-               aria-expanded="false" class="nav-link main-r-bg " @mouseenter.once="setCategories()">
-                  All Categories
+               <a href="#" id="allcategory" 
+                class="nav-link main-r-bg " @mouseenter.once="setCategories()">
+                 جميع التصنيفات  
                </a> 
                <ul class="dropdown-menu w-100">
                 <li class="dropdown-item"  
@@ -11,12 +11,12 @@
                     @mouseenter="setCurrentCategory(c.name.en)"
                     >
                     <a tabindex="-1" href="/products" target="_blink"  @mouseenter="hiderestc()" >
-                        {{c.name.en}}
+                        {{c.name.ar ? c.name.ar : c.name.en}}
                     </a>
                 </li>
                 <li v-if="restOfCategories.length > 0" class="dropdown-submenu">
                         <a tabindex="-1" class="test dropdown-item" @mouseenter="showrestc()">
-                           More   <i class="fa fa-caret-right float-right"></i>
+                           المزيد   <i class="fa fa-caret-left float-right"></i>
                         </a> 
                         <ul id="showrc" class="dropdown-menu" style="margin-left: 100%;margin-top: -116%;z-index: 9999;position: absolute;    left: 0;top: 7rem;">
                             <li  
@@ -25,7 +25,7 @@
                                  class="dropdown-item" 
                                  @mouseenter="setCurrentCategory(rc.name.en)">
                              <a class="" href="/products" target="_blink" >
-                               {{rc.name.en}}
+                               {{rc.name.ar ? rc.name.ar : rc.name.en}}
                              </a>
                             </li>
                         </ul>
@@ -35,7 +35,7 @@
     
 </template>
 <script>
-  import categoryMixins from '../../mixins/categoryMixins';
+  import categoryMixins from '../../../mixins/categoryMixins';
 export default {
     data(){
        return {

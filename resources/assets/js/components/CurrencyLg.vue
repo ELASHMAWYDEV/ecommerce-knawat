@@ -4,7 +4,7 @@
               <a class="nav-link " href="#" id="currency-d" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{currentCurrency}}
               </a>
-              <div class="dropdown-menu" aria-labelledby="currency-d" style="right: 0;    left: auto;    max-width: 7rem;">
+              <div class="dropdown-menu" aria-labelledby="currency-d" style="right: 0;    left: auto;    max-width: 7rem;" :style="this.lang  ? 'min-width: 6rem;' : ''">
                 <a class="dropdown-item" @click="changeCurrency('USD')">USD</a>
                 <a class="dropdown-item" @click="changeCurrency('TRY')">TRY</a>
                 <a class="dropdown-item" @click="changeCurrency('EUR')">EUR</a>
@@ -50,6 +50,7 @@ export default{
         }
        
     },
+    props:['lang'],
     mounted(){
        
         this.getCurrency

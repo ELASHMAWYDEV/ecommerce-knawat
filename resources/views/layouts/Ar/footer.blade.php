@@ -3,30 +3,30 @@
         <div class="container pt-4 pb-2" >
             <div class="row text-center text-xs-center text-sm-left text-md-left">
                 <div class="col-xs-12 col-sm-4 col-md-4">
-                    <h5>Quick links</h5>
+                    <h5>روابط إضافية</h5>
                     <ul class="list-unstyled quick-links">
-                        <li><a href="/"><i class="fa fa-angle-double-right ml-2"></i>Home</a></li>
-                        <li><a href="{{route('frontEnd.about_us')}}"><i class="fa fa-angle-double-right ml-2"></i>About</a></li>
-                        <li><a href="javascript:void();"><i class="fa fa-angle-double-right ml-2"></i>Services</a></li>
-                        <li><a href="javascript:void();"><i class="fa fa-angle-double-right ml-2"></i>Offers</a></li>
+                        <li><a href="/"><i class="fa fa-angle-double-left mr-2"></i>الرئيسية</a></li>
+                        <li><a href="{{route('frontEnd.about_us')}}"><i class="fa fa-angle-double-left mr-2"></i>من نخن</a></li>
+                        <li><a href="javascript:void();"><i class="fa fa-angle-double-left mr-2"></i>الخدمات</a></li>
+                        <li><a href="javascript:void();"><i class="fa fa-angle-double-left mr-2"></i>العروض</a></li>
                     </ul>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4">
-                    <h5>Additional links</h5>
+                    <h5>روابط إضافيه</h5>
                     <ul class="list-unstyled quick-links">
-                        <li><a href="{{route('frontEnd.about_us')}}"><i class="fa fa-angle-double-right ml-2"></i>About Us</a></li>
-                        <li><a href="{{route('frontEnd.terms')}}"><i class="fa fa-angle-double-right ml-2"></i>Terms and Conditions  </a></li>
-                        <li><a href="{{route('frontEnd.faq')}}"><i class="fa fa-angle-double-right ml-2"></i>FAQ</a></li>
-                        {{-- <li><a href="{{route('frontEnd.terms')}}"><i class="fa fa-angle-double-right ml-2"></i>Contact Us</a></li> --}}
+                        <li><a href="{{route('frontEnd.about_us')}}"><i class="fa fa-angle-double-left mr-2"></i>من نحن</a></li>
+                        <li><a href="{{route('frontEnd.terms')}}"><i class="fa fa-angle-double-left mr-2"></i>الشروط والقوانين</a></li>
+                        <li><a href="{{route('frontEnd.faq')}}"><i class="fa fa-angle-double-left mr-2"></i>الاسئلة الشائعة</a></li>
+                        {{-- <li><a href="{{route('frontEnd.terms')}}"><i class="fa fa-angle-double-left mr-2"></i>Contact Us</a></li> --}}
 
                     </ul>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4">
-                    <h5>Contact links</h5>
+                    <h5>روابط الاتصال</h5>
                     <ul class="list-unstyled quick-links ">
-                        <li><a href="javascript:void();"><i class="fa  fa-globe  mr-2 main-b-color"></i> {{$settings->address}}</a></li>
-                        <li><a href="javascript:void();"><i class="fa fa-phone  mr-2 main-b-color"></i>  {{$settings->phone}}</a></li>
-                        <li><a href="javascript:void();"><i class="fa fa-envelope   mr-2 main-b-color"></i> {{$settings->site_email}}</a></li>
+                        <li><a href="javascript:void();"><i class="fa  fa-globe  mr-2 main-b-color"></i>{{$settings->address}}</a></li>
+                        <li><a href="javascript:void();"><i class="fa fa-phone  mr-2 main-b-color"></i> {{$settings->phone}}</a></li>
+                        <li><a href="javascript:void();"><i class="fa fa-envelope   mr-2 main-b-color"></i>{{$settings->site_email}}</a></li>
                         
                     </ul>
                 </div>
@@ -50,7 +50,7 @@
                     
                     <p class="h6">&copy All right Reversed.<a class="text-green ml-2"  href="/" style="color: #3d464d;
                         font-weight: bold;
-                        text-decoration: none;" > {{$settings->site_name_e}}</a>
+                        text-decoration: none;" >{{$settings->site_name}}</a>
                     </p>
                 </div>
                 </hr>

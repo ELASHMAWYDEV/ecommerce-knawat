@@ -1,6 +1,6 @@
 <template>
     <input class="form-control mr-sm-2 nav-item top-search-input" 
-     type="search" placeholder="Search products" aria-label="Search"
+     type="search" :placeholder="this.lang == null ? 'Search products' : 'بحث عن منتج'" aria-label="Search"
      v-model="searchproducts">
 </template>
 <script>
@@ -13,7 +13,7 @@ export default {
     created(){
        this.$store.state.authId = this.userid;
     },
-    props :['userid'],
+    props :['userid','lang'],
     watch:{
      searchproducts:function(query){
          console.log(query)

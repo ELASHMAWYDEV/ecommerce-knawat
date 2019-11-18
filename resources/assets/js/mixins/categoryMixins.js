@@ -49,6 +49,8 @@ export default {
               this.$store.state.currentProducts = value;
           }
       },
-      
+      lang(){
+        return this.$store.state.lang;
+      }
     }
 }

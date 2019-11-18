@@ -19,7 +19,9 @@ Vue.use(LoadScript);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.component('lang', require('./components/Lang.vue'));
 Vue.component('home', require('./components/home/Home.vue'));
+
 Vue.component('catalogue', require('./components/home/Catalogue.vue'));
 Vue.component('products', require('./components/Products.vue'));
 Vue.component('categories', require('./components/Categories.vue'));
@@ -47,6 +49,9 @@ Vue.component('dashboardindex',require('./components/user/dashboard/Index.vue'))
 Vue.component('settings',require('./components/user/dashboard/Settings.vue'));
 Vue.component('authtickets',require('./components/user/dashboard/Tickets.vue'));
 
+//here is the arabic version for part of pages like home products and so on
+Vue.component('homear', require('./components/Ar/home/Home.vue'));
+Vue.component('cataloguear', require('./components/Ar/home/Catalogue.vue'));
 //the admin part 
 Vue.component('productstable',require('./components/admin/ProductsTable.vue'));
 Vue.component('tickets',require('./components/admin/Tickets.vue'));
@@ -65,13 +70,13 @@ const store = new Vuex.Store({
         'TRY':'₺'
       },
       currentCurrency:'USD',
-      currencyRate :1,
+      currencyRate :0.174,
       currencySign:'$',
       productDetails:{},
       authId:null,
       favoritedProducts : [],
       cartItems:[],
-     
+      lang:null,
     }
 })
 

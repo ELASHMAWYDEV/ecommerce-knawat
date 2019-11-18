@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Session;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -27,8 +28,8 @@ class AppServiceProvider extends ServiceProvider
         });
 
         //set the session
-        Session::put('lang','En');
-        Schema::defaultStringLength(191);
+        //Session::put('lang','En');
+        //Schema::defaultStringLength(191);
 
         // the session is arabic directive
         Blade::if('sar', function () {
@@ -37,6 +38,8 @@ class AppServiceProvider extends ServiceProvider
             }
             return false;
         });
+
+        View::share('settings',\App\Settings::find(1));
     }
 
     /**
