@@ -1863,6 +1863,7 @@ Vue.component('lang', __webpack_require__(50));
 Vue.component('home', __webpack_require__(53));
 
 Vue.component('catalogue', __webpack_require__(16));
+Vue.component('bigcatalogue', __webpack_require__(160));
 Vue.component('products', __webpack_require__(58));
 Vue.component('categories', __webpack_require__(64));
 Vue.component('categoriessm', __webpack_require__(67));
@@ -49582,7 +49583,7 @@ var render = function() {
                       ? _c(
                           "a",
                           { staticClass: "btn incartbtn add-to-cart-btn" },
-                          [_vm._v("In cart")]
+                          [_vm._v(_vm._s(!_vm.lang ? "In cart" : "في السلة"))]
                         )
                       : _c(
                           "a",
@@ -49594,7 +49595,11 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v("Add to cart")]
+                          [
+                            _vm._v(
+                              _vm._s(!_vm.lang ? "Add to cart" : "إضافة للسلة")
+                            )
+                          ]
                         ),
                     _vm._v(" "),
                     _c("div", { staticClass: "sale-title label-product" }, [
@@ -49646,7 +49651,13 @@ var render = function() {
                         },
                         [
                           _c("strong", [_vm._v(_vm._s(index + 1) + " ")]),
-                          _vm._v("- " + _vm._s(product.name.en) + " ")
+                          _vm._v(
+                            "- " +
+                              _vm._s(
+                                !_vm.lang ? product.name.en : product.name.ar
+                              ) +
+                              " "
+                          )
                         ]
                       )
                     ]),
@@ -52686,6 +52697,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -52734,10 +52751,23 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "most-cat-sellers shop-product-wrap  mt-3" },
-    [
+  return _c("div", [
+    _c("h6", { staticClass: "mt-2 " }, [
+      _c(
+        "span",
+        { staticClass: "slide-choosen-categories main-b-color d-inline-block" },
+        [
+          _vm._v(
+            _vm._s(_vm.lang ? "تصنيفات مميزة" : "Popular Categories") + " "
+          ),
+          _c("hr", { staticClass: "hr-choosen-c" })
+        ]
+      ),
+      _vm._v(" "),
+      _c("hr", { staticClass: "hr-full-slide-section" })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "most-cat-sellers shop-product-wrap  mt-3" }, [
       _c(
         "div",
         { staticClass: "row" },
@@ -52755,6 +52785,7 @@ var render = function() {
               [
                 _c("img", {
                   staticClass: "img-responsive ",
+                  class: _vm.lang ? "mr-2" : "",
                   attrs: {
                     src: "https://app.knawat.com/images/categories/empty.svg",
                     alt: "category image"
@@ -52784,12 +52815,16 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v(_vm._s(c.name.en))]
+                      [_vm._v(_vm._s(_vm.lang ? c.name.ar : c.name.en))]
                     ),
                     _vm._v(" "),
                     _c("p", { staticClass: "text-muted" }, [
                       _vm._v(
-                        "A popular category based on selling count and rates"
+                        _vm._s(
+                          _vm.lang
+                            ? "أشهر الأصناف بناءا على عدد الزيارات وعمليات الشراء"
+                            : "A popular category based on visitors count and rates"
+                        )
                       )
                     ]),
                     _vm._v(" "),
@@ -52803,7 +52838,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("See All")]
+                      [_vm._v(_vm._s(!_vm.lang ? "See All" : "رؤية الكل"))]
                     )
                   ]
                 )
@@ -52813,8 +52848,8 @@ var render = function() {
         }),
         0
       )
-    ]
-  )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -52924,6 +52959,7 @@ exports.push([module.i, "\n.comment-wrapper .panel-body[data-v-43ce86ca] {\r\n  
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_mixins_js__ = __webpack_require__(2);
+//
 //
 //
 //
@@ -53662,7 +53698,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "sale-title label-product" }, [
-                _vm._v("Sale")
+                _vm._v(_vm._s(!_vm.lang ? "Sale" : "بيع"))
               ]),
               _vm._v(" "),
               _c(
@@ -53677,7 +53713,11 @@ var render = function() {
               { staticClass: "media-body col-md-7 mt-3" },
               [
                 _c("h5", { staticClass: "mt-0" }, [
-                  _vm._v(_vm._s(this.product.name.en))
+                  _vm._v(
+                    _vm._s(
+                      !_vm.lang ? this.product.name.en : this.product.name.ar
+                    )
+                  )
                 ]),
                 _vm._v(" "),
                 _vm._m(0),
@@ -53698,13 +53738,26 @@ var render = function() {
                 _vm._v(" "),
                 _c("p", { staticClass: "p-description" }, [
                   _vm._v(
-                    "\r\n               This is a part of details of this product ,the rest are in attributes part.\r\n            "
+                    "\r\n               " +
+                      _vm._s(
+                        _vm.lang
+                          ? "هدا جزء من خصائص هدا المنتج أكثر تفاصيل في الخصائص بالاسفل"
+                          : "This is a part of details of this product ,more detils in attribute part."
+                      ) +
+                      "\r\n            "
                   )
                 ]),
                 _vm._v(" "),
                 _vm.product.variations[0].weight
                   ? _c("div", { staticClass: "weight-a" }, [
-                      _vm._m(1),
+                      _c("label", { attrs: { for: "" } }, [
+                        _c("strong", { staticClass: "mb-2" }, [
+                          _vm._v(
+                            _vm._s(!_vm.lang ? "Weight" : "الوزن :") + " "
+                          ),
+                          _c("br")
+                        ])
+                      ]),
                       _vm._v(
                         "  \r\n                " +
                           _vm._s(_vm.product.variations[0].weight) +
@@ -53720,7 +53773,15 @@ var render = function() {
                           "div",
                           { staticClass: "p-size mt-3" },
                           [
-                            _vm._m(2, true),
+                            _c("label", { attrs: { for: "" } }, [
+                              _c("strong", { staticClass: "mb-2" }, [
+                                _vm._v(
+                                  _vm._s(!_vm.lang ? "sizes :" : "الحجم :") +
+                                    " "
+                                ),
+                                _c("br")
+                              ])
+                            ]),
                             _vm._v(" "),
                             _vm._l(attr.options, function(opt, i) {
                               return _c(
@@ -53743,16 +53804,25 @@ var render = function() {
                 }),
                 _vm._v(" "),
                 _c("div", { staticClass: "quantity-a mt-4" }, [
-                  _vm._m(3),
+                  _c("label", { attrs: { for: "" } }, [
+                    _c("strong", { staticClass: "mb-2" }, [
+                      _vm._v(_vm._s(!_vm.lang ? "Quantity :" : "الكمية") + " "),
+                      _c("br")
+                    ])
+                  ]),
                   _vm._v(" "),
                   _c("span", { staticClass: "badge-info quantity-badge" }, [
                     _vm._v(_vm._s(_vm.getQuantity()))
                   ]),
-                  _vm._v("products for "),
+                  _vm._v(_vm._s(!_vm.lang ? "products for" : "منتج من") + " "),
                   _c("span", { staticClass: "badge-info quantity-badge" }, [
                     _vm._v(_vm._s(_vm.product.variations.length))
                   ]),
-                  _vm._v(" variations\r\n            ")
+                  _vm._v(
+                    " " +
+                      _vm._s(!_vm.lang ? "variations" : "أنواع") +
+                      "\r\n            "
+                  )
                 ]),
                 _vm._v(" "),
                 _c("br"),
@@ -53764,7 +53834,10 @@ var render = function() {
                         staticClass: "btn incartbtn add-to-cart-single a1 mt-3"
                       },
                       [
-                        _vm._v("Already in cart\r\n                "),
+                        _vm._v(
+                          _vm._s(!_vm.lang ? "Already in cart" : "في السلة") +
+                            "\r\n                "
+                        ),
                         _c("i", {
                           staticClass: "fa fa-check text-light",
                           staticStyle: { position: "relative", top: "2px" }
@@ -53782,7 +53855,11 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("Add to cart")]
+                      [
+                        _vm._v(
+                          _vm._s(!_vm.lang ? "Add to cart" : "إضافة للسلة")
+                        )
+                      ]
                     ),
                 _vm._v(" "),
                 _c(
@@ -53797,7 +53874,10 @@ var render = function() {
                     }
                   },
                   [
-                    _vm._v("Add to favorite \r\n                "),
+                    _vm._v(
+                      _vm._s(!_vm.lang ? "Add to favorite " : "إضافة للمفضلة") +
+                        "\r\n                "
+                    ),
                     _c("i", {
                       staticClass: "fa fa-heart-o text-light",
                       staticStyle: { position: "relative", top: "2px" }
@@ -53914,7 +53994,7 @@ var render = function() {
                   },
                   [
                     _c("table", { staticClass: "table table-bordered" }, [
-                      _vm._m(4),
+                      _vm._m(1),
                       _vm._v(" "),
                       _c(
                         "tbody",
@@ -53957,7 +54037,7 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _vm._m(5)
+                _vm._m(2)
               ]
             )
           ])
@@ -53965,7 +54045,7 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _vm._m(6),
+    _vm._m(3),
     _vm._v(" "),
     _c(
       "div",
@@ -54007,7 +54087,10 @@ var render = function() {
                         "a",
                         { staticClass: "btn incartbtn add-to-cart-btn" },
                         [
-                          _vm._v("In cart \r\n                           "),
+                          _vm._v(
+                            _vm._s(!_vm.lang ? "In cart" : "في للسلة") +
+                              " \r\n                           "
+                          ),
                           _c("i", {
                             staticClass: "fa fa-check text-light",
                             staticStyle: { position: "relative", top: "2px" }
@@ -54024,7 +54107,11 @@ var render = function() {
                             }
                           }
                         },
-                        [_vm._v("Add to cart")]
+                        [
+                          _vm._v(
+                            _vm._s(!_vm.lang ? "Add to cart" : "إضافة للسلة")
+                          )
+                        ]
                       ),
                   _vm._v(" "),
                   _c("div", { staticClass: "sale-title label-product" }, [
@@ -54062,14 +54149,14 @@ var render = function() {
                       ]
                     ),
                     _vm._v(" "),
-                    _vm._m(7, true)
+                    _vm._m(4, true)
                   ])
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "product-info" }, [
-                  _vm._m(8, true),
+                  _vm._m(5, true),
                   _vm._v(" "),
-                  _vm._m(9, true),
+                  _vm._m(6, true),
                   _vm._v(" "),
                   _c("h4", { staticClass: "product-name text-center" }, [
                     _c(
@@ -54127,30 +54214,6 @@ var staticRenderFns = [
       _c("i", { staticClass: "fa fa-star-o main-b-color" }),
       _vm._v(" "),
       _c("i", { staticClass: "fa fa-star-o main-b-color" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "" } }, [
-      _c("strong", { staticClass: "mb-2" }, [_vm._v("Weight : "), _c("br")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "" } }, [
-      _c("strong", { staticClass: "mb-2" }, [_vm._v("sizes : "), _c("br")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "" } }, [
-      _c("strong", { staticClass: "mb-2" }, [_vm._v("Quantity : "), _c("br")])
     ])
   },
   function() {
@@ -63506,6 +63569,316 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 151 */,
+/* 152 */,
+/* 153 */,
+/* 154 */,
+/* 155 */,
+/* 156 */,
+/* 157 */,
+/* 158 */,
+/* 159 */,
+/* 160 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(163)
+}
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(161)
+/* template */
+var __vue_template__ = __webpack_require__(165)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-26945480"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/BigCatalogue.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-26945480", Component.options)
+  } else {
+    hotAPI.reload("data-v-26945480", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 161 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            Sport: ['Sporting Goods', 'Sports Mem, Cards & Fan Shop', 'Toys & Hobbies', 'Clothing, Shoes & Accessories'],
+            Fashion: ['Clothing, Shoes & Accessories', 'Athletic Shoes', 'Clothing, Shoes & Accessories', 'Men\'s Clothing', 'Coats & Jackets', 'Men', 'Panths', 'Girls', 'Kids', 'Health & Beauty', 'Baby'],
+            Electronic: ['Cell Phones & Accessories', 'Cameras & Photo', 'Musical Instruments & Gear', 'Computers/Tablets & Networking'],
+            Furniture: ['Antiques', 'Home & Garden', 'Dolls & Bears', 'Pet Supplies', 'Collectibles'],
+            Accessories: ['Business & Industrial', 'Cell Phones & Accessories', 'Hair Accessories', 'Clothing, Shoes & Accessories', 'Jewelry & Accessories', 'Kids\' Accessories', 'Jewelry & Watches']
+        };
+    },
+
+    methods: {
+        filterproducts: function filterproducts(type, e) {
+            var arr = [];
+            switch (type) {
+                case 'Sport':
+                    arr = this.Sport;break;
+                case 'Accessories':
+                    arr = this.Accessories;break;
+                case 'Fashion':
+                    arr = this.Fashion;break;
+                case 'Electonic':
+                    arr = this.Electronic;break;
+                case 'Furniture':
+                    arr = this.Furniture;break;
+            }
+            document.querySelectorAll('#bigcatalogue a').forEach(function (item) {
+                item.classList.remove('active');
+            });
+
+            e.target.classList.add('active');
+            e.target.parentNode.classList.add('active');
+            var products = this.$store.state.products;
+            console.log(arr);
+            var fil = products.filter(function (element) {
+                return element.categories.some(function (c) {
+                    return arr.indexOf(c.name.en) > -1;
+                });
+            }).map(function (element) {
+                return Object.assign({}, element, { categories: element.categories.filter(function (subElement) {
+                        return subElement.name.en == type;
+                    }) });
+            });
+            this.$store.state.currentProducts = fil;
+            localStorage.clear('activeCategory');
+        }
+    },
+    computed: {
+        lang: function lang() {
+            return this.$store.state.lang;
+        }
+    }
+});
+
+/***/ }),
+/* 162 */,
+/* 163 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(164);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(5)("3eb22a48", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-26945480\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./BigCatalogue.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-26945480\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./BigCatalogue.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 164 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(4)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n#bigcatalogue a[data-v-26945480]{cursor:pointer\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 165 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "categories-box sidebar-categores-box" }, [
+    _c("div", { staticClass: "section-title" }, [
+      _c("h5", { staticClass: "font-weight-bold" }, [
+        _vm._v(_vm._s(!_vm.lang ? "CATALOGUES" : "الاقسام"))
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "sidebar-categores-inner" }, [
+      _c(
+        "div",
+        { staticClass: "filter-group", attrs: { id: "bigcatalogue" } },
+        [
+          _c(
+            "a",
+            {
+              staticClass: "active",
+              on: {
+                click: function($event) {
+                  return _vm.filterproducts("Fashion", $event)
+                }
+              }
+            },
+            [
+              _c("i", { staticClass: "fa fa-check main-b-color " }),
+              _vm._v(" " + _vm._s(_vm.lang ? "موضة" : "Fashion")),
+              _c("span")
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.filterproducts("Sports", $event)
+                }
+              }
+            },
+            [
+              _c("i", { staticClass: "fa fa-check main-b-color " }),
+              _vm._v(" " + _vm._s(_vm.lang ? "رياضة" : "Sports") + "  "),
+              _c("span")
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.filterproducts("Electronic", $event)
+                }
+              }
+            },
+            [
+              _c("i", { staticClass: "fa fa-check main-b-color " }),
+              _vm._v(
+                " " + _vm._s(_vm.lang ? "إلكترونيك" : "Electronic") + "  "
+              ),
+              _c("span")
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.filterproducts("Furniture", $event)
+                }
+              }
+            },
+            [
+              _c("i", { staticClass: "fa fa-check main-b-color " }),
+              _vm._v(" " + _vm._s(_vm.lang ? "أثاث" : "Furniture") + "  "),
+              _c("span")
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.filterproducts("Accessories", $event)
+                }
+              }
+            },
+            [
+              _c("i", { staticClass: "fa fa-check main-b-color " }),
+              _vm._v(
+                " " + _vm._s(_vm.lang ? "اكسسوارات" : "Accessories") + " "
+              ),
+              _c("span")
+            ]
+          )
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-26945480", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

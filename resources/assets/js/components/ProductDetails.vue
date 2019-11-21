@@ -81,12 +81,12 @@
                 </div>
 
                 </div>
-                <div class="sale-title label-product">Sale</div>
+                <div class="sale-title label-product">{{!lang ? 'Sale' : 'بيع'}}</div>
                 <div class="percent-count label-product bg-danger ">-15%</div>
         </div>
      
         <div class="media-body col-md-7 mt-3">
-            <h5 class="mt-0">{{this.product.name.en}}</h5>
+            <h5 class="mt-0">{{!lang ? this.product.name.en : this.product.name.ar}}</h5>
             <div class="p-rate mt-1">
                 <i class="fa fa-star-o main-b-color"></i>
                 <i class="fa fa-star-o main-b-color"></i>
@@ -99,15 +99,16 @@
                 <!-- <span class="ml-2" style="text-decoration:line-through;color: #9da9b3!important;">125$</span> -->
             </h3>
             <p class="p-description" >
-               This is a part of details of this product ,the rest are in attributes part.
+               {{lang ? 'هدا جزء من خصائص هدا المنتج أكثر تفاصيل في الخصائص بالاسفل' 
+               : 'This is a part of details of this product ,more detils in attribute part.'}}
             </p>
             <div class="weight-a" v-if="product.variations[0].weight">
-                <label for=""><strong class="mb-2" >Weight : <br></strong></label>  
+                <label for=""><strong class="mb-2" >{{!lang  ? 'Weight' : 'الوزن :'}} <br></strong></label>  
                 {{product.variations[0].weight}}
             </div>
             <div v-for="(attr,i) in this.product.attributes" :key="i">
              <div class="p-size mt-3" v-if="attr.name.en == 'Size'" >
-                     <label for=""><strong class="mb-2"  >sizes : <br></strong></label>
+                     <label for=""><strong class="mb-2"  >{{!lang ? 'sizes :' :'الحجم :'}} <br></strong></label>
                      
                      <span  v-for="(opt,i) in attr.options" :key="i"   class="border p-2 ml-2"
                      >
@@ -119,8 +120,8 @@
             </div>
             
             <div class="quantity-a mt-4">
-                <label for=""><strong class="mb-2" >Quantity : <br></strong> </label>
-                <span class="badge-info quantity-badge">{{getQuantity()}}</span>products for <span class="badge-info quantity-badge">{{product.variations.length}}</span> variations
+                <label for=""><strong class="mb-2" >{{!lang ? 'Quantity :' : 'الكمية'}} <br></strong> </label>
+                <span class="badge-info quantity-badge">{{getQuantity()}}</span>{{!lang ? 'products for' : 'منتج من'}} <span class="badge-info quantity-badge">{{product.variations.length}}</span> {{!lang ? 'variations' : 'أنواع'}}
             </div>
             <!--
             <div class="p-color mt-3">
@@ -133,11 +134,11 @@
                 Quantity : <input type="number" id="quantity" style="width: 60px;">
             </div> -->
             <br>
-            <a v-if="this.incart"  class="btn incartbtn add-to-cart-single a1 mt-3">Already in cart
+            <a v-if="this.incart"  class="btn incartbtn add-to-cart-single a1 mt-3">{{!lang ? 'Already in cart' : 'في السلة'}}
                 <i class="fa fa-check text-light" style="position:relative;top:2px"></i>
             </a>
-            <a v-else class="btn main-b-bg add-to-cart-single a1 mt-3" id="add-to-cart" @click="addCartItem()">Add to cart</a>
-            <a  class="btn main-r-bg add-to-cart-single mt-3" id="add-to-cart-single" @click="addToFavorite(product.sku,$event)">Add to favorite 
+            <a v-else class="btn main-b-bg add-to-cart-single a1 mt-3" id="add-to-cart" @click="addCartItem()">{{!lang ? 'Add to cart' :'إضافة للسلة'}}</a>
+            <a  class="btn main-r-bg add-to-cart-single mt-3" id="add-to-cart-single" @click="addToFavorite(product.sku,$event)">{{!lang ? 'Add to favorite ' :'إضافة للمفضلة'}}
                 <i class="fa fa-heart-o text-light" style="position:relative;top:2px"></i>
             </a>
 
@@ -252,10 +253,10 @@
                      onerror="this.onerror=null; this.src='/img/notfound.png'" 
                      :src="p.images[0]" alt="product image">
                      <!--the add to cart btn -->
-                       <a v-if="checkItemIsInCart(p.sku)"  class="btn incartbtn add-to-cart-btn" >In cart 
+                       <a v-if="checkItemIsInCart(p.sku)"  class="btn incartbtn add-to-cart-btn" >{{!lang ? 'In cart' :'في للسلة'}} 
                            <i class="fa fa-check text-light" style="position:relative;top:2px"></i>
                        </a>
-                      <a v-else  class="btn btn-primary add-to-cart-btn" @click="addToCart(p,$event)">Add to cart</a>
+                      <a v-else  class="btn btn-primary add-to-cart-btn" @click="addToCart(p,$event)">{{!lang ? 'Add to cart' :'إضافة للسلة'}}</a>
                  
                   <div class="sale-title label-product">Sale</div>
                   <div class="percent-count label-product bg-danger ">-15%</div>

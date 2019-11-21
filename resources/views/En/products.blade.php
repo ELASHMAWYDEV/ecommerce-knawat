@@ -80,10 +80,7 @@
                      <bestsellers></bestsellers>
                       <!--best sellter-->
                       <!-- most seller categories-->
-                      <h6 class="mt-2 ">
-                           <span class="slide-choosen-categories main-b-color d-inline-block">Popular Categories <hr class="hr-choosen-c"></span>
-                           <hr class="hr-full-slide-section">
-                     </h6>
+                  
                      <popularcategories></popularcategories>
 
                       <!-- most seller categories-->
@@ -96,7 +93,7 @@
           </div>
           <div class="col-lg-3">
               <div class="shop-sidebar">
-                   <div class="categories-box sidebar-categores-box">
+                   {{-- <div class="categories-box sidebar-categores-box">
                          <div class="section-title">
                            <h5 class="font-weight-bold">CATEGORIES</h5>
                          </div>
@@ -117,29 +114,8 @@
                      
                            </div>
                           </div>
-                   </div>
-                    <div class="categories-box sidebar-categores-box">
-                         <div class="section-title">
-                           <h5 class="font-weight-bold">CATALOGUES</h5>
-                         </div>
-                          <div class="sidebar-categores-inner">
-                           <div class="filter-group">
-                             
-                             
-                             <a class="" href="best-sellers.html"><i class="fa fa-check main-b-color "></i> Fashion<span>(16)</span></a>
-                             
-                             <a class="" href="camera.html"><i class="fa fa-check main-b-color "></i> Sports <span>(21)</span></a>
-                             
-                             <a class="active" href="deal.html"><i class="fa fa-check main-b-color "></i> Electronic <span>(15)</span></a>
-                             
-                             <a class="" href="featured.html"><i class="fa fa-check main-b-color "></i> Digital <span>(16)</span></a>
-                             
-                             <a class="" href="new-arrivals.html"><i class="fa fa-check main-b-color "></i> Furniture<span>(15)</span></a>
-                             
-                     
-                           </div>
-                          </div>
-                   </div>
+                   </div> --}}
+                   <bigcatalogue></bigcatalogue>
                    <div class="categories-box sidebar-categores-box">
                          <div class="section-title">
                            <h5 class="font-weight-bold">COLOR</h5>
@@ -148,16 +124,16 @@
                            <div class="filter-group">
                              
                              
-                             <a class="" href="best-sellers.html"><i class="fa fa-check main-b-color "></i> red<span>(16)</span></a>
+                             <a class="" href="javascript:void();"><i class="fa fa-check main-b-color "></i> red<span>(16)</span></a>
                              
-                             <a class="" href="camera.html"><i class="fa fa-check main-b-color "></i> green <span>(21)</span></a>
+                             <a class="" href="javascript:void();"><i class="fa fa-check main-b-color "></i> green <span>(21)</span></a>
                              
-                             <a class="" href="deal.html"><i class="fa fa-check main-b-color "></i> blue <span>(15)</span></a>
+                             <a class="" href="javascript:void();"><i class="fa fa-check main-b-color "></i> blue <span>(15)</span></a>
                              
-                             <a class="" href="featured.html"><i class="fa fa-check main-b-color "></i> white <span>(16)</span></a>
+                             <a class="" href="javascript:void();"><i class="fa fa-check main-b-color "></i> white <span>(16)</span></a>
                              
-                             <a class="" href="new-arrivals.html"><i class="fa fa-check main-b-color "></i> yellow<span>(15)</span></a>
-                             <a class="" href="new-arrivals.html"><i class="fa fa-check main-b-color "></i> black<span>(15)</span></a>
+                             <a class="" href="javascript:void();"><i class="fa fa-check main-b-color "></i> yellow<span>(15)</span></a>
+                             <a class="" href="javascript:void();"><i class="fa fa-check main-b-color "></i> black<span>(15)</span></a>
                              
                      
                            </div>

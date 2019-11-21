@@ -48,7 +48,7 @@
         <div class="text-center">
                 <div class="text-white main-b-bg p-3">
                     
-                    <p class="h6">&copy All right Reversed.<a class="text-green ml-2"  href="/" style="color: #3d464d;
+                    <p class="h6">&copy جميع الحقوق محفوظة.<a class="text-green ml-2"  href="/" style="color: #3d464d;
                         font-weight: bold;
                         text-decoration: none;" >{{$settings->site_name}}</a>
                     </p>

@@ -80,10 +80,7 @@
                      <bestsellers></bestsellers>
                       <!--best sellter-->
                       <!-- most seller categories-->
-                      <h6 class="mt-2 ">
-                           <span class="slide-choosen-categories main-b-color d-inline-block">تصنيفات مميزة <hr class="hr-choosen-c"></span>
-                           <hr class="hr-full-slide-section">
-                     </h6>
+                      
                      <popularcategories></popularcategories>
 
                       <!-- most seller categories-->
@@ -120,27 +117,7 @@
                           </div>
                    </div>
                   -->
-                    <div class="categories-box sidebar-categores-box">
-                         <div class="section-title">
-                           <h5 class="font-weight-bold">التصنيفات</h5>
-                         </div>
-                          <div class="sidebar-categores-inner">
-                           <div class="filter-group">
-                             
-                             
-                             <a class="" href="best-sellers.html"><i class="fa fa-check main-b-color "></i> موضة<span>(16)</span></a>
-                             
-                             <a class="" href="camera.html"><i class="fa fa-check main-b-color "></i> رياضة <span>(21)</span></a>
-                             
-                             <a class="active" href="deal.html"><i class="fa fa-check main-b-color "></i> الكترونيك <span>(15)</span></a>
-                             <a class="" href="new-arrivals.html"><i class="fa fa-check main-b-color "></i> أثاث<span>(15)</span></a>
-                             <a class="" href="featured.html"><i class="fa fa-check main-b-color "></i> ملحقات <span>(16)</span></a>
-                             
-                             
-                     
-                           </div>
-                          </div>
-                   </div>
+                   <bigcatalogue></bigcatalogue>
                    <div class="categories-box sidebar-categores-box">
                          <div class="section-title">
                            <h5 class="font-weight-bold">اللون</h5>
@@ -149,16 +126,16 @@
                            <div class="filter-group">
                              
                              
-                             <a class="" href="best-sellers.html"><i class="fa fa-check main-b-color "></i> أحمر<span> (16)</span></a>
+                             <a class="" href="javascript:void();"><i class="fa fa-check main-b-color "></i> أحمر<span> (16)</span></a>
                              
-                             <a class="" href="camera.html"><i class="fa fa-check main-b-color "></i> أخضر <span> (21)</span></a>
+                             <a class="" href="javascript:void();"><i class="fa fa-check main-b-color "></i> أخضر <span> (21)</span></a>
                              
-                             <a class="" href="deal.html"><i class="fa fa-check main-b-color "></i> أزرق <span> (15)</span></a>
+                             <a class="" href="javascript:void();"><i class="fa fa-check main-b-color "></i> أزرق <span> (15)</span></a>
                              
-                             <a class="" href="featured.html"><i class="fa fa-check main-b-color "></i> أبيض <span> (16)</span></a>
+                             <a class="" href="javascript:void();"><i class="fa fa-check main-b-color "></i> أبيض <span> (16)</span></a>
                              
-                             <a class="" href="new-arrivals.html"><i class="fa fa-check main-b-color "></i> أصفر<span> (15)</span></a>
-                             <a class="" href="new-arrivals.html"><i class="fa fa-check main-b-color "></i> أسود<span> (15)</span></a>
+                             <a class="" href="javascript:void();"><i class="fa fa-check main-b-color "></i> أصفر<span> (15)</span></a>
+                             <a class="" href="javascript:void();"><i class="fa fa-check main-b-color "></i> أسود<span> (15)</span></a>
                              
                      
                            </div>

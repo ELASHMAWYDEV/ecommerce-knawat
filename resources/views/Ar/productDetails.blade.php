@@ -1,4 +1,4 @@
-@extends('En.app')
+@extends('Ar.app')
 @section('title','product |'.$sku)
 @section('content')
 <!-- mian product content-->

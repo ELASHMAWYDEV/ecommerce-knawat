@@ -16,8 +16,8 @@
                                        <img :src="product.images[0]" 
                                        onerror="this.onerror=null; this.src='img/1.jpg'" class="card-img-top" alt="...">
                                        
-                                       <a v-if="checkItemIsInCart(product.sku)"  class="btn incartbtn add-to-cart-btn" >In cart</a>
-                                       <a  v-else class="btn main-b-bg add-to-cart-btn" @click="addToCart(product,$event)">Add to cart</a>
+                                       <a v-if="checkItemIsInCart(product.sku)"  class="btn incartbtn add-to-cart-btn" >{{!lang ? 'In cart' : 'في السلة'}}</a>
+                                       <a  v-else class="btn main-b-bg add-to-cart-btn" @click="addToCart(product,$event)">{{!lang ? 'Add to cart' : 'إضافة للسلة' }}</a>
                                       
                                        <div class="sale-title label-product">Sale</div>
                                        <div class="percent-count label-product bg-danger ">-15%</div>
@@ -50,7 +50,7 @@
                                                    <i class="fa fa-star-o main-b-color"></i>
                                            </div>
                                            <h4 class="product-name text-center">
-                                               <a :href="'/products/'+product.sku" target="_blink"><strong>{{index + 1}} </strong>- {{product.name.en}} </a>
+                                               <a :href="'/products/'+product.sku" target="_blink"><strong>{{index + 1}} </strong>- {{!lang ? product.name.en : product.name.ar}} </a>
                                            </h4>
                                            <div class="price-box text-center">
                                              <span class="new-price">

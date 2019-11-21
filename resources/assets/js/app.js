@@ -23,6 +23,7 @@ Vue.component('lang', require('./components/Lang.vue'));
 Vue.component('home', require('./components/home/Home.vue'));
 
 Vue.component('catalogue', require('./components/home/Catalogue.vue'));
+Vue.component('bigcatalogue', require('./components/BigCatalogue'));
 Vue.component('products', require('./components/Products.vue'));
 Vue.component('categories', require('./components/Categories.vue'));
 Vue.component('categoriessm', require('./components/Categoriessm.vue'));
