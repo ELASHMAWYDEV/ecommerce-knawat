@@ -47,10 +47,10 @@ body{
 @media (min-width: 992px){
     .main-menu-area .navbar-expand-lg .navbar-nav .nav-link {
     padding-right: 1.2rem;
-    padding-left: 1.2rem;text-shadow: 0px 1px #2c2c2cad;
-}.main-menu-area .navbar-expand-lg .navbar-nav .nav-link:not(#allcategory):hover{
-    color: #979797 !important;/*text-shadow: 0px 1px #0879c9;*/
-}
+    padding-left: 1.2rem;text-shadow: 0px 0px #2c2c2cad;
+}/* .main-menu-area .navbar-expand-lg .navbar-nav .nav-link:not(#allcategory):hover{
+    color: #979797 !important;
+} */
 
 .dropd-h-p{margin-left: 19px}
 }

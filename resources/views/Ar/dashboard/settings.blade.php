@@ -1,4 +1,4 @@
-@extends('En.dashboard.home')
+@extends('Ar.dashboard.home')
 @section('excss')
 <style>
  
@@ -10,7 +10,7 @@
             <div class="container p-3 bg-white" id="columns">
                
              
-                <settings ></settings>
+                <settingsar ></settings>
             </div>
  
     

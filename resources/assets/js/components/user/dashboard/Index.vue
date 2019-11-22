@@ -11,7 +11,7 @@
                   <h3 v-else class="mt-0 ml-2" id="pr-fav">
                       {{favoritesCount}}
                   </h3>
-                  <p class="font-size-1">products favorited</p>
+                  <p class="font-size-1">{{!lang ? 'products favorited' : 'منتج في المفضلة' }}</p>
                 </div>
                 
             </div>
@@ -28,7 +28,7 @@
                   <h3 v-else class="mt-0 ml-2" id="pr-cart">
                       {{CartItemsCount}}
                   </h3>
-                  <p class="font-size-1">products in cart</p>
+                  <p class="font-size-1">{{!lang ? 'products in cart' : 'منتج في السلة'}}</p>
                 </div>
                 
             </div>
@@ -39,8 +39,8 @@
             <div class="media message-stat">
                 <i class="fa fa-envelope fa-2x ml-4"></i>
                 <div class="media-body">
-                  <h3 class="mt-0 ml-2">5</h3>
-                  <p> message </p>
+                  <h3 class="mt-0 ml-2">0</h3>
+                  <p> {{!lang ? 'message' : 'رسالة'}} </p>
                 </div>
                 
             </div>
@@ -57,7 +57,7 @@
                                 <div class="panel-body">
                                     
                                     <ul class="media-list pl-0">
-                                        <h5>latest tickets replies</h5>
+                                        <h5>{{!lang ? 'latest tickets replies' : 'اخر الردود'}}</h5>
                                         <li class="media border" v-for="(r,k) in latestreplies" :key="k">
                                             <a href="#" class="pull-left">
                                                 <img  src="/profile_img/admin.png" alt="admin icon" class="img-circle">
@@ -66,9 +66,9 @@
                                                 <span class="text-muted pull-right">
                                                     <small class="text-muted font-weight-bold" >{{getFullDate(r.created_at)}}</small>
                                                 </span>
-                                                <strong  class="text-success">@support</strong>
+                                                <strong  class="text-success">{{!lang ? '@support' : 'الدعم'}}</strong>
                                                 <p>
-                                                    {{r.content}} <a :href="'/tickets/'+r.ticket_id">Consult </a>.
+                                                    {{r.content}} <a :href="'/tickets/'+r.ticket_id">{{!lang ? 'Consult' : 'مشاهدة'}} </a>.
                                                 </p>
                                             </div>
                                         </li>
@@ -118,7 +118,11 @@ export default {
         getFullDate(date){
         let formated = new Date(date);
         return formated.getDate()+'-'+formated.getMonth()+'-'+formated.getFullYear();
+      },
+      lang(){
+          return this.$store.state.lang;
       }
+      
     }
 }
 </script>

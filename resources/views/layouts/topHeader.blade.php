@@ -26,6 +26,7 @@
                 <a class="dropdown-item" href="{{route('user.dashboard')}}"><i class="fa fa-tachometer main-r-color mr-2"></i>Dashboard</a>
                 <a class="dropdown-item" href="{{route('logout')}}"> <i class="fa fa-sign-out main-r-color mr-2"></i> Logout </a>
                 @endguest
+                <a class="dropdown-item" href="{{route('frontEnd.setLang',['lang'=>'Ar'])}}"> <i class="fa fa-language main-r-color mr-2"></i>Arabic </a>
               </div>
             </li>
             <li class="nav-item dropdown d-292-none">
@@ -51,6 +52,7 @@
                   <a class="dropdown-item" href="{{route('user.dashboard')}}"><i class="fa fa-tachometer main-r-color mr-2"></i>Dashboard</a>
                   <a class="dropdown-item" href="{{route('logout')}}"> <i class="fa fa-sign-out main-r-color mr-2"></i> Logout </a>
                   @endguest
+                  <a class="dropdown-item" href="{{route('frontEnd.setLang',['lang'=>'Ar'])}}"> <i class="fa fa-language main-r-color mr-2"></i>Arabic </a>
                 </a>
               </div>
             </li>

@@ -1,5 +1,5 @@
 @extends('En.app')
-@section('title','products')
+@section('title','Email verification')
 @section('content')
 
 <div class="container p-5">

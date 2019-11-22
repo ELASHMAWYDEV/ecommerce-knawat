@@ -1,5 +1,5 @@
-@extends('En.app')
-@section('title','dashboard')
+@extends('Ar.app')
+@section('title','لوحة التحكم')
 @section('css')
 <style>
 body{
@@ -7,7 +7,7 @@ body{
 }
 
 #wrapper {
-    padding-left: 0;
+    padding-right: 0;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -15,16 +15,16 @@ body{
 }
 
 #wrapper.toggled {
-    padding-left: 220px;
+    padding-right: 220px;
 }
 
 #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
-    left: 220px;
+    right: 220px;
     width: 0;
     height: 100%;
-    margin-left: -220px;
+    margin-right: -220px;
     overflow-y: auto;
     background:#fff;
     -webkit-transition: all 0.5s ease;
@@ -49,7 +49,7 @@ body{
 
 #wrapper.toggled #page-content-wrapper {
     position: absolute;
-    margin-right: -220px;
+    margin-left: -220px;
 }
 
 /* Sidebar Styles */
@@ -100,12 +100,12 @@ text-align: center;    font-size: 18px;
 
 @media(min-width:768px) {
     #wrapper {
-        padding-left: 220px;
+        padding-right: 220px;
         min-height: 24rem;
     }
 
     #wrapper.toggled {
-        padding-left: 0;
+        padding-right: 0;
     }
 
     #sidebar-wrapper {
@@ -124,7 +124,7 @@ text-align: center;    font-size: 18px;
 
     #wrapper.toggled #page-content-wrapper {
         position: relative;
-        margin-right: 0;
+        margin-left: 0;
     }
 }
 
@@ -135,7 +135,7 @@ text-align: center;    font-size: 18px;
     content: "";
     display: inline-block;
     position: absolute;
-    right: -1px;
+    left: -1px;
 }
 
 .sidebar-brand {
@@ -178,7 +178,7 @@ p {
 <div class="content">
 
 <div id="wrapper" class="wrapper-content">
-    @include('En.dashboard.sidebar')
+    @include('Ar.dashboard.sidebar')
         <nav class="navbar navbar-default bg-white">
             <div class="container-fluid">
                 <div class="navbar-header">

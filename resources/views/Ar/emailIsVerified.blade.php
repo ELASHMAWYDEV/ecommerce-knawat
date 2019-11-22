@@ -1,5 +1,5 @@
 @extends('En.app')
-@section('title','products')
+@section('title','التحقق من الايمايل')
 @section('content')
 
 <div class="container p-5">
@@ -11,7 +11,7 @@
         <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
         @endif
         @endforeach
-         <a href="#" class="btn btn-primary text-white" data-toggle="modal" data-target="#login-modal">Login</a>
+         <a href="#" class="btn btn-primary text-white" data-toggle="modal" data-target="#login-modal">تسجيل الدخول</a>
      </div>
     
 </div>

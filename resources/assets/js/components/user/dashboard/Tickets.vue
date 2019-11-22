@@ -37,11 +37,11 @@
 <template>
     <div class="card">
                             <div class="card-header">
-                              <h3 class="card-title">My Tickets</h3>
+                              <h3 class="card-title">{{!lang ? 'My Tickets' :'تداكري' }}</h3>
                               <div class="card-tools float-right">
                                     <div class="input-group input-group-sm" style="width: 150px;">
                                       <input type="text" name="table_search"  v-model="searchTicket"
-                                       class="form-control float-right" placeholder="search by title">
+                                       class="form-control float-right" :placeholder="!lang ? 'search by title' : 'البحث بالعنوان'">
                   
                                       <div class="input-group-append">
                                         <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
@@ -54,10 +54,10 @@
                               <table class="table table-bordered">
                                 <tbody><tr>
                                   <th style="width: 10px">#</th>
-                                  <th>Title</th>
-                                  <th>Last Update</th>
-                                  <th >Type</th>
-                                  <th >State</th>
+                                  <th>{{!lang ? 'Title' : 'العنوان'}}</th>
+                                  <th>{{!lang ? 'Last Update' : 'اخر تحديث'}}</th>
+                                  <th >{{!lang ? 'Type': 'النوع'}}</th>
+                                  <th >{{!lang ? 'State' : 'الحالة'}}</th>
                                   <th ></th>
                                 </tr>
                                 <tr  v-for="(t,key) in filteredTickets" :key="key">
@@ -65,10 +65,10 @@
                                   <td><a class="text-decoration-none font-weight-bold" :href="'tickets/'+t.id">{{t.title}}</a> </td>
                                   <td>{{getFullDate(t.updated_at)}}</td>
                                   
-                                  <td>{{t.type == 'r' ? 'استفسار' : 'مشكلة'}}</td>
+                                  <td>{{(lang && t.type == 'r') ? 'استفسار' : 'مشكلة' ? (!lang && t.type == 'r') ? 'Request' : 'Problem' :'' }}</td>
                                   <td>
-                                      <span v-if="t.state == 0" class="badge bg-danger p-2 text-white" style="    width: 40px;">مغلق</span>
-                                      <span v-else class="badge bg-success p-2 text-white" style="    width: 40px;">مفتوح</span>
+                                      <span v-if="t.state == 0" class="badge bg-danger p-2 text-white" style="    width: 40px;">{{!lang ? 'Closed' : 'مغلق'}}</span>
+                                      <span v-else class="badge bg-success p-2 text-white" style="    width: 40px;">{{!lang ? 'Open' : 'مفتوح'}}</span>
                                   </td>
                                   <td>
                                       <a :href="'tickets/'+t.id"><i class="fa fa-eye ml-2 "></i></a>
@@ -79,7 +79,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer clearfix">
-                              <a href="/create_ticket" class="btn btn-primary p-1">Add Ticket</a>
+                              <a href="/create_ticket" class="btn btn-primary p-1">{{!lang ? 'Add Ticket' : 'إضافة تدكرة' }}</a>
                               <ul class="pagination pagination-sm m-0 float-right">
                                 <li class="page-item"><a class="page-link" @click="paginateTickets('prev')">«</a></li>
                                 <li class="page-item"><a class="page-link" @click="paginateTickets('next')" >»</a></li>
@@ -126,6 +126,8 @@ export default {
         getFullDate(date){
         let formated = new Date(date);
         return formated.getDate()+'-'+formated.getMonth()+'-'+formated.getFullYear();
+      },lang(){
+          return this.$store.state.lang;
       }
     }
   

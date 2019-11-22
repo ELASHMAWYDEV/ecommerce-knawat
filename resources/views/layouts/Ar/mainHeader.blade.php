@@ -1,6 +1,6 @@
 <div class="main-menu-area" >
   <lang lang="Ar"></lang>
-    <nav class="navbar navbar-expand-lg navbar-light  container p-0 pl-3">
+    <nav class="navbar navbar-expand-lg navbar-light  container p-0 pr-4">
          
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainmenuarea" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -30,15 +30,15 @@
                 <a class="dropdown-item" href="#">رابط اضافي</a>
               </div>
             </li>
-            <li class="nav-item dropdown pt-6px">
-              <a class="nav-link " href="{{route('frontEnd.setLang',['lang'=>'En'])}}" >
-               الانجليزية
+            <li class="nav-item  pt-6px">
+              <a class="nav-link " href="{{route('frontEnd.about_us')}}" >
+                من نحن
               </a>
-              <div class="dropdown-menu dropd-h-p" aria-labelledby="productdropdownmenu">
-                <a class="dropdown-item" href="{{route('frontEnd.products')}}">جميع المنتجات</a>
-                <a class="dropdown-item" href="#">رابط اضافي</a>
-                <a class="dropdown-item" href="#">رابط اضافي</a>
-              </div>
+            </li>
+            <li class="nav-item  pt-6px">
+              <a class="nav-link " href="{{route('frontEnd.terms')}}" >
+                الشروط والقوانين
+              </a>
             </li>
             
            

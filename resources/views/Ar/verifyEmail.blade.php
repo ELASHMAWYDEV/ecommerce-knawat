@@ -1,5 +1,5 @@
-@extends('En.app')
-@section('title','products')
+@extends('Ar.app')
+@section('title','تفعيل الايمايل')
 @section('content')
 
 <div class="container p-5">
@@ -21,9 +21,9 @@
                     @endforeach
             </div> 
         {{ csrf_field() }}
-         <label for="token">Enter the verification code</label>
+         <label for="token">أدخل رمز التحقق</label>
          <input type="text" class="form-control mb-2" name="emailtokenv" required autofocus>
-         <input type="submit" value="Verify" class="btn main-b-bg text-white">
+         <input type="submit" value="التحقق" class="btn main-b-bg text-white">
      </div>
     </form>
 </div>

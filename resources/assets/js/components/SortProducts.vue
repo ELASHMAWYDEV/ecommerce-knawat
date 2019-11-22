@@ -1,11 +1,11 @@
 <template>
             <div class="product-show pt-1">
                 <label for="SortBy" >{{lang ? 'ترتيب حسب' : 'Sort by' }}</label>
-                <select name="SortBy" v-model="SortProperty"  id="SortBy" style="padding: 2px;">
-                    <option value="title-ascending">Alphabetically, A-Z</option>
-                    <option value="title-descending">Alphabetically, Z-A</option>
-                    <option value="price-ascending">Price, low to high</option>
-                    <option value="price-descending">Price, high to low</option>
+                <select name="SortBy" v-model="SortProperty"  id="SortBy" style="padding: 4px;">
+                    <option value="title-ascending">{{!lang ? 'Alphabetically, A-Z' : 'أبجدي أ-ي'}} </option>
+                    <option value="title-descending">{{!lang ? 'Alphabetically,Z-A' : 'أبجدي ي-أ'}} </option>
+                    <option value="price-ascending">{{!lang ? 'Price, low to high' : 'سعر تصاعدي' }}</option>
+                    <option value="price-descending">{{!lang ? 'Price, high to low' : 'سعر تنازلي'}}</option>
 
                 </select>
             </div>

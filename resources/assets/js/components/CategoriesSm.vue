@@ -3,7 +3,7 @@
     <li class="nav-item dropdown text-light  d-lg-none  container">
         <a class="nav-link main-r-bg" href="#" id="allcategory" role="button" data-toggle="dropdown" 
         aria-haspopup="true" aria-expanded="false"  @mouseenter.once="setCategories()">
-          <i class="fa fa-bars"></i> All Categories 
+          <i class="fa fa-bars"></i> {{(lang != null) ? 'كل الأصناف' :'All Categories' }}  
         </a>
         <div class="dropdown-menu" v-if="this.loading">
             <img  src="/img/loadingP.gif" alt="loading" style="margin: auto;display:list-item">
@@ -13,11 +13,11 @@
                 v-for="c in categories"
                 :key="c.id"
                 @click="filterproducts(c.name.en)"
-           class="dropdown-item" >{{c.name.en}}
+           class="dropdown-item" >{{lang ? c.name.ar : c.name.en}}
 
           </a>
           <a class="test dropdown-item" tabindex="-1" @click="showRestCategories()">
-                        More <i class="fa fa-caret-right float-right"></i>
+                       {{lang ? 'المزيد' : 'More'}} <i class="fa fa-caret-right float-right"></i>
           </a>
          
           
@@ -31,7 +31,7 @@
                      :key="rc.id" 
                      @click="filterproducts(rc.name.en)">
                        <a class="" >
-                           {{rc.name.en}}
+                          {{(lang != null) ? rc.name.ar : rc.name.en}}
                        </a>
                     </li>
                    

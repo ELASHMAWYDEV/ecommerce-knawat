@@ -17,8 +17,5 @@
         <li>
         <a href="{{route('user.addTicket')}}">Open Ticket</a>
         </li>
-        <li>
-            <a href="#">Contact</a>
-        </li>
     </ul>
 </div>

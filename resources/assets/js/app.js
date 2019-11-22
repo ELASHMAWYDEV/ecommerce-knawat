@@ -50,6 +50,9 @@ Vue.component('dashboardindex',require('./components/user/dashboard/Index.vue'))
 Vue.component('settings',require('./components/user/dashboard/Settings.vue'));
 Vue.component('authtickets',require('./components/user/dashboard/Tickets.vue'));
 
+//the dashboard part arabic version
+Vue.component('settingsar',require('./components/user/dashboard/Ar/Settings.vue'));
+
 //here is the arabic version for part of pages like home products and so on
 Vue.component('homear', require('./components/Ar/home/Home.vue'));
 Vue.component('cataloguear', require('./components/Ar/home/Catalogue.vue'));

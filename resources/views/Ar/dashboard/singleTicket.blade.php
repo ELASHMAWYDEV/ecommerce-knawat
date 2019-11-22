@@ -1,4 +1,4 @@
-@extends('En.dashboard.home')
+@extends('Ar.dashboard.home')
 @section('excss')
 <style>
 .card-title {
@@ -49,19 +49,19 @@
             <div class="container p-3 bg-white" id="columns">
                
                   <div class="card-header bg-success pb-1 pt-3">
-                    <h5 class="card-title ">Tickets : #{{$ticket->id}}</h5>
+                    <h5 class="card-title ">التذكرة : #{{$ticket->id}}</h5>
                   </div>
                   <div class="card p-4 mt-3 pr-5">
                     <h3 class="ticket-title">{{$ticket->title}} </h3>           
                     
-                    <p class="text-muted" style="    font-size: 0.8rem;">created at  @php echo date('m-d-Y',strtotime($ticket->created_at)) @endphp</p>
+                    <p class="text-muted" style="    font-size: 0.8rem;">أنشئت في  @php echo date('m-d-Y',strtotime($ticket->created_at)) @endphp</p>
                     <hr class="m-0  mb-3">
                     <div class="card-body" style="background: #f4f6f9;">
                         <p class="text-justify text-dark">{{$ticket->content}}</p>
                     </div>
                     <div class="card-tools">
                           <div class="input-group input-group-sm" style="width: 150px;">
-                            <button class="btn btn-flat btn-success mt-2 addbtncollapse" data-toggle="collapse" data-target="#addreply">Add Reply</button>
+                            <button class="btn btn-flat btn-success mt-2 addbtncollapse" data-toggle="collapse" data-target="#addreply">إضافة رد</button>
                           </div>
                     </div>
                     <div class="collapse" id="addreply">
@@ -75,9 +75,9 @@
                         <input type="hidden" name="user_id" value="{{Auth::id()}}">
                        <textarea name="content" id="" class="form-control mt-2" rows="8"></textarea>
                        <label for="addfile" class="mt-3 addfilelink" >
-                            [Add Files] 
+                            [إرفاق ملف] 
                        </label><input type="file" id="addfile" name="addfile" class="d-none">
-                       <button class="btn btn-primary pl-3 pr-3 d-block" >Send</button>
+                       <button class="btn btn-primary pl-3 pr-3 d-block" >إرسال</button>
                       </form>
                     </div>
                   </div>
@@ -103,7 +103,7 @@
                                       </p>
                                       @if($reply->exfile)
                                       <hr>
-                                      Attatched file <a target="_blink" href="{{asset('replies_files').'/'.$reply->exfile}}" class="ml-2">consult</a>
+                                      الملف المرفق <a target="_blink" href="{{asset('replies_files').'/'.$reply->exfile}}" class="ml-2">معاينة</a>
                                       @endif
                                   </div>              
                                 </div>
@@ -115,7 +115,7 @@
                                 </a>
                                 <div class="media-body">
                                   <div class="well well-lg">
-                                      <h6 class="media-heading text-uppercase reviews">Support <span class="float-right media-date">{{date('Y-m-d',strtotime($reply->created_at))}}</span></h6>
+                                      <h6 class="media-heading text-uppercase reviews">الدعم <span class="float-right media-date">{{date('Y-m-d',strtotime($reply->created_at))}}</span></h6>
                                       
                                       <p class="media-comment">
                                         {{$reply->content}}
@@ -123,7 +123,7 @@
                                       </p>
                                       @if($reply->exfile)
                                       <hr>
-                                      Attatched file <a target="_blink" href="{{asset('replies_files').'/'.$reply->exfile}}" class="ml-2">consult</a>
+                                      الملف المرفق <a target="_blink" href="{{asset('replies_files').'/'.$reply->exfile}}" class="ml-2">معاينة</a>
                                       @endif
                                       
                                   </div>              
@@ -132,7 +132,7 @@
                             @endif
                             @empty
                                 <div class="well well-lg">
-                                    <h6 class="media-heading text-uppercase reviews">No replies yet </h6>
+                                    <h6 class="media-heading text-uppercase reviews">لاردود حتى الان</h6>
                                 </div>
                             @endforelse
                              
@@ -150,9 +150,9 @@
 <script>
 $(document).on('click','.addbtncollapse',function(){
   if(!$(this).hasClass('collapsed')){
-    $(this).text('Close'); 
+    $(this).text('إغلاق'); 
   }else{
-    $(this).text('Add Reply'); 
+    $(this).text('إضافة رد); 
   }
  
 })

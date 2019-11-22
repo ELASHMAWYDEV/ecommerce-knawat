@@ -29,21 +29,20 @@
                 <a class="dropdown-item" href="#">Another action</a>
               </div>
             </li>
-            <li class="nav-item dropdown pt-6px">
-              @sar
-              <a class="nav-link " href="{{route('frontEnd.setLang',['lang'=>'En'])}}" >
-               الانجليزية
+            <li class="nav-item  pt-6px">
+              <a class="nav-link " href="{{route('frontEnd.about_us')}}"  >
+                About us
               </a>
-              @else
+            </li>
+            <li class="nav-item  pt-6px">
+              <a class="nav-link " href="{{route('frontEnd.terms')}}" >
+               Terms & Conditions
+              </a>
+            </li>
+            <li class="nav-item dropdown pt-6px">
               <a class="nav-link " href="{{route('frontEnd.setLang',['lang'=>'Ar'])}}" >
                Arabic
               </a>
-              @endsar
-              <div class="dropdown-menu dropd-h-p" aria-labelledby="productdropdownmenu">
-                <a class="dropdown-item" href="{{route('frontEnd.products')}}">All Products</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
             </li>
             
            

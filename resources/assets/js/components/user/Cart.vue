@@ -1,6 +1,6 @@
 <style scoped>
 
-.checkout-btn{background:#7AA93C}
+.checkout-btn{background:#7AA93C;    min-width: 9rem;}
 .cart-product .media{border:1px solid #dee2e6!important}
 .cart-product img{height: 75px;
     width: 65px;}
@@ -91,7 +91,10 @@ tbody tr td:not(:first-of-type){    padding-top: 1.9rem;}
 <template>
     <div class="container p-4 bg-white mt-3 mb-3 border">
        <!-- notice to the selected quantity whene adding to cart -->
-        <div class="row alert bg-info text-white ">The values of quantity is the values choosen <span style="text-decoration: underline;margin-left:5px"> whene adding to cart</span></div>
+        <div class="row alert bg-info text-white ">
+            {{!lang ? 'The values of quantity is the values choosen' : 'قيم الكمية هي التي تم تحديدها' }} <span style="text-decoration: underline;margin-left:5px" :style="lang ? 'margin-right:5px;margin:left:0;' : ''"> {{!lang ? 'whene adding to cart' : ' عند إضافتها للسلة'}}</span>
+             
+        </div>
       
         <div class="row p-2 border">
             <div v-if="this.loading" class="col-sm-9 cart-product columns-container p-3 bg-white" style="box-shadow: 0px 0px 8px 0 #c1b3b3;">
@@ -114,12 +117,13 @@ tbody tr td:not(:first-of-type){    padding-top: 1.9rem;}
                 <table class="table cart-table table-responsive-xs striped-table">
                     <thead>
                     <tr class="table-head">
-                        <th scope="col">image</th>
-                        <th scope="col">product name</th>
-                        <th scope="col">price</th>
-                        <th scope="col">quantity</th>
-                        <th scope="col">action</th>
-                        <th scope="col">total</th>
+                        <th scope="col">{{!lang ? 'image' : 'الصورة'}} </th>
+                        <th scope="col">{{!lang ? 'product name' : 'اسم المنتج'}} </th>
+                        <th scope="col">{{!lang ? 'price' : 'السعر'}} </th>
+                        <th scope="col">{{!lang ? 'quantity' : 'الكمية'}} </th>
+                        <th scope="col">{{!lang ? 'action' : 'العملية'}} </th>
+                        <th scope="col">{{!lang ? 'total' : 'المجموع'}} </th>
+                        
                     </tr>
                     </thead>
                     <tbody v-for="(p,key) in products" :key="key">
@@ -127,7 +131,7 @@ tbody tr td:not(:first-of-type){    padding-top: 1.9rem;}
                             <td>
                                 <a href="#"><img :src="p.images[0]" alt="product image"></a>
                             </td>
-                            <td><a :href="'/products/'+p.sku" target="_blink">{{p.name.en}}</a>
+                            <td><a :href="'/products/'+p.sku" target="_blink">{{!lang ? p.name.en : p.name.ar}}</a>
                                 <div class="mobile-cart-content row">
                                     <div class="col-xs-3">
                                         <div class="qty-box">
@@ -172,9 +176,9 @@ tbody tr td:not(:first-of-type){    padding-top: 1.9rem;}
                 </table>
             </div>
             <div class="col-sm-3 border cart-total-info mt-2 mt-sm-0" >
-               <h5 class="mb-3 font-weight-normal">Your Cart Total</h5>
+               <h5 class="mb-3 font-weight-normal">{{!lang ? 'Your Cart Total' : 'المبلغ الكلي' }}</h5>
                <h3>USD <sup>$</sup> {{totaltopay}}</h3>
-               <button type="button" class="btn checkout-btn text-white">Secure Checkout</button>
+               <button type="button" class="btn checkout-btn text-white">{{!lang ? "Secure Checkout" : "دفع آمن" }}</button>
             </div>
         </div>
         <div id="paypal-button"></div>

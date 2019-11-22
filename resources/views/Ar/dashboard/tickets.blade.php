@@ -1,4 +1,4 @@
-@extends('En.dashboard.home')
+@extends('Ar.dashboard.home')
 @section('excss')
 <style>
  

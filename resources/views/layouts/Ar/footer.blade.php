@@ -6,7 +6,7 @@
                     <h5>روابط إضافية</h5>
                     <ul class="list-unstyled quick-links">
                         <li><a href="/"><i class="fa fa-angle-double-left mr-2"></i>الرئيسية</a></li>
-                        <li><a href="{{route('frontEnd.about_us')}}"><i class="fa fa-angle-double-left mr-2"></i>من نخن</a></li>
+                        <li><a href="{{route('frontEnd.about_us')}}"><i class="fa fa-angle-double-left mr-2"></i>من نحن</a></li>
                         <li><a href="javascript:void();"><i class="fa fa-angle-double-left mr-2"></i>الخدمات</a></li>
                         <li><a href="javascript:void();"><i class="fa fa-angle-double-left mr-2"></i>العروض</a></li>
                     </ul>

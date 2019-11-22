@@ -33,7 +33,7 @@
 .car-ind.active{background-color:#0879c9}
 .quantity-badge{    padding: 5px 5px;
     border-radius: 50%;
-    margin-right: 5px;}
+    margin-right: 5px;margin-left: 5px;}
 .favorited {
     background: #0879c9;
 }
@@ -151,9 +151,9 @@
        <div class="">
             <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a v-if="product.description" class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Description</a>
-                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Attributs</a>
-                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Comments</a>
+                <a v-if="product.description" class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">{{!lang ? 'Description' : 'الوصف'}}</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">{{!lang ? 'Attributs' : 'الخصائص' }}</a>
+                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">{{!lang ? 'Comments' : 'التعليقات' }}</a>
             </div>
             </nav>
             <div class="tab-content p-3" id="nav-tabContent " style="    border: 1px solid #dee2e6;border-top: 0;">
@@ -163,8 +163,8 @@
                 <table class="table table-bordered">
                 <thead>
                     <tr>
-                    <th scope="col">Names</th>
-                    <th scope="col">option</th>
+                    <th scope="col">{{!lang ? 'Names' : 'الاسم'}} </th>
+                    <th scope="col">{{!lang ? 'option'  :'الخاصية'}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -189,9 +189,9 @@
                             <div class="panel panel-info">
                                 
                                 <div class="panel-body">
-                                    <textarea class="form-control" placeholder="write a comment..." rows="3"></textarea>
+                                    <textarea class="form-control" :placeholder="!lang ? 'write a comment...' : 'إضافة تعليق'" rows="3"></textarea>
                                     <br>
-                                    <button type="button" class="btn btn-info pull-right">Post</button>
+                                    <button type="button" class="btn btn-info pull-right">{{!lang ? 'Post' : 'نشر'}}</button>
                                     <div class="clearfix"></div>
                                     <hr>
                                     <ul class="media-list">
@@ -201,7 +201,7 @@
                                             </a>
                                             <div class="media-body">
                                                 <span class="text-muted pull-right">
-                                                    <small class="text-muted">30 min ago</small>
+                                                    <small class="text-muted">25-05-2019</small>
                                                 </span>
                                                 <strong class="text-success">@MartinoMont</strong>
                                                 <p>
@@ -216,7 +216,7 @@
                                             </a>
                                             <div class="media-body">
                                                 <span class="text-muted pull-right">
-                                                    <small class="text-muted">30 min ago</small>
+                                                    <small class="text-muted">25-05-2019</small>
                                                 </span>
                                                 <strong class="text-success">@LaurenceCorreil</strong>
                                                 <p>
@@ -241,7 +241,7 @@
    <!--/details-->
 </div>
 <!--related products details -->
-<h6 class="mt-3 "><span class="slide-choosen-categories main-b-color d-inline-block">Related Products <hr class="hr-choosen-c"></span> <hr class="hr-full-slide-section"></h6>
+<h6 class="mt-3 "><span class="slide-choosen-categories main-b-color d-inline-block">{{!lang ? 'Related Products' : 'منتجات مشابهة '}} <hr class="hr-choosen-c"></span> <hr class="hr-full-slide-section"></h6>
 <div class="related-products mt-4 bg-white p-2 p-des" style="box-shadow: 0px 0px 8px 0 #c1b3b3;">
         <div v-if="this.rloading" class="media single-product-item row m-0">
          <img src="/img/loadingP.gif" alt="loading" style="margin: auto;display:list-item">
@@ -287,7 +287,7 @@
                             <i class="fa fa-star-o main-b-color"></i>
                       </div>
                       <h4 class="product-name text-center">
-                          <a :href="'/products/'+p.sku" target="_blink">{{index}}. {{p.name.en}}</a>
+                          <a :href="'/products/'+p.sku" target="_blink">{{index}}. {{!lang ? p.name.en : p.name.ar}}</a>
                       </h4>
                       <div class="price-box text-center">
                         <span class="new-price">

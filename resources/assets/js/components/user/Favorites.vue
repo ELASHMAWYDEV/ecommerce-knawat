@@ -18,10 +18,10 @@
                 <table  class="table table-striped ">
                         <thead>
                           <tr>
-                            <th scope="col">Image</th>
-                            <th scope="col">Product</th>
-                            <th scope="col" >Stock status</th>
-                            <th scope="col">Action</th>
+                            <th scope="col">{{!lang ? 'Image' : 'الصورة'}}</th>
+                            <th scope="col">{{!lang ? 'Product' : 'المنتج'}}</th>
+                            <th scope="col" >{{!lang ? 'Stock status' : 'حالة التخزين'}}</th>
+                            <th scope="col">{{!lang ? 'Action' : 'العملية'}}</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -30,7 +30,7 @@
                                 <img :src="product.images[0]" style="height: 60px;width:60px" alt="">
                             </th>
                             <td>
-                                <h6><a :href="'/products/'+product.sku" target="_blink" >{{product.name.en}}</a></h6>
+                                <h6><a :href="'/products/'+product.sku" target="_blink" >{{!lang ? product.name.en : product.name.ar}}</a></h6>
                                 <div class="p-rate mt-1">
                                         <i class="fa fa-star main-b-color"></i>
                                         <i class="fa fa-star main-b-color"></i>
@@ -41,9 +41,9 @@
                             </td>
                             <td><span class="btn p-1 font-weight-bolder " >{{getQuantity(product)}}</span></td>
                             <td>
-                                <button v-if="checkItemIsInCart(product.sku)" type="button" class="action-btn incartbtn text-white btn p-1 btn" >In cart</button>
-                                <button v-else type="button" class="action-btn main-b-bg  text-white btn p-1 btn" @click="addToCart(product,$event)" >Add to cart</button>
-                                <button type="button" class="action-btn main-r-bg  text-white btn p-1" @click="removeFavorite(product.sku)">Remove</button>
+                                <button v-if="checkItemIsInCart(product.sku)" type="button" class="action-btn incartbtn text-white btn p-1 btn" >{{!lang ? 'In cart' : 'في السلة' }}</button>
+                                <button v-else type="button" class="action-btn main-b-bg  text-white btn p-1 btn" @click="addToCart(product,$event)" >{{!lang ? 'Add to cart' : 'إضافة للسلة'}}</button>
+                                <button type="button" class="action-btn main-r-bg  text-white btn p-1" @click="removeFavorite(product.sku)">{{!lang ? 'Remove' : 'إزالة'}}</button>
                             </td>
                           </tr>
                       
