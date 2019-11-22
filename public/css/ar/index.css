@@ -1,4 +1,4 @@
-@font-face {font-family: 'segoeui';
+/* @font-face {font-family: 'segoeui';
     src: url("/css/ar/segoeui.ttf");
     src: url("/css/ar/segoeui.ttf") format("embedded-opentype"),
     url("/css/ar/segoeui.ttf") format("truetype"); 
@@ -8,7 +8,12 @@
 
 body{
     font-family: segoeui !important;font-size: 14px;
+} */
+body{
+    /* font-family: segoeui !important; */ 
+    font-family: 'Almarai', sans-serif !important;    font-size: 15px !important;
 }
+.header-nav-link,.nav-link {font-weight: 600 !important;}
 .main-r-bg{
     background: rgb(230, 69, 69) none repeat scroll 0 0;
 }.main-r-color {color:rgb(230, 69, 69) }

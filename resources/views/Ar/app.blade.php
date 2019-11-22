@@ -8,6 +8,7 @@
      <!-- CSRF Token -->
      <meta name="csrf-token" content="{{ csrf_token() }}">
      <script>window.laravel= {csrfToken : '{{csrf_token()}}'}</script>
+     <link href="https://fonts.googleapis.com/css?family=Almarai&display=swap&subset=arabic" rel="stylesheet">
      <link href="https://fonts.googleapis.comcss?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/ar/bootstrap.min.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/font-awesome.min.css')}}" />

@@ -1,13 +1,15 @@
-@font-face {font-family: 'segoeui';
+/* @font-face {font-family: 'segoeui';
     src: url("/css/ar/segoeui.ttf");
     src: url("/css/ar/segoeui.ttf") format("embedded-opentype"),
     url("/css/ar/segoeui.ttf") format("truetype"); 
     font-weight: normal;
     font-style: normal;
-}
+} */
 body{
-    font-family: segoeui !important;
+    /* font-family: segoeui !important; */ 
+    font-family: 'Almarai', sans-serif !important;    font-size: 15px !important;
 }
+.section-t{    font-weight: 600;}
 .slider-main-area{
     padding-top: 60px;
     padding-bottom: 60px;
