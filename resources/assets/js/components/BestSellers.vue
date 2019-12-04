@@ -1,3 +1,10 @@
+
+<style scoped>
+.favorited {
+    background: #0879c9;
+}
+
+</style>
 <template>
 
      <div class="featured-slider shop-product-wrap box-module mt-3">
@@ -12,11 +19,11 @@
                                    <div class=" single-product-item" >
                                    <img onerror="this.onerror=null; this.src='/img/notfound.png'" 
                                     :src="p.images[0]" class="card-img-top" alt="...">
-                                       <a v-if="checkItemIsInCart(p.sku)"  class="btn incartbtn add-to-cart-btn" >In cart 
+                                       <a v-if="checkItemIsInCart(p.sku)"  class="btn incartbtn add-to-cart-btn" >{{!lang ? 'In cart ' : 'في السلة'}}
                                           <i class="fa fa-check text-light" style="position:relative;top:2px"></i>
                                        </a>
                                        <a v-else class="btn btn-primary add-to-cart-btn"
-                                       @click="addToCart(p,$event)" >Add to cart</a>
+                                       @click="addToCart(p,$event)" >{{!lang ? 'Add to cart' : 'إضافة للسلة'}}</a>
                                  
                                    <div class="sale-title label-product">Sale</div>
                                    <div class="percent-count label-product bg-danger ">-15%</div>
@@ -43,11 +50,11 @@
                                          </ul>
                                        </div>
                                        <div class="p-rate mt-1 text-center">
-                                             <i class="fa fa-star-o main-b-color"></i>
-                                             <i class="fa fa-star-o main-b-color"></i>
-                                             <i class="fa fa-star-o main-b-color"></i>
-                                             <i class="fa fa-star-o main-b-color"></i>
-                                             <i class="fa fa-star-o main-b-color"></i>
+                                             <i class="fa fa-star-o oldmain-b-color"></i>
+                                             <i class="fa fa-star-o oldmain-b-color"></i>
+                                             <i class="fa fa-star-o oldmain-b-color"></i>
+                                             <i class="fa fa-star-o oldmain-b-color"></i>
+                                             <i class="fa fa-star-o oldmain-b-color"></i>
                                        </div>
                                        <h4 class="product-name text-center">
                                            <a :href="'/products/'+p.sku" target="_blink">{{index}}. {{p.name.en}}</a>
@@ -74,11 +81,11 @@
                                    <div class=" single-product-item" >
                                    <img onerror="this.onerror=null; this.src='/img/notfound.png'" 
                                     :src="p.images[0]" class="card-img-top" alt="...">
-                                       <a v-if="checkItemIsInCart(p.sku)"  class="btn incartbtn add-to-cart-btn" >In cart 
+                                       <a v-if="checkItemIsInCart(p.sku)"  class="btn incartbtn add-to-cart-btn" >{{!lang ? 'In cart ': 'في السلة'}}
                                           <i class="fa fa-check text-light" style="position:relative;top:2px"></i>
                                        </a>
                                        <a v-else class="btn btn-primary add-to-cart-btn"
-                                       @click="addToCart(p,$event)" >Add to cart</a>
+                                       @click="addToCart(p,$event)" >{{!lang ? 'Add to cart' : 'إضافة للسلة'}}</a>
                                  
                                    <div class="sale-title label-product">Sale</div>
                                    <div class="percent-count label-product bg-danger ">-15%</div>
@@ -105,14 +112,14 @@
                                          </ul>
                                        </div>
                                        <div class="p-rate mt-1 text-center">
-                                             <i class="fa fa-star-o main-b-color"></i>
-                                             <i class="fa fa-star-o main-b-color"></i>
-                                             <i class="fa fa-star-o main-b-color"></i>
-                                             <i class="fa fa-star-o main-b-color"></i>
-                                             <i class="fa fa-star-o main-b-color"></i>
+                                             <i class="fa fa-star-o oldmain-b-color"></i>
+                                             <i class="fa fa-star-o oldmain-b-color"></i>
+                                             <i class="fa fa-star-o oldmain-b-color"></i>
+                                             <i class="fa fa-star-o oldmain-b-color"></i>
+                                             <i class="fa fa-star-o oldmain-b-color"></i>
                                        </div>
                                        <h4 class="product-name text-center">
-                                           <a :href="'/products/'+p.sku" target="_blink">{{index}}. {{p.name.en}}</a>
+                                           <a :href="'/products/'+p.sku" target="_blink">{{index}}. {{p.name.ar}}</a>
                                        </h4>
                                        <div class="price-box text-center">
                                          <span class="new-price">
@@ -140,7 +147,7 @@
                                           <i class="fa fa-check text-light" style="position:relative;top:2px"></i>
                                        </a>
                                        <a v-else class="btn btn-primary add-to-cart-btn"
-                                       @click="addToCart(p,$event)" >Add to cart</a>
+                                       @click="addToCart(p,$event)" >{{!lang ? 'Add to cart' : 'إضافة للسلة'}}</a>
                                  
                                    <div class="sale-title label-product">Sale</div>
                                    <div class="percent-count label-product bg-danger ">-15%</div>
@@ -167,14 +174,14 @@
                                          </ul>
                                        </div>
                                        <div class="p-rate mt-1 text-center">
-                                             <i class="fa fa-star-o main-b-color"></i>
-                                             <i class="fa fa-star-o main-b-color"></i>
-                                             <i class="fa fa-star-o main-b-color"></i>
-                                             <i class="fa fa-star-o main-b-color"></i>
-                                             <i class="fa fa-star-o main-b-color"></i>
+                                             <i class="fa fa-star-o oldmain-b-color"></i>
+                                             <i class="fa fa-star-o oldmain-b-color"></i>
+                                             <i class="fa fa-star-o oldmain-b-color"></i>
+                                             <i class="fa fa-star-o oldmain-b-color"></i>
+                                             <i class="fa fa-star-o oldmain-b-color"></i>
                                        </div>
                                        <h4 class="product-name text-center">
-                                           <a :href="'/products/'+p.sku" target="_blink">{{index}}. {{p.name.en}}</a>
+                                           <a :href="'/products/'+p.sku" target="_blink">{{index}}. {{p.name.ar}}</a>
                                        </h4>
                                        <div class="price-box text-center">
                                          <span class="new-price">
@@ -215,6 +222,41 @@ export default {
         }
     },
     mixins:[mixins, currencyMixins],
+    methods:{
+     /// add to favorite fonctionality
+       addPToFavorite(sku,event){
+          if(this.authId.length > 0){
+          event.target.classList.add('favorited')
+          axios.post('/user/favorites/add',{user_id:this.authId,sku:sku})
+          .then(res => {
+            //console.log(res)
+          
+            Swal.fire({
+              type: 'success',
+              html: res.data.data,
+            })
+            if(res.data.data !== "the product already favorited"){
+              this.$store.state.favoritedProducts.push(sku) ;
+            }
+            
+          })
+          }else{
+            let content =  '';
+            if(this.lang){
+              contnet =  'قم بتسجيل الدخول للاضافة الى المفضلة <br>\
+              <a href="" data-target="#login-modal" data-toggle="modal">تسجيل الدخول</a>';
+            }else{
+              content =  'please login to add to your favorites <br>\
+              <a href="" data-target="#login-modal" data-toggle="modal">login</a>';
+            }
+            Swal.fire({
+              type: 'error',
+              html:content,
+            })
+          // document.querySelector('#loginto').style.display = 'block';
+          }
+       },
+    },
     computed:{
        allproducts(){
             return this.$store.state.products;

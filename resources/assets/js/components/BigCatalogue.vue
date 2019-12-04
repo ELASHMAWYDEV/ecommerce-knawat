@@ -10,15 +10,15 @@
                            <div class="filter-group" id="bigcatalogue">
                              
                              
-                             <a class="active"  @click="filterproducts('Fashion',$event)"><i class="fa fa-check main-b-color "></i> {{lang ? 'موضة' : 'Fashion'}}<span></span></a>
+                             <a class="active"  @click="filterproducts('Fashion',$event)"><i class="fa fa-check oldmain-b-color "></i><span class="ml-1"> {{lang ? 'موضة' : 'Fashion'}}</span></a>
                              
-                             <a class=""  @click="filterproducts('Sports',$event)"><i class="fa fa-check main-b-color "></i> {{lang ? 'رياضة' : 'Sports'}}  <span></span></a>
+                             <a class=""  @click="filterproducts('Sports',$event)"><i class="fa fa-check oldmain-b-color "></i> <span class="ml-1"> {{lang ? 'رياضة' : 'Sports'}} </span></a>
                              
-                             <a class=""  @click="filterproducts('Electronic',$event)"><i class="fa fa-check main-b-color "></i> {{lang ? 'إلكترونيك' : 'Electronic'}}  <span></span></a>
+                             <a class=""  @click="filterproducts('Electronic',$event)"><i class="fa fa-check oldmain-b-color "></i>   <span class="ml-1">{{lang ? 'إلكترونيك' : 'Electronic'}}</span></a>
                              
-                             <a class="" @click="filterproducts('Furniture',$event)" ><i class="fa fa-check main-b-color "></i> {{lang ? 'أثاث' : 'Furniture'}}  <span></span></a>
+                             <a class="" @click="filterproducts('Furniture',$event)" ><i class="fa fa-check oldmain-b-color "></i> <span class="ml-1">{{lang ? 'أثاث' : 'Furniture'}}  </span></a>
                              
-                             <a class="" @click="filterproducts('Accessories',$event)" ><i class="fa fa-check main-b-color "></i> {{lang ? 'اكسسوارات' : 'Accessories'}} <span></span></a>
+                             <a class="" @click="filterproducts('Accessories',$event)" ><i class="fa fa-check oldmain-b-color "></i> <span class="ml-1"> {{lang ? 'اكسسوارات' : 'Accessories'}}</span></a>
                              
                      
                            </div>

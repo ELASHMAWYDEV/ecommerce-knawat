@@ -1,9 +1,9 @@
 <template>
- <nav class="navbar allcat-xs">
-    <li class="nav-item dropdown text-light  d-lg-none  container">
-        <a class="nav-link main-r-bg" href="#" id="allcategory" role="button" data-toggle="dropdown" 
+ <nav class="navbar allcat-xs d-sm-none">
+    <li class="nav-item dropdown text-light d-lg-none p-2 container ">
+        <a class="nav-link new-main-r-bg" href="#" id="allcategory" role="button" data-toggle="dropdown" 
         aria-haspopup="true" aria-expanded="false"  @mouseenter.once="setCategories()">
-          <i class="fa fa-bars"></i> {{(lang != null) ? 'كل الأصناف' :'All Categories' }}  
+          <i class="fa fa-bars mr-4"></i> {{(lang != null) ? 'كل الأصناف' :'All Categories' }}  
         </a>
         <div class="dropdown-menu" v-if="this.loading">
             <img  src="/img/loadingP.gif" alt="loading" style="margin: auto;display:list-item">

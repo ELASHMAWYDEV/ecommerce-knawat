@@ -1,4 +1,5 @@
 .slider-main-area{
+    margin-top: 2rem;
     padding-top: 60px;
     padding-bottom: 60px;
     background: #fff;
@@ -159,7 +160,7 @@
     }
     .categories-options .row > div{padding: 1rem;text-align: center}
     .single-category img{    height: 145px;
-        width: 155px;   margin-bottom: 4px;}
+        width: 155px;     margin-bottom: 16px;    }
     .single-category img:hover{transform: scale(1.1,1.1)}
     .single-category a{    color: #52585d;text-decoration: none}
     .single-category a:hover{color: #0879c9}
@@ -206,5 +207,33 @@
 
 @media(max-width:576px){
     .container{padding-left:2.5rem;padding-right: 2.5rem }
+    .categories-options .section-t, .ft-p .section-t,.section-t {
+        font-size: 0.9rem;
+    }
+    .categories-options .section-t::after, .ft-p .section-t::after {
+        margin-top:39px;
+    }.section-t::after  {
+        margin-top: 26px;
+}}
+@media(min-width:461px){
+    #all-product-img-link-sm{
+    display: none;
+    }
+ }
+ @media(max-width:480px){
+     .p-name a{    max-width: 14rem;}
+ }
+@media(max-width:460px){
+    #all-product-img-link-lg{
+       display: none;
+    }
+    #all-product-img-link-sm{
+       display: block;
+    }
     
-}
+   }
+   @media(max-width:768px){
+    .contacts-list-info > div:not(:last-of-type)::after{
+        width: 0px; 
+    }
+   }

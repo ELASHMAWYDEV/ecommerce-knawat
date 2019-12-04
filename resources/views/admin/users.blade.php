@@ -2,10 +2,7 @@
 @extends('admin.layouts.app')
 @section('title','إعدادات العملاء')
 @section('style')
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="{{asset('adminlte-rtl/plugins/datatables/dataTables.bootstrap4.css')}}">
+ 
   <style>
     label.error{
         color: red;
@@ -79,6 +76,7 @@
                                           <th>الاسم الأخير</th>
                                           <th>العنوان</th>
                                           <th>البريد</th>
+                                          <th>حالة البريد</th>
                                           <th>رقم الهاتف</th>
                                           {{-- <th> الصورة</th> --}}
                                           <th ></th>
@@ -96,7 +94,15 @@
                                             <td>{{$user->lastname}}</td>
                                             <td>{{$user->address}}</td>
                                             <td>{{$user->email}}</td>
-                                            <td>+{{$user->phone}}</td>
+                                            <td>
+                                              @if($user->email_verification ==  true)
+                                              مفعل
+                                              @else
+                                              غير مفعل
+                                              @endif
+                                            </td>
+                                            <td>{{$user->phone}}+</td>
+                                           
                                             {{-- <td>
                                                  <button type="button" data-toggle="modal"  data-target="#viewImage" 
                                                     data-img="{{asset('img/profile/').'/'.$user->image}}" 
@@ -129,7 +135,7 @@
                                   </table>
                                 </div>
                                 <!-- /.card-body -->
-                              </div>
+                        </div>
                 </div>
                 <!-- /.card-body -->
               </div>
@@ -154,10 +160,7 @@
 
 <script src="{{asset('adminlte-rtl/plugins/datatables/jquery.dataTables.js')}}"></script>
 <script src="{{asset('adminlte-rtl/plugins/datatables/dataTables.bootstrap4.js')}}"></script>
-<!-- SlimScroll -->
-<script src="{{asset('adminlte-rtl/plugins/slimScroll/jquery.slimscroll.min.js')}}"></script>
-<!-- FastClick -->
-<script src="{{asset('adminlte-rtl/plugins/fastclick/fastclick.js')}}"></script>
+
 
 <script>
   $(function () {

@@ -8,7 +8,8 @@ use App\Cart;
 use auth;
 use Session;
 use App\Pages;
-
+use App\MailingList;
+use Illuminate\Support\Facades\Mail;
 class HomeController extends Controller
 {
     /**
@@ -105,6 +106,52 @@ class HomeController extends Controller
      public function faq(){ 
          return  $this->getPageBySlug('faq');
      }
+     public function contact_us(){
+         return view($this->lang().'.contact');
+     }
+     //the user contact us form page
+     public function contact_us_add(Request $request){
+       
+        if($request->lang == null){
+            Mail::send('mail.contact_us',['request'=>$request,'site_name_e'=>'trisoline ecommerce'],function($message) use ($request){
+                $message->to('ayatir04@gmail.com');
+                $message->subject('Message from Contact Us page');
+           });
+           return response()->json(['success'=>'Your message sent successfuly you will get a response intermediatly']);
+
+        }
+            Mail::send('mail.contact_us_ar',['request'=>$request,'site_name_e'=>'trisoline ecommerce'],function($message) use ($request){
+                $message->to('ayatir04@gmail.com');
+                $message->subject('استفسار من صفحة اتصل بنا');
+           });
+           return response()->json(['success'=>'تم إرسال الرسالة بنجاح وسيتم الرد عليك قريبا']);
+
+        
+
+      }
+      public function mailinglist(Request $request){
+         
+          $this->validate($request,[
+            'email'=>'string|required'
+          ]);
+          $mail =  MailingList::whereEmail($request->email)->first();
+          if($mail){
+              if($this->lang() == 'Ar'){
+                return response()->json(['type'=>'info','data'=>'البريد الالكتروني موجود مسبقا في القائمة']);
+              }
+                return response()->json(['type'=>'info','data'=>'Email already subscribed']);
+          }
+          Mailinglist::create([
+              'email'=>$request->email
+          ]);
+          if($this->lang() == 'Ar'){
+            return response()->json(['type'=>'success','data'=>'تم الاشتراك شكرا لك']);
+          }
+         
+          return response()->json(['type'=>'success','data'=>'Email subscribed successfuly,Thanks']);
+      }
+      
+
      public function dashboard(){
          return  view($this->lang().'.dashboard.index');
      }

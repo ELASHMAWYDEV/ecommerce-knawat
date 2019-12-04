@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Mail;
 use Validator;
 use Auth;
 use App\Reply;
+use App\MailingList;
+use App\Order;
 class UserController extends Controller
 {
     /**
@@ -79,6 +81,12 @@ class UserController extends Controller
             'state'=>'',
             'postcode'=>'',
         ]);
+        $mail =  MailingList::whereEmail($request->email)->first();
+        if(!$mail){
+          Mailinglist::create([
+            'email'=>$request->email
+          ]);
+        }
         //admin notification
         Mail::send('mail.newRegistration',['user'=>$user,'site_name_e'=>'trisoline ecommerce'],function($message) use ($user){
             $message->to('ayatir04@gmail.com');
@@ -248,12 +256,18 @@ class UserController extends Controller
          if($validator->passes()){
            $fav = Favorites::where('user_id',$request->user_id)->where('sku',$request->sku)->first();
            if($fav){
+             if($this->lang() == 'Ar'){
+               return response()->json(['data'=>'تم إضافته من قبل']);
+             }
              return response()->json(['data'=>'the product already favorited']);
            }
            $favorite = Favorites::create([
              'user_id'=>$request->user_id,
              'sku'=>$request->sku
            ]);
+           if($this->lang() == 'Ar'){
+            return response()->json(['data'=>'تم إضافة المنتج إلى المفضلة بنجاح']);
+           }
            return response()->json(['data'=>'the product added to favorites successfuly']);
          }
     }
@@ -374,4 +388,25 @@ class UserController extends Controller
       }
       return redirect()->route('user.tickets');
     }
+    //the orders page 
+    public function orders(){
+      return view($this->lang().'.dashboard.orders');
+    }
+    public function getmyorders(){
+      $orders = Order::with('user')->where('user_id',Auth::id())->paginate(2);
+      return response()->json($orders);
+    }
+    //the search fonctionality belongs to orders page
+    public function getmyordersbysku($w){
+      $orders = Order::with('user')->where('user_id',Auth::id())->where('sku','like','%'.$w.'%')->paginate(10);
+      return response()->json($orders);
+    }
+    public function getmyordersbyid($order_id){
+        //here we use where because we are receiving a string not a number
+        
+        $orders = Order::with('user')->where('user_id',Auth::id())->where('id','like','%'.$order_id.'%')->paginate(1);
+
+        return response()->json($orders);
+    }
+   
 }

@@ -20,15 +20,15 @@
  .top-search-btn{
      float: right;
      top: -40px;
-     right: 4px;
+     right: 12px;
  }
  .allcat-xs a{
      width: 100%;
      padding: 3px 18px !important;
  }
- .allcat-xs .dropdown-menu{    margin-left: 14px;
-     width: 94%;
-     border-radius: 0;
+ .allcat-xs .dropdown-menu{      margin-left: 5px;
+    width: 97%;
+    border-radius: 0;
      padding: 3px 18px !important;}
  .main-menu-area .navbar.container  {flex-direction: row-reverse;
  padding-right: 1rem !important;padding-top: 3px !important
@@ -80,9 +80,28 @@
 }
 .currency-dropdownmenu.show{display: block !important}
  @media(max-width:450px){
-     .top-search-input{min-width: 16rem;}
+     .top-search-input{min-width: 14rem;}
+     #new-header{font-size: 12px;}
+     #new-header .loginbtn{    padding: 0rem;
+        width: 65px;
+        font-size: 12px;}
+        .lang-currency .dropdown:nth-child(2){display: none;}
+ }
+ @media(max-width:370px){
+   .top-search-input{min-width: 12rem;}  
  }
  /* category sm */
  .allcat-xs{cursor: pointer;}
  #categorysm{padding: 0.5rem 0; border-top: 1px solid #e8e4e4;display: none}
  .shown{display: block !important}
+ 
+ @media(min-width:992px) and (max-width:1199px){
+     .top-search-input{    width: 31rem;}
+ }
+ @media(min-width:768px) and (max-width:991px){
+     .top-search-input{    width: 20rem;}
+ }
+ @media(max-width:767px){
+     .top-search-input{        width: 100%;}
+     .top-search-btn{right:4px}
+ }

@@ -47,21 +47,21 @@
                      <div class="featured-servicesborder-0" style="padding: 14px;    clear: both;" >
                          <div class="row bg-white">
                                <div class="media col-md-4 border p-2">
-                                       <i class="fa fa-truck main-b-color fa-3x mr-3"></i>
+                                       <i class="fa fa-truck oldmain-b-color fa-3x mr-3"></i>
                                        <div class="media-body">
                                            <h5 class="mt-0">شحن مجاني</h5>
                                            يبدأ من طلب أكثر من 200$
                                        </div>
                                </div>
                                <div class="media col-md-4 border p-2">
-                                       <i class="fa fa-phone main-b-color  fa-3x mr-3"></i>
+                                       <i class="fa fa-phone oldmain-b-color  fa-3x mr-3"></i>
                                        <div class="media-body">
                                            <h5 class="mt-0">الدعم 24/7</h5>
                                            اتصل بنا على الخدمة
                                        </div>
                                </div>       
                                <div class="media col-md-4 border p-2">
-                                       <i class="fa fa-paper-plane main-b-color fa-3x mr-3"></i>
+                                       <i class="fa fa-paper-plane oldmain-b-color fa-3x mr-3"></i>
                                        <div class="media-body">
                                            <h5 class="mt-0">أفضل العروض</h5>
                                            خصم حتى 50%
@@ -74,7 +74,7 @@
                      <!--featured services-->
                      <!--best sellter-->
                      <h6 class="mt-2 ">
-                           <span class="slide-choosen-categories main-b-color d-inline-block">الأكثر مبيعا <hr class="hr-choosen-c"></span>
+                           <span class="slide-choosen-categories oldmain-b-color d-inline-block">الأكثر مبيعا <hr class="hr-choosen-c"></span>
                            <hr class="hr-full-slide-section">
                      </h6>
                      <bestsellers></bestsellers>
@@ -126,16 +126,16 @@
                            <div class="filter-group">
                              
                              
-                             <a class="" href="javascript:void();"><i class="fa fa-check main-b-color "></i> أحمر<span> (16)</span></a>
+                             <a class="" href="javascript:void();"><i class="fa fa-check oldmain-b-color "></i> <span class="ml-1">أحمر (16)</span></a>
                              
-                             <a class="" href="javascript:void();"><i class="fa fa-check main-b-color "></i> أخضر <span> (21)</span></a>
+                             <a class="" href="javascript:void();"><i class="fa fa-check oldmain-b-color "></i>  <span class="ml-1">أخضر (21)</span></a>
                              
-                             <a class="" href="javascript:void();"><i class="fa fa-check main-b-color "></i> أزرق <span> (15)</span></a>
+                             <a class="" href="javascript:void();"><i class="fa fa-check oldmain-b-color "></i>  <span class="ml-1">أزرق (15)</span></a>
                              
-                             <a class="" href="javascript:void();"><i class="fa fa-check main-b-color "></i> أبيض <span> (16)</span></a>
+                             <a class="" href="javascript:void();"><i class="fa fa-check oldmain-b-color "></i>  <span class="ml-1">أبيض (16)</span></a>
                              
-                             <a class="" href="javascript:void();"><i class="fa fa-check main-b-color "></i> أصفر<span> (15)</span></a>
-                             <a class="" href="javascript:void();"><i class="fa fa-check main-b-color "></i> أسود<span> (15)</span></a>
+                             <a class="" href="javascript:void();"><i class="fa fa-check oldmain-b-color "></i> <span class="ml-1">أصفر (15)</span></a>
+                             <a class="" href="javascript:void();"><i class="fa fa-check oldmain-b-color "></i> <span class="ml-1">أسود (15)</span></a>
                              
                      
                            </div>
@@ -145,7 +145,7 @@
                          <div class="section-title">
                            <h5 class="font-weight-bold">الحجم</h5>
                          </div>
-                        <sizefilter></sizefilter>
+                        <sizefilterar></sizefilterar>
                    </div>
               </div>
           </div>

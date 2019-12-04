@@ -17,7 +17,7 @@
                                        onerror="this.onerror=null; this.src='img/1.jpg'" class="card-img-top" alt="...">
                                        
                                        <a v-if="checkItemIsInCart(product.sku)"  class="btn incartbtn add-to-cart-btn" >{{!lang ? 'In cart' : 'في السلة'}}</a>
-                                       <a  v-else class="btn main-b-bg add-to-cart-btn" @click="addToCart(product,$event)">{{!lang ? 'Add to cart' : 'إضافة للسلة' }}</a>
+                                       <a  v-else class="btn oldmain-b-bg add-to-cart-btn" @click="addToCart(product,$event)">{{!lang ? 'Add to cart' : 'إضافة للسلة' }}</a>
                                       
                                        <div class="sale-title label-product">Sale</div>
                                        <div class="percent-count label-product bg-danger ">-15%</div>
@@ -43,11 +43,11 @@
                                              </ul>
                                            </div>
                                            <div class="p-rate mt-1 text-center">
-                                                   <i class="fa fa-star main-b-color"></i>
-                                                   <i class="fa fa-star main-b-color"></i>
-                                                   <i class="fa fa-star main-b-color"></i>
-                                                   <i class="fa fa-star-o main-b-color"></i>
-                                                   <i class="fa fa-star-o main-b-color"></i>
+                                                   <i class="fa fa-star oldmain-b-color"></i>
+                                                   <i class="fa fa-star oldmain-b-color"></i>
+                                                   <i class="fa fa-star oldmain-b-color"></i>
+                                                   <i class="fa fa-star-o oldmain-b-color"></i>
+                                                   <i class="fa fa-star-o oldmain-b-color"></i>
                                            </div>
                                            <h4 class="product-name text-center">
                                                <a :href="'/products/'+product.sku" target="_blink"><strong>{{index + 1}} </strong>- {{!lang ? product.name.en : product.name.ar}} </a>

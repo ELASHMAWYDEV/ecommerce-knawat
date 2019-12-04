@@ -10,7 +10,7 @@
      display: none;
  } 
  .d-292-flex{
-   display: flex !important;clear: both;float: right;
+   display: flex !important;clear: both;float: left;
  }
  .logo{margin: auto;margin-bottom: 2%;}
  .header-area {
@@ -19,15 +19,15 @@
  }
  .top-search-btn{
      float: left;
-     top: -40px;
-     left: 4px;
+     top: -41px;
+    left: 13px;
  }
  .allcat-xs a{
      width: 100%;
      padding: 3px 18px !important;
  }
  .allcat-xs .dropdown-menu{    margin-left: 14px;
-     width: 94%;
+    width: 95%;
      border-radius: 0;
      padding: 3px 18px !important;}
  .main-menu-area .navbar.container  {flex-direction: row-reverse;
@@ -51,6 +51,7 @@
      
      span.main-r-bg{    width: 73px;
          margin-top: 5px;}
+         #new-header .container{width: 100%;padding: 0 !important;margin:0 !important}
  }
  .wishlist td span.main-b-bg,span.main-r-bg{font-size: 13px}
  @media(max-width:568px){
@@ -82,9 +83,29 @@
 }
 .currency-dropdownmenu.show{display: block !important}
  @media(max-width:450px){
-     .top-search-input{min-width: 16rem;}
+    .top-search-input{min-width: 14rem;}
+    #new-header{font-size: 12px;}
+    #new-header .loginbtn{   padding: 0.1rem;
+        width: 79px;
+        font-size: 11px;}
+       .lang-currency .dropdown:nth-child(2){display: none;}
  }
+ @media(max-width:370px){
+    .top-search-input{min-width: 12rem;}  
+  }
  /* category sm */
  .allcat-xs{cursor: pointer;}
  #categorysm{padding: 0.5rem 0; border-top: 1px solid #e8e4e4;display: none}
  .shown{display: block !important}
+
+
+ @media(min-width:992px) and (max-width:1199px){
+    .top-search-input{    width: 31rem;}
+}
+@media(min-width:768px) and (max-width:991px){
+    .top-search-input{    width: 20rem;}
+}
+@media(max-width:767px){
+    .top-search-input{        width: 100%;}
+    .top-search-btn{left:4px}
+}

@@ -100,6 +100,13 @@
         scrollbtn.style.display = "block"
     }
     })
+    function togglelangdropdown(){
+        console.log("togg")
+        document.querySelectorAll('.lang-dropdown')[0].classList.toggle('visible');
+    }
+    function togglecurrencydropdown(){
+        document.querySelectorAll('#new-header .currency-dropdownmenu')[0].classList.toggle('show');
+    }
    
     </script>
     @yield('js')

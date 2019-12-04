@@ -144,7 +144,7 @@
                     <div class="col-md-3 col-sm-4" v-for="(c,key) in catslider1 " :key="key">
                       <div class="single-category">
                         <a href="/products" target="_blink">
-                          <img @mouseenter="setCurrentCategory(c.name.en)" :src="'https://app.knawat.com/images/categories/empty.svg'" alt="">
+                          <img @mouseenter="setCurrentCategory(c.name.en)" :src="getcatsrc(c.name.en)" alt="category image">
                         </a>
                         <h6 @mouseenter="setCurrentCategory(c.name.en)" class="p-name"><a href="/products" target="_blink">{{c.name.ar ? c.name.ar : c.name.en}}</a></h6>
                       </div>
@@ -157,7 +157,7 @@
                        <div class="col-md-3 col-sm-4" v-for="(c,key) in catslider2 " :key="key">
                          <div class="single-category" >
                            <a href="/products" target="_blink" >
-                             <img @mouseenter="setCurrentCategory(c.name.en)" :src="'https://app.knawat.com/images/categories/empty.svg'" alt="">
+                             <img @mouseenter="setCurrentCategory(c.name.en)" :src="getcatsrc(c.name.en)" alt="category image">
                            </a>
                            <h6 @mouseenter="setCurrentCategory(c.name.en)" ><a href="/products" target="_blink">{{c.name.ar ? c.name.ar : c.name.en}}</a></h6>
                          </div>
@@ -181,8 +181,11 @@
      <!--the categories-->
      <!--the all product image link-->
      <div class="container products-link  mb-5" style="max-height: 300px">
-       <a href="/products" target="_blink">
+       <a href="/products" target="_blink" id="all-product-img-link-lg" >
            <img src="/img/shop.jpg" class="w-100" alt="all product image link">
+       </a>
+       <a href="/products" target="_blink" id="all-product-img-link-sm" >
+           <img src="/img/shopme.jpg" class="w-100" alt="all product image link">
        </a>
        
      </div>
@@ -193,7 +196,8 @@
     
        <div class="p-3 bg-white">
            <h5 class="section-t">منتجات مخصصة
-                 <a class="carousel-control-prev carousel-control" href="#ft-pC" role="button" data-slide="prev">
+                 <a class="carousel-control-prev carousel-control" href="#ft-pC" role="button" data-slide="prev" style="    margin-right: 0;
+                  ">
                  
                    <i class="fa fa-chevron-left carousel-chevron" aria-hidden="true"></i>
                    <span class="sr-only ">Previous</span>
@@ -625,7 +629,7 @@ export default {
            
            Swal.fire({
                title: 'اختر الكمية',
-               html:'<h6>max quantity :'+maxQTE+'</h6>',
+               html:'<h6> الكمية المتوفرة : '+maxQTE+'</h6>',
                input: 'number',
                inputAttributes: {
                min: 1,
@@ -660,7 +664,7 @@ export default {
          }else{
          Swal.fire({
            type: 'error',
-           html: 'قم بتسجيل للقيام بالعملية  <br>\
+           html: 'قم بتسجيل الدخول للقيام بالعملية  <br>\
             <a href="" data-target="#login-modal" data-toggle="modal">تسجيل الدخول</a>',
          })
         // document.querySelector('#loginto').style.display = 'block';
@@ -742,6 +746,20 @@ export default {
           }); 
           this.PhoneProducts1 = fil.slice(0,3);
           this.PhoneProducts2 = fil.slice(3,6);
+     },
+     getcatsrc(catname){
+        let products = this.$store.state.products;
+        
+          let fil = products
+          .filter((element) => 
+              element.categories.some((c) => c.name.en == catname))
+          .map(element => {
+              return Object.assign({}, element, {categories : element.categories.filter(subElement => subElement.name.en == catname)});
+
+          }); 
+          //get the image of first product
+          let firstp = fil[Math.floor(Math.random() * (fil.length - 1))];
+          return firstp.images[0];
      }
    },
    computed:{

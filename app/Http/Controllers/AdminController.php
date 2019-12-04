@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use Auth;
 use Session;
 use App\User;
+use App\Order;
 use App\Pages;
 use App\Reply;
 use App\Ticket;
 use App\Settings;
 use App\Favorites;
+use App\MailingList;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
@@ -174,6 +176,40 @@ class AdminController extends Controller
        $ticket->save();
        return response()->json(['success'=>'1']);
     }
+    //the newsletter page
+    public function newsletter(){
+        $emails = MailingList::all();
+        return view('admin.newsletter',compact('emails'));
+    }
+    public function deletenewsletter($email){
+        $emailitem = MailingList::whereEmail($email)->first();
+        $emailitem->delete();
+        
+        return response()->json('تم حدف البريد بنجاح');
+    }
+    //the orders page
+    public function orderspage(){
+        return view('admin.orders');
+    }
+    public function getallorders(){
+        $orders = Order::with('user')->paginate(2);
+        return response()->json($orders);
+    }
+    public function getordersbyusername($w){
+        $orders = Order::with(['user' => function($q) use($w) {
+            $q->where('firstname', 'like','%'.$w.'%'); // '=' is optional
+        }])
+        ->paginate(20);
+        return response()->json($orders);
+    }
+    public function getordersbyid($order_id){
+        //here we use where because we are receiving a string not a number
+        
+        $orders = Order::with('user')->where('id','like','%'.$order_id.'%')->paginate(1);
+
+        return response()->json($orders);
+    }
+ 
     
     
 }

@@ -22,13 +22,14 @@
 </head>
 <body>
    <div id="app">
+        <registerarmodal></registerarmodal>
       @include('layouts.Ar.header')
 
       @yield('content')
       @include('layouts.Ar.footer')
        <!-- Modal login -->
-       <loginmodal></loginmodal>
-       <registermodal></registermodal>
+       <loginarmodal></loginamodal>
+       
    </div>
    
 
@@ -62,7 +63,7 @@
     </div>
     <!-- to show the user login to do something -->
     <div class="modal fade" id="loginto" tabindex="-1" role="dialog"
-    aria-labelledby="loginto" aria-hidden="true">
+        aria-labelledby="loginto" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
@@ -101,6 +102,13 @@
         scrollbtn.style.display = "block"
     }
     })
+    function togglelangdropdown(){
+        console.log("togg")
+        document.querySelectorAll('.lang-dropdown')[0].classList.toggle('visible');
+    }
+    function togglecurrencydropdown(){
+        document.querySelectorAll('#new-header .currency-dropdownmenu')[0].classList.toggle('show');
+    }
    
     </script>
     @yield('js')

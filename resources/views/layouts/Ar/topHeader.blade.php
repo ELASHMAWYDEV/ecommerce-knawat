@@ -1,5 +1,42 @@
-<div class="nav-bar-t main-b-bg">
-    <nav class="navbar navbar-expand-lg navbar-dark  container">
+<div id="new-header" class="new-main-bg">
+<div class="container">
+  <nav class="p-2 d-flex">
+       
+     
+    <Button class="btn loginbtn  "  data-target="#register-modal" data-toggle="modal"><i class="fa fa-user mr-1"></i>إنشاء حساب </Button>
+    <Button class="btn loginbtn"  data-target="#login-modal" data-toggle="modal"><i class="fa fa-user mr-1"></i> تسجيل دخول </Button>
+    
+
+  </nav>
+  <ul  class="navbar-nav d-flex  lang-currency">
+  <li class="dropdown ">
+        <a class="text-weight " href="#"  role="button" onclick="togglelangdropdown()">
+          <i class="fa fa-flag mr-1"></i> العربية  <i class="fa fa-caret-down"></i>
+        </a>
+        <div class="dropdown-menu lang-dropdown" aria-labelledby="loginWhishlistdropdown">
+            <a class="dropdown-item " 
+            href="{{route('frontEnd.setLang',['lang'=>'En'])}}"> <i class="fa fa-language main-r-color mr-2"></i>الانجليزية </a>
+          </a>
+        </div>
+    </li>
+    |
+    <li class="dropdown  ">
+        <a class="nav-link " href="#" role="button" onclick="togglecurrencydropdown()" >
+          العملة : USD <i class="fa  fa-caret-down"></i>
+        </a>
+        <div class="currency-dropdownmenu "  >
+          <a class="dropdown-item btn" >USD</a>
+          <a class="dropdown-item btn" >TRY</a>
+          <a class="dropdown-item btn" >EUR</a>
+          <a class="dropdown-item btn" >GBP</a>
+        </div>
+    </li>
+    
+  </ul>
+</div>
+</div>
+<div class="nav-bar-t ">
+    <nav class="navbar navbar-expand-lg navbar-dark  container pt-2 pb-3">
         <div class="navbar-brand  logo">
               <a  id="site-name" href="{{route('frontEnd.home')}}">
                 <img src="{{asset('img/logo.png')}}"  alt="site logo">
@@ -18,15 +55,15 @@
                   <i class="fa fa-chevron-down mr-2"></i>  حسابي 
               </a>
               <div class="dropdown-menu" aria-labelledby="loginWhishlistdropdown">
-                <a class="dropdown-item" href="{{route('frontEnd.user.favorites')}}"><i class="fa fa-heart-o main-r-color mr-2"></i> المفضلة <favoritesCount></favoritesCount></a>
+                <a class="dropdown-item" href="{{route('frontEnd.user.favorites')}}"><i class="fa fa-heart-o main-b-color mr-2"></i> المفضلة <favoritesCount></favoritesCount></a>
                 @guest
-                 <a href="#" class="dropdown-item" data-target="#login-modal" data-toggle="modal"> <i class="fa fa-sign-in main-r-color mr-2"></i> تسجيل الدخول </a>
-                 <a href="#" class="dropdown-item" data-target="#register-modal" data-toggle="modal"> <i class="fa fa-unlock-alt main-r-color mr-2"></i> تسجيل </a>
+                 <a href="#" class="dropdown-item" data-target="#login-modal" data-toggle="modal"> <i class="fa fa-sign-in main-b-color mr-2"></i> تسجيل الدخول </a>
+                 <a href="#" class="dropdown-item" data-target="#register-modal" data-toggle="modal"> <i class="fa fa-unlock-alt main-b-color mr-2"></i> تسجيل </a>
                 @else
-                <a class="dropdown-item" href="{{route('user.dashboard')}}"><i class="fa fa-tachometer main-r-color mr-2"></i>لوحة التحكم</a>
-                <a class="dropdown-item" href="{{route('logout')}}"> <i class="fa fa-sign-out main-r-color mr-2"></i> تسجيل الخروج </a>
+                <a class="dropdown-item" href="{{route('user.dashboard')}}"><i class="fa fa-tachometer main-b-color mr-2"></i>لوحة التحكم</a>
+                <a class="dropdown-item" href="{{route('logout')}}"> <i class="fa fa-sign-out main-b-color mr-2"></i> تسجيل الخروج </a>
                 @endguest
-                <a class="dropdown-item" href="{{route('frontEnd.setLang',['lang'=>'En'])}}"> <i class="fa fa-language main-r-color mr-2"></i> الانجليزية </a>
+                <a class="dropdown-item" href="{{route('frontEnd.setLang',['lang'=>'En'])}}"> <i class="fa fa-language main-b-color mr-2"></i> الانجليزية </a>
               </div>
             </li>
             <li class="nav-item dropdown d-292-none">
@@ -43,16 +80,16 @@
                 حسابي
               </a>
               <div class="dropdown-menu" aria-labelledby="loginWhishlistdropdown">
-                <a class="dropdown-item" href="{{route('frontEnd.user.favorites')}}"><i class="fa fa-heart-o main-r-color mr-2"></i> المفضلة <favoritesCount></favoritesCount></a>
+                <a class="dropdown-item" href="{{route('frontEnd.user.favorites')}}"><i class="fa fa-heart-o main-b-color mr-2"></i> المفضلة <favoritesCount></favoritesCount></a>
                 
                   @guest
-                  <a href="#" class="dropdown-item" data-target="#login-modal" data-toggle="modal"> <i class="fa fa-sign-in main-r-color mr-2"></i> تسجيل الدخول </a>
-                  <a href="#" class="dropdown-item" data-target="#register-modal" data-toggle="modal"> <i class="fa fa-unlock-alt main-r-color mr-2"></i> تسجيل </a>
+                  <a href="#" class="dropdown-item" data-target="#login-modal" data-toggle="modal"> <i class="fa fa-sign-in main-b-color mr-2"></i> تسجيل الدخول </a>
+                  <a href="#" class="dropdown-item" data-target="#register-modal" data-toggle="modal"> <i class="fa fa-unlock-alt main-b-color mr-2"></i> تسجيل </a>
                   @else
-                  <a class="dropdown-item" href="{{route('user.dashboard')}}"><i class="fa fa-tachometer main-r-color mr-2"></i>لوحة التحكم</a>
-                  <a class="dropdown-item" href="{{route('logout')}}"> <i class="fa fa-sign-out main-r-color mr-2"></i> تسجيل الخروج </a>
+                  <a class="dropdown-item" href="{{route('user.dashboard')}}"><i class="fa fa-tachometer main-b-color mr-2"></i>لوحة التحكم</a>
+                  <a class="dropdown-item" href="{{route('logout')}}"> <i class="fa fa-sign-out main-b-color mr-2"></i> تسجيل الخروج </a>
                   @endguest
-                  <a class="dropdown-item" href="{{route('frontEnd.setLang',['lang'=>'En'])}}"> <i class="fa fa-language main-r-color mr-2"></i> الانجليزية </a>
+                  <a class="dropdown-item" href="{{route('frontEnd.setLang',['lang'=>'En'])}}"> <i class="fa fa-language main-b-color mr-2"></i> الانجليزية </a>
                 </a>
               </div>
             </li>

@@ -107,6 +107,9 @@ export default {
        favoritesCount(){
            return this.$store.state.favoritedProducts.length;
        },
+      lang(){
+          return this.$store.state.lang;
+      }
     },
     methods:{
         setLatestReplies(){
@@ -118,9 +121,6 @@ export default {
         getFullDate(date){
         let formated = new Date(date);
         return formated.getDate()+'-'+formated.getMonth()+'-'+formated.getFullYear();
-      },
-      lang(){
-          return this.$store.state.lang;
       }
       
     }

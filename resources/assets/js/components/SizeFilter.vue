@@ -7,10 +7,10 @@
            <div class="sidebar-categores-inner">
                     <div class="filter-group sizefilter">
                  
-                       <a @click="filterProducts('all',$event)" class="active"><i @click="filterProducts('all',$event)" class="fa fa-check main-b-color "></i> all</a>                      
+                       <a @click="filterProducts('all',$event)" class="active"><i @click="filterProducts('all',$event)" class="fa fa-check oldmain-b-color "></i> all</a>                      
                        <a v-for="size in sizelist" v-bind:key="size" class=""
                        @click="filterProducts(size,$event)"
-                       ><i @click="filterProducts(size,$event)" class="fa fa-check main-b-color "></i> {{size}}</a>
+                       ><i @click="filterProducts(size,$event)" class="fa fa-check oldmain-b-color "></i> <span class="ml-1">{{size}}</span> </a>
                                                
                       
                     </div>

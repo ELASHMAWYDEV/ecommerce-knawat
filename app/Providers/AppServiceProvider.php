@@ -18,6 +18,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        //set the language by default
+        Session::put('lang','En');
+
         Schema::defaultStringLength(191);
         $baseUrl = env('kNAWAT_BASE_URL');
 

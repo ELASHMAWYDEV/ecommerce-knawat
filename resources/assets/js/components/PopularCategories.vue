@@ -1,7 +1,7 @@
 <template>
 <div>
     <h6 class="mt-2 ">
-      <span class="slide-choosen-categories main-b-color d-inline-block">{{lang ? 'تصنيفات مميزة' : 'Popular Categories'}} <hr class="hr-choosen-c"></span>
+      <span class="slide-choosen-categories oldmain-b-color d-inline-block">{{lang ? 'تصنيفات مميزة' : 'Popular Categories'}} <hr class="hr-choosen-c"></span>
       <hr class="hr-full-slide-section">
     </h6>
     <div class="most-cat-sellers shop-product-wrap  mt-3" >

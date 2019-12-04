@@ -47,21 +47,21 @@
                      <div class="featured-servicesborder-0" style="padding: 14px;    clear: both;" >
                          <div class="row bg-white">
                                <div class="media col-md-4 border p-2">
-                                       <i class="fa fa-truck main-b-color fa-3x mr-3"></i>
+                                       <i class="fa fa-truck oldmain-b-color fa-3x mr-3"></i>
                                        <div class="media-body">
                                            <h5 class="mt-0">Free Shipping</h5>
                                            Start from order 200$
                                        </div>
                                </div>
                                <div class="media col-md-4 border p-2">
-                                       <i class="fa fa-phone main-b-color  fa-3x mr-3"></i>
+                                       <i class="fa fa-phone oldmain-b-color  fa-3x mr-3"></i>
                                        <div class="media-body">
                                            <h5 class="mt-0">Support 24/7</h5>
                                            Call us in service
                                        </div>
                                </div>       
                                <div class="media col-md-4 border p-2">
-                                       <i class="fa fa-paper-plane main-b-color fa-3x mr-3"></i>
+                                       <i class="fa fa-paper-plane oldmain-b-color fa-3x mr-3"></i>
                                        <div class="media-body">
                                            <h5 class="mt-0">Hot Offers</h5>
                                            Discount up to 50%
@@ -74,7 +74,7 @@
                      <!--featured services-->
                      <!--best sellter-->
                      <h6 class="mt-2 ">
-                           <span class="slide-choosen-categories main-b-color d-inline-block">BEST SELLERS <hr class="hr-choosen-c"></span>
+                           <span class="slide-choosen-categories oldmain-b-color d-inline-block">BEST SELLERS <hr class="hr-choosen-c"></span>
                            <hr class="hr-full-slide-section">
                      </h6>
                      <bestsellers></bestsellers>
@@ -124,16 +124,16 @@
                            <div class="filter-group">
                              
                              
-                             <a class="" href="javascript:void();"><i class="fa fa-check main-b-color "></i> red<span>(16)</span></a>
+                             <a class="" href="javascript:void();"><i class="fa fa-check oldmain-b-color "></i> red<span>(16)</span></a>
                              
-                             <a class="" href="javascript:void();"><i class="fa fa-check main-b-color "></i> green <span>(21)</span></a>
+                             <a class="" href="javascript:void();"><i class="fa fa-check oldmain-b-color "></i> green <span>(21)</span></a>
                              
-                             <a class="" href="javascript:void();"><i class="fa fa-check main-b-color "></i> blue <span>(15)</span></a>
+                             <a class="" href="javascript:void();"><i class="fa fa-check oldmain-b-color "></i> blue <span>(15)</span></a>
                              
-                             <a class="" href="javascript:void();"><i class="fa fa-check main-b-color "></i> white <span>(16)</span></a>
+                             <a class="" href="javascript:void();"><i class="fa fa-check oldmain-b-color "></i> white <span>(16)</span></a>
                              
-                             <a class="" href="javascript:void();"><i class="fa fa-check main-b-color "></i> yellow<span>(15)</span></a>
-                             <a class="" href="javascript:void();"><i class="fa fa-check main-b-color "></i> black<span>(15)</span></a>
+                             <a class="" href="javascript:void();"><i class="fa fa-check oldmain-b-color "></i> yellow<span>(15)</span></a>
+                             <a class="" href="javascript:void();"><i class="fa fa-check oldmain-b-color "></i> black<span>(15)</span></a>
                              
                      
                            </div>

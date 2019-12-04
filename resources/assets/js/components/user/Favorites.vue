@@ -32,18 +32,18 @@
                             <td>
                                 <h6><a :href="'/products/'+product.sku" target="_blink" >{{!lang ? product.name.en : product.name.ar}}</a></h6>
                                 <div class="p-rate mt-1">
-                                        <i class="fa fa-star main-b-color"></i>
-                                        <i class="fa fa-star main-b-color"></i>
-                                        <i class="fa fa-star-o main-b-color"></i>
-                                        <i class="fa fa-star-o main-b-color"></i>
-                                        <i class="fa fa-star-o main-b-color"></i>
+                                        <i class="fa fa-star oldmain-b-color"></i>
+                                        <i class="fa fa-star oldmain-b-color"></i>
+                                        <i class="fa fa-star-o oldmain-b-color"></i>
+                                        <i class="fa fa-star-o oldmain-b-color"></i>
+                                        <i class="fa fa-star-o oldmain-b-color"></i>
                                 </div>
                             </td>
                             <td><span class="btn p-1 font-weight-bolder " >{{getQuantity(product)}}</span></td>
                             <td>
                                 <button v-if="checkItemIsInCart(product.sku)" type="button" class="action-btn incartbtn text-white btn p-1 btn" >{{!lang ? 'In cart' : 'في السلة' }}</button>
-                                <button v-else type="button" class="action-btn main-b-bg  text-white btn p-1 btn" @click="addToCart(product,$event)" >{{!lang ? 'Add to cart' : 'إضافة للسلة'}}</button>
-                                <button type="button" class="action-btn main-r-bg  text-white btn p-1" @click="removeFavorite(product.sku)">{{!lang ? 'Remove' : 'إزالة'}}</button>
+                                <button v-else type="button" class="action-btn oldmain-b-bg  text-white btn p-1 btn" @click="addToCart(product,$event)" >{{!lang ? 'Add to cart' : 'إضافة للسلة'}}</button>
+                                <button type="button" class="action-btn oldmain-r-bg  text-white btn p-1" @click="removeFavorite(product.sku)">{{!lang ? 'Remove' : 'إزالة'}}</button>
                             </td>
                           </tr>
                       

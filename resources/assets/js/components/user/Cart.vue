@@ -319,7 +319,7 @@ export default {
           }
     }
 }
-Vue.loadScript('https://www.paypalobjects.com/api/checkout.js').then(()=>{
+/* Vue.loadScript('https://www.paypalobjects.com/api/checkout.js').then(()=>{
     
        paypal.Button.render({
     env: 'sandbox', // Or 'production'
@@ -347,6 +347,6 @@ Vue.loadScript('https://www.paypalobjects.com/api/checkout.js').then(()=>{
         });
     }
   }, '#paypal-button');
-})
+}) */
 
 </script>

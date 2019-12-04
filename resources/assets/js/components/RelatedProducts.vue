@@ -36,11 +36,11 @@
                         </ul>
                       </div>
                       <div class="p-rate mt-1 text-center">
-                            <i class="fa fa-star-o main-b-color"></i>
-                            <i class="fa fa-star-o main-b-color"></i>
-                            <i class="fa fa-star-o main-b-color"></i>
-                            <i class="fa fa-star-o main-b-color"></i>
-                            <i class="fa fa-star-o main-b-color"></i>
+                            <i class="fa fa-star-o oldoldmain-b-color"></i>
+                            <i class="fa fa-star-o oldoldmain-b-color"></i>
+                            <i class="fa fa-star-o oldoldmain-b-color"></i>
+                            <i class="fa fa-star-o oldoldmain-b-color"></i>
+                            <i class="fa fa-star-o oldoldmain-b-color"></i>
                       </div>
                       <h4 class="product-name text-center">
                           <a :href="'/products/'+product.sku" target="_blink">{{key}}. {{product.name.en}}</a>

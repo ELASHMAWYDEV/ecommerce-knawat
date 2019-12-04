@@ -88,11 +88,11 @@
         <div class="media-body col-md-7 mt-3">
             <h5 class="mt-0">{{!lang ? this.product.name.en : this.product.name.ar}}</h5>
             <div class="p-rate mt-1">
-                <i class="fa fa-star-o main-b-color"></i>
-                <i class="fa fa-star-o main-b-color"></i>
-                <i class="fa fa-star-o main-b-color"></i>
-                <i class="fa fa-star-o main-b-color"></i>
-                <i class="fa fa-star-o main-b-color"></i>
+                <i class="fa fa-star-o oldmain-b-color"></i>
+                <i class="fa fa-star-o oldmain-b-color"></i>
+                <i class="fa fa-star-o oldmain-b-color"></i>
+                <i class="fa fa-star-o oldmain-b-color"></i>
+                <i class="fa fa-star-o oldmain-b-color"></i>
             </div>
             <h3 class="p-price mt-2">
                 <span class="main-r-color">{{currencySign}}{{ (currencyRate * (product.variations[0].sale_price)).toFixed(2)}}</span> 
@@ -137,7 +137,7 @@
             <a v-if="this.incart"  class="btn incartbtn add-to-cart-single a1 mt-3">{{!lang ? 'Already in cart' : 'في السلة'}}
                 <i class="fa fa-check text-light" style="position:relative;top:2px"></i>
             </a>
-            <a v-else class="btn main-b-bg add-to-cart-single a1 mt-3" id="add-to-cart" @click="addCartItem()">{{!lang ? 'Add to cart' :'إضافة للسلة'}}</a>
+            <a v-else class="btn oldmain-b-bg add-to-cart-single a1 mt-3" id="add-to-cart" @click="addCartItem()">{{!lang ? 'Add to cart' :'إضافة للسلة'}}</a>
             <a  class="btn main-r-bg add-to-cart-single mt-3" id="add-to-cart-single" @click="addToFavorite(product.sku,$event)">{{!lang ? 'Add to favorite ' :'إضافة للمفضلة'}}
                 <i class="fa fa-heart-o text-light" style="position:relative;top:2px"></i>
             </a>
@@ -153,7 +153,7 @@
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <a v-if="product.description" class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">{{!lang ? 'Description' : 'الوصف'}}</a>
                 <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">{{!lang ? 'Attributs' : 'الخصائص' }}</a>
-                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">{{!lang ? 'Comments' : 'التعليقات' }}</a>
+                <!-- <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">{{!lang ? 'Comments' : 'التعليقات' }}</a> -->
             </div>
             </nav>
             <div class="tab-content p-3" id="nav-tabContent " style="    border: 1px solid #dee2e6;border-top: 0;">
@@ -182,7 +182,7 @@
                 </tbody>
                 </table>
             </div>
-            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+            <!-- <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                 <div class="row bootstrap snippets">
                     <div class="col-md-9 col-md-offset-2 col-sm-12">
                         <div class="comment-wrapper">
@@ -233,7 +233,7 @@
 
                     </div>
                 </div>
-            </div>
+            </div> -->
             </div>
 
        </div>
@@ -241,7 +241,7 @@
    <!--/details-->
 </div>
 <!--related products details -->
-<h6 class="mt-3 "><span class="slide-choosen-categories main-b-color d-inline-block">{{!lang ? 'Related Products' : 'منتجات مشابهة '}} <hr class="hr-choosen-c"></span> <hr class="hr-full-slide-section"></h6>
+<h6 class="mt-3 "><span class="slide-choosen-categories oldmain-b-color d-inline-block">{{!lang ? 'Related Products' : 'منتجات مشابهة '}} <hr class="hr-choosen-c"></span> <hr class="hr-full-slide-section"></h6>
 <div class="related-products mt-4 bg-white p-2 p-des" style="box-shadow: 0px 0px 8px 0 #c1b3b3;">
         <div v-if="this.rloading" class="media single-product-item row m-0">
          <img src="/img/loadingP.gif" alt="loading" style="margin: auto;display:list-item">
@@ -280,11 +280,11 @@
                         </ul>
                       </div>
                       <div class="p-rate mt-1 text-center">
-                            <i class="fa fa-star-o main-b-color"></i>
-                            <i class="fa fa-star-o main-b-color"></i>
-                            <i class="fa fa-star-o main-b-color"></i>
-                            <i class="fa fa-star-o main-b-color"></i>
-                            <i class="fa fa-star-o main-b-color"></i>
+                            <i class="fa fa-star-o oldmain-b-color"></i>
+                            <i class="fa fa-star-o oldmain-b-color"></i>
+                            <i class="fa fa-star-o oldmain-b-color"></i>
+                            <i class="fa fa-star-o oldmain-b-color"></i>
+                            <i class="fa fa-star-o oldmain-b-color"></i>
                       </div>
                       <h4 class="product-name text-center">
                           <a :href="'/products/'+p.sku" target="_blink">{{index}}. {{!lang ? p.name.en : p.name.ar}}</a>

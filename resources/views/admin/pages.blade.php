@@ -2,10 +2,7 @@
 @extends('admin.layouts.app')
 @section('title',$page->slug)
 @section('style')
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="{{asset('adminlte-rtl/plugins/datatables/dataTables.bootstrap4.css')}}">
+ 
   <style>
     label.error{
         color: red;

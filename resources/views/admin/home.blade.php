@@ -2,10 +2,7 @@
 @extends('admin.layouts.app')
 @section('title','الرئيسية')
 @section('style')
-  <!-- Ionicons -->
-{{--   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
- --}}  <!-- DataTables -->
-  <link rel="stylesheet" href="{{asset('adminlte-rtl/plugins/datatables/dataTables.bootstrap4.css')}}">
+  
   <style>
     .home-c .media{    padding: 2rem 2.2rem;color:#fff;
     }
@@ -116,10 +113,7 @@
 
 <script src="{{asset('adminlte-rtl/plugins/datatables/jquery.dataTables.js')}}"></script>
 <script src="{{asset('adminlte-rtl/plugins/datatables/dataTables.bootstrap4.js')}}"></script>
-<!-- SlimScroll -->
-<script src="{{asset('adminlte-rtl/plugins/slimScroll/jquery.slimscroll.min.js')}}"></script>
-<!-- FastClick -->
-<script src="{{asset('adminlte-rtl/plugins/fastclick/fastclick.js')}}"></script>
+
 
 <!-- AdminLTE for demo purposes
 <script src="../../dist/js/demo.js"></script>

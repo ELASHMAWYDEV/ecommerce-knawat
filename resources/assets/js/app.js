@@ -34,21 +34,29 @@ Vue.component('currencylg', require('./components/CurrencyLg.vue'));
 Vue.component('searchproducts',require('./components/Search.vue'));
 Vue.component('sortproducts',require('./components/SortProducts.vue'))
 Vue.component('sizefilter',require('./components/SizeFilter.vue'));
+Vue.component('sizefilterar',require('./components/Ar/SizeFilter.vue'));
 Vue.component('bestsellers',require('./components/BestSellers.vue'));
 Vue.component('popularcategories',require('./components/PopularCategories.vue'));
 Vue.component('productdetails',require('./components/ProductDetails.vue'));
 Vue.component('relatedproducts',require('./components/RelatedProducts.vue'));
 //login and register modals 
 Vue.component('loginmodal', require('./components/Login.vue'));
+Vue.component('loginarmodal', require('./components/Ar/Login.vue'));
 Vue.component('registermodal', require('./components/Register.vue'));
+Vue.component('registerarmodal', require('./components/Ar/Register.vue'));
+
 Vue.component('favorites',require('./components/user/Favorites.vue'));
 Vue.component('favoritescount',require('./components/user/FavoritesCount.vue'));
 Vue.component('cart',require('./components/user/cart.vue'));
 Vue.component('cartitemscount',require('./components/user/CartCount.vue'));
+Vue.component('contact',require('./components/Contact.vue'));
+Vue.component('mailinglist',require('./components/MailingList.vue'));
+
 //the dashboard part
 Vue.component('dashboardindex',require('./components/user/dashboard/Index.vue'));
 Vue.component('settings',require('./components/user/dashboard/Settings.vue'));
 Vue.component('authtickets',require('./components/user/dashboard/Tickets.vue'));
+Vue.component('myorders',require('./components/user/dashboard/Orders.vue'));
 
 //the dashboard part arabic version
 Vue.component('settingsar',require('./components/user/dashboard/Ar/Settings.vue'));
@@ -59,6 +67,7 @@ Vue.component('cataloguear', require('./components/Ar/home/Catalogue.vue'));
 //the admin part 
 Vue.component('productstable',require('./components/admin/ProductsTable.vue'));
 Vue.component('tickets',require('./components/admin/Tickets.vue'));
+Vue.component('orders',require('./components/admin/Orders.vue'));
 
 const store = new Vuex.Store({
     state:{

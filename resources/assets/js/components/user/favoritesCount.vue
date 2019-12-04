@@ -1,5 +1,5 @@
 <template>
-<i class="badge-info rounded-badge main-b-bg">{{favoritesCount}}</i>
+<i class="badge-info rounded-badge main-r-bg">{{favoritesCount}}</i>
 </template>
 <script>
 export default {

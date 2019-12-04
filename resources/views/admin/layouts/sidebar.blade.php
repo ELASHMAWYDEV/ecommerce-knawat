@@ -48,9 +48,15 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a href="{{route('admin.tickets')}}" class="nav-link ayat-nl @if(Request::segment(2) =='users') active @endif">
+                      <a href="{{route('admin.tickets')}}" class="nav-link ayat-nl @if(Request::segment(2) =='tickets') active @endif">
                         <i class="nav-icon fa fa-ticket"></i>
                         <p>التذاكر</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{route('admin.orders')}}" class="nav-link ayat-nl @if(Request::segment(2) =='orders') active @endif">
+                        <i class="nav-icon fa fa-shopping-bag"></i>
+                        <p>الطلبات</p>
                       </a>
                   </li>
                  
@@ -87,7 +93,12 @@
                         
                     </ul>
                   </li>
-                  
+                  <li class="nav-item">
+                      <a href="{{route('admin.newsletter')}}" class="nav-link ayat-nl @if(Request::segment(2) =='newsletter') active @endif">
+                        <i class="nav-icon fa fa-envelope-o"></i>
+                        <p>القائمة البريدية</p>
+                      </a>
+                  </li>
                   
                 </ul>
               </nav>

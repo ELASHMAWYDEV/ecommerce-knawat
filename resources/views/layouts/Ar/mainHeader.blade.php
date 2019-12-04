@@ -1,9 +1,9 @@
-<div class="main-menu-area" >
+<div class="main-menu-area new-main-bg" >
   <lang lang="Ar"></lang>
-    <nav class="navbar navbar-expand-lg navbar-light  container p-0 pr-4">
+    <nav class="navbar navbar-expand-lg navbar-light  container p-0 pl-3">
          
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainmenuarea" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+          <span class="fa fa-bars text-white"></span>
         </button>
         <currency></currency>
         <div class="collapse navbar-collapse" id="mainmenuarea">

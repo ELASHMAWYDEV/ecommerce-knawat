@@ -1,6 +1,6 @@
 <template>
             <li class="nav-item dropdown text-light d-none d-lg-inline-block">
-              <a class="nav-link main-r-bg " href="#" id="allcategory" role="button" data-toggle="dropdown" 
+              <a class="nav-link new-main-r-bg" href="#" id="allcategory" role="button" data-toggle="dropdown" 
               aria-haspopup="true" aria-expanded="false" @mouseenter.once="setCategories()">
                 {{(lang != null) ? 'كل الأصناف' :'All Categories' }}    
               </a>

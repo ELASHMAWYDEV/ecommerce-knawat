@@ -15,7 +15,10 @@
 
 
 Auth::routes();
+
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+//check if user is blocked 
+Route::get('/checkIfUserBlocked/{email}', '\App\Http\Controllers\Auth\LoginController@checkIfUserBlocked')->name('checkIfUserBlocked');
 
 Route::resource('users','UserController');
 Route::group(['as'=>'frontEnd.','middleware'=>'web'],function(){
@@ -49,9 +52,15 @@ Route::group(['as'=>'frontEnd.','middleware'=>'web'],function(){
     Route::get('/about_us','HomeController@about_us')->name('about_us');
     Route::get('/terms','HomeController@terms')->name('terms');
     Route::get('/faq','HomeController@faq')->name('faq');
+    Route::get('/contact','HomeController@contact_us')->name('contact_us');
+    //register mailing list 
+    Route::post('/mailingList','HomeController@mailinglist')->name('mailinglist');
 
     
 });
+//the contact us form page
+Route::post('/contact_us','HomeController@contact_us_add')->name('contact_us_add');
+
 Route::group(['as'=>'user.','middleware'=>'auth'],function(){
    // favorite operations 
    Route::get('/users/{user_id}/favorites','UserController@getFavorites')->name('getFavorites');
@@ -75,12 +84,16 @@ Route::group(['as'=>'user.','middleware'=>'auth'],function(){
    Route::get('/userLatestReplies','UserController@userLatestReplies')->name('userLatestReplies'); 
    Route::get('/create_ticket','UserController@addTicket')->name('addTicket'); 
    Route::post('/createTicket','UserController@createTicket')->name('createTicket'); 
-
+   //the orders route page
+   Route::get('/orders','UserController@orders')->name('orders'); 
+   Route::get('/getmyorders','UserController@getmyorders')->name('getmyorders');
+   Route::get('/getmyordersbysku/{w}','UserController@getmyordersbysku')->name('getmyordersbysku');
+   Route::get('/getmyordersbyid/{order_id}','UserController@getmyordersbyid')->name('getmyordersbyid'); 
 });
 Route::get('json-api', 'ApiController@index');
 
 
-
+// the admin routes
 Route::group(['prefix' => 'admin','as'=>'admin.'], function () {
 
   Route::get('/', 'AdminController@index')->name('index');
@@ -114,8 +127,17 @@ Route::group(['prefix' => 'admin','as'=>'admin.'], function () {
   Route::get('/pages/{slug}','AdminController@staticpages')->name('pages');
   Route::post('/updatePage/{slug}','AdminController@updatePage')->name('updatePage');
   Route::post('/ticket/{id}/reply','AdminController@add_ticket_reply')->name('add_ticket_reply'); 
- Route::get('/tickets/{id}/close','AdminController@close_ticket')->name('close_ticket'); 
-   Route::get('/tickets/{id}/open','AdminController@open_ticket')->name('open_ticket'); 
+  Route::get('/tickets/{id}/close','AdminController@close_ticket')->name('close_ticket'); 
+  Route::get('/tickets/{id}/open','AdminController@open_ticket')->name('open_ticket'); 
+  
+  Route::get('/newsletter','AdminController@newsletter')->name('newsletter'); 
+  Route::get('/deletenewsletter/{email}','AdminController@deletenewsletter')->name('deletenewsletter'); 
+
+  Route::get('/orders','AdminController@orderspage')->name('orders');
+  Route::get('/getallorders','AdminController@getallorders')->name('getallorders');
+  Route::get('/getordersbyusername/{w}','AdminController@getordersbyusername')->name('getordersbyusername');
+  Route::get('/getordersbyid/{order_id}','AdminController@getordersbyid')->name('getordersbyid');
+
 });
 
 

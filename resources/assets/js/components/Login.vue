@@ -16,6 +16,7 @@
                     >
                      {{error}}    
                     </li>  
+                     <a  v-show="!this.emailverified" href="/verifyEmailpage" class="btn btn-primary  btn-sm ml-auto  mr-auto mt-2">Verify My Email</a>
                 </ul>
                 <div class="box-authentication">
                     <form class="form-horizontal" method="POST" >
@@ -64,6 +65,7 @@ export default{
             email:'',
             password :'',
             remember:true,
+            emailverified:true,
             errors : []
         }
         
@@ -87,27 +89,43 @@ export default{
         },
         validateForm(){
             this.errors = [];
-            axios.post('/login',{
-                email : this.email, password : this.password,remember : this.remember
-            })
+            
+            axios.get('/checkIfUserBlocked/'+this.email)
             .then(res =>{
-                if((window.location.pathname == "/verifyEmailpage") || (window.location.pathname == "/verifyEmail")){
-                  window.location.href = "/home";  
+                if(res.data.type == '0'){
+                    this.errors.push(res.data.msg);
+                    this.emailverified =  false;
                 }else{
-                    window.location.reload();
+                if((res.data.type == '3') || (res.data.type == '1')){
+                    this.errors.push(res.data.msg);
                 }
-                
-            })
-            .catch(errors => {
-                //console.log(errors)
-                if(errors.response.status ==  '422'){
-                  
-                  this.errors.push('the email or password is incorrect')
-                }else{
-                    this.errors.push('Something went wrong please refresh \
-                    the page and try again')
+                 else{
+                        axios.post('/login',{
+                            email : this.email, password : this.password,remember : this.remember
+                        })
+                        .then(res =>{
+                            if((window.location.pathname == "/verifyEmailpage") || (window.location.pathname == "/verifyEmail")){
+                            window.location.href = "/home";  
+                            }else{
+                                window.location.reload();
+                            }
+                            
+                        })
+                        .catch(errors => {
+                            //console.log(errors)
+                            if(errors.response.status ==  '422'){
+                            
+                            this.errors.push('the email or password is incorrect')
+                            }else{
+                                this.errors.push('Something went wrong please refresh \
+                                the page and try again')
+                            }
+                        })
+                 
+                }
                 }
             })
+            
         }
     }
 }

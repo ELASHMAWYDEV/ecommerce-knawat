@@ -18,7 +18,9 @@
                         <a tabindex="-1" class="test dropdown-item" @mouseenter="showrestc()">
                            المزيد   <i class="fa fa-caret-left float-right"></i>
                         </a> 
-                        <ul id="showrc" class="dropdown-menu" style="margin-left: 100%;margin-top: -116%;z-index: 9999;position: absolute;    left: 0;top: 7rem;">
+                        <ul id="showrc" class="dropdown-menu" style="margin-right: 100%;
+                        margin-top: -116%;
+                        z-index: 9999;position: absolute;right: 0px;top: 7rem;left: auto;">
                             <li  
                                 v-for="rc in restOfCategories"
                                 :key="rc.id" 
