@@ -89,6 +89,9 @@ Route::group(['as'=>'user.','middleware'=>'auth'],function(){
    Route::get('/getmyorders','UserController@getmyorders')->name('getmyorders');
    Route::get('/getmyordersbysku/{w}','UserController@getmyordersbysku')->name('getmyordersbysku');
    Route::get('/getmyordersbyid/{order_id}','UserController@getmyordersbyid')->name('getmyordersbyid'); 
+
+   //verify if the payment info is included or not
+   Route::get('/checkbillinginfo','UserController@checkbillinginfo')->name('checkbillinginfo'); 
 });
 Route::get('json-api', 'ApiController@index');
 

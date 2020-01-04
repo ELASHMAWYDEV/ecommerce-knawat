@@ -2,10 +2,12 @@
 <div class="container">
   <nav class="p-2 d-flex">
        
-     
+    @if(!Auth::check())
     <Button class="btn loginbtn  "  data-target="#register-modal" data-toggle="modal"><i class="fa fa-user mr-1"></i>إنشاء حساب </Button>
     <Button class="btn loginbtn"  data-target="#login-modal" data-toggle="modal"><i class="fa fa-user mr-1"></i> تسجيل دخول </Button>
-    
+    @else
+    <a class="btn loginbtn" href="{{route('logout')}}" style="    width: 100px;"  ><i class="fa fa-sign-out mr-1"></i> تسجيل الخروج </a>
+    @endif
 
   </nav>
   <ul  class="navbar-nav d-flex  lang-currency">
@@ -36,7 +38,7 @@
 </div>
 </div>
 <div class="nav-bar-t ">
-    <nav class="navbar navbar-expand-lg navbar-dark  container pt-2 pb-3">
+    <nav class="navbar navbar-expand-lg navbar-dark  container pt-2 ">
         <div class="navbar-brand  logo">
               <a  id="site-name" href="{{route('frontEnd.home')}}">
                 <img src="{{asset('img/logo.png')}}"  alt="site logo">
@@ -74,7 +76,7 @@
             
             </li>
           </ul>
-          <ul class=" d-none d-292-flex list-unstyled justify-content-center">
+          <ul class=" d-none d-292-flex list-unstyled justify-content-center mb-0" style="    margin-top: -22px;">
               <li class="nav-item dropdown">
               <a class="nav-link text-weight header-nav-link" href="#" id="loginWhishlistdropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 حسابي

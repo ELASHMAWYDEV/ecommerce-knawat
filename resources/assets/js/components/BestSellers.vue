@@ -119,7 +119,7 @@
                                              <i class="fa fa-star-o oldmain-b-color"></i>
                                        </div>
                                        <h4 class="product-name text-center">
-                                           <a :href="'/products/'+p.sku" target="_blink">{{index}}. {{p.name.ar}}</a>
+                                           <a :href="'/products/'+p.sku" target="_blink">{{index}}. {{!lang ? p.name.en : p.name.ar}}</a>
                                        </h4>
                                        <div class="price-box text-center">
                                          <span class="new-price">
@@ -181,7 +181,7 @@
                                              <i class="fa fa-star-o oldmain-b-color"></i>
                                        </div>
                                        <h4 class="product-name text-center">
-                                           <a :href="'/products/'+p.sku" target="_blink">{{index}}. {{p.name.ar}}</a>
+                                           <a :href="'/products/'+p.sku" target="_blink">{{index}}. {{!lang ? p.name.en : p.name.ar}}</a>
                                        </h4>
                                        <div class="price-box text-center">
                                          <span class="new-price">

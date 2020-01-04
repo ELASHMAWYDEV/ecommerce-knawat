@@ -178,7 +178,9 @@ tbody tr td:not(:first-of-type){    padding-top: 1.9rem;}
             <div class="col-sm-3 border cart-total-info mt-2 mt-sm-0" >
                <h5 class="mb-3 font-weight-normal">{{!lang ? 'Your Cart Total' : 'المبلغ الكلي' }}</h5>
                <h3>USD <sup>$</sup> {{totaltopay}}</h3>
-               <button type="button" class="btn checkout-btn text-white">{{!lang ? "Secure Checkout" : "دفع آمن" }}</button>
+               <button type="button" class="btn checkout-btn text-white"
+               @click="checkout()"
+               >{{!lang ? "Secure Checkout" : "دفع آمن" }}</button>
             </div>
         </div>
         <div id="paypal-button"></div>
@@ -316,6 +318,38 @@ export default {
           paypalInit(){
               
 
+          },
+          checkout(){
+
+              axios.get('/checkbillinginfo')
+                .then(res => {
+                   if(res.data.res == 'ok'){
+                      /* this.realItemsToal.forEach((p,i) =>{
+                          console.log(i)
+                          console.log(Object.assign(p,{quanity:this.cartItems(i)}))
+                      }) */
+                      /*  Swal.fire({
+                        title:'confirmed',
+                        text:'yes',
+                        type:'success'
+                    })  */
+                   }else{
+                    !this.lang ?
+                        Swal.fire({
+                            title:'info',
+                            type:'info',
+                            html: 'please complete the billing information to continue <br>\
+                            <a href="/settings"  >continue</a>'
+                        }) 
+                    :
+                      Swal.fire({
+                        title:'نتبيه',
+                        type:'info',
+                        html: 'يرجى إكمال بيانات الدفع للقيام بهاته العملية <br>\
+                            <a href="/settings"  >مواصلة</a>'
+                    }) 
+                   }
+                })
           }
     }
 }

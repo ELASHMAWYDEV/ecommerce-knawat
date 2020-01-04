@@ -408,5 +408,15 @@ class UserController extends Controller
 
         return response()->json($orders);
     }
+    //check the auth user billing information completed or not
+    public function checkbillinginfo(){
+        
+      $billinginfo = BillingInfo::where('user_id',Auth::id())->first();
+      if($billinginfo && ($billinginfo->address_line1 !='') && ($billinginfo->country != '') &&
+       ($billinginfo->postcode !='')){
+          return response()->json(['res'=>'ok']);
+       }
+       return response()->json(['res'=>'failed']);
+    }
    
 }
