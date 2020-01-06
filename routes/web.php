@@ -141,6 +141,10 @@ Route::group(['prefix' => 'admin','as'=>'admin.'], function () {
   Route::get('/getordersbyusername/{w}','AdminController@getordersbyusername')->name('getordersbyusername');
   Route::get('/getordersbyid/{order_id}','AdminController@getordersbyid')->name('getordersbyid');
 
+  Route::get('Sliders','AdminController@sliderpage')->name('slider');
+  Route::post('addSlider','AdminController@addSlider')->name('addSlider');
+  Route::post('updateSlider/{id}','AdminController@updateSlider')->name('updateSlider');
+  Route::get('deleteSlider/{id}','AdminController@deleteSlider')->name('deleteSlider');
 });
 
 

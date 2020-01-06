@@ -36,6 +36,12 @@
                     </a>
                   </li>
                   <li class="nav-item">
+                    <a href="{{route('admin.slider')}}" class="nav-link ayat-nl @if(Request::segment(2) =='settings') active @endif">
+                        <i class="nav-icon fa fa-image"></i>
+                      <p>إعدادات السلايدر</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
                       <a href="{{route('admin.products')}}" class="nav-link ayat-nl @if(Request::segment(2) =='products') active @endif">
                         <i class="nav-icon fa fa-cubes"></i>
                         <p>المنتجات </p>

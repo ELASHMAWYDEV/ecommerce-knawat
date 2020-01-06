@@ -27,6 +27,7 @@
      </div>
 </template>
 <script>
+import productsMixin from '../mixins/allProductMixin';
 export default {
     data(){
         return {
@@ -36,13 +37,15 @@ export default {
     },
     created(){
        this.$store.state.authId = this.userid;
+        this.fetchallProducts();
     },
     props :['userid','lang'],
+    mixins:[productsMixin],
     watch:{
      searchproducts:function(query){
          console.log(query)
          if(query.length > 2){
-    
+                
                 let fil = this.allproducts
                     .filter(product =>{
                          return (product.name.en.toString().toLowerCase()).includes(query) || (product.name.ar.toString().toLowerCase()).includes(query)

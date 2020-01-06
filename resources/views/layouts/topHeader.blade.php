@@ -77,7 +77,7 @@
             </li>
           </ul>
           <ul class=" d-none d-292-flex list-unstyled justify-content-center mb-0" style="    margin-top: -22px;">
-              <li class="nav-item dropdown">
+              {{-- <li class="nav-item dropdown">
               <a class="nav-link text-weight header-nav-link" href="#" id="loginWhishlistdropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 My Account
               </a>
@@ -95,12 +95,27 @@
                   '])}}"> <i class="fa fa-language main-b-color mr-2"></i>Arabic </a>
                 </a>
               </div>
+            </li> --}}
+            <li class="nav-item dropdown" id="sidemenubar"><a class="nav-link " href="javascript:void()">
+              <i class="fa fa-bars main-b-color fa-lg"></i></a>
+            </li>
+            <li class="nav-item dropdown"><a href="{{route('user.dashboard')}}"  class="nav-link">
+              <i class="fa fa-user main-b-color fa-lg"></i></a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link text-weight header-nav-link" href="{{route('frontEnd.user.cart')}}" id="loginWhishlistdropdown" role="button" >
-                <cartitemscount></cartitemscount>
-                 Cart
+              <a class="nav-link " href="{{route('frontEnd.user.favorites')}}" id="loginWhishlistdropdown" role="button" >
+                <favoritesCount></favoritesCount>
               </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link " href="{{route('frontEnd.user.cart')}}" id="loginWhishlistdropdown" role="button" >
+                <cartitemscount></cartitemscount>
+              </a>
+            </li>
+            <li class="nav-item dropdown">
+              <currency></currency>
+            </li>
+
           </ul>
         </div>
     </nav>

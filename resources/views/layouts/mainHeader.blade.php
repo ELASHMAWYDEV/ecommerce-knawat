@@ -54,7 +54,7 @@
 
     </nav>
    
-    <categoriessm></categoriessm>
+    {{-- <categoriessm></categoriessm> --}}
       
     
 </div>

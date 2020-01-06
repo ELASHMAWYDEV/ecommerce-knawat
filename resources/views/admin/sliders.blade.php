@@ -62,7 +62,6 @@
                                 <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="موتور رندر: activate to sort column descending" > الرقم</th>
                                 <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="موتور رندر: activate to sort column descending" >  الصورة</th>
                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="مرورگر: activate to sort column ascending" >العنوان </th>
-                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="مرورگر: activate to sort column ascending" >الوصف </th>
                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="مرورگر: activate to sort column ascending" s>خيارات </th>
                                
                             </tr>
@@ -72,11 +71,10 @@
                                 <tr role="row" class="odd">
                                   <td class="sorting_1">{{$slider->id}}</td>
                                   <td class="sorting_1">
-                                      <img src="{{asset('img/slider/thumbs/'.$slider->image)}}" height="40px" width="60px" class="img-responsive" alt="">
+                                      <img src="{{asset('slider_img/'.$slider->image)}}" height="40px" width="60px" class="img-responsive" alt="">
                                   </td>
                                  
                                   <td>{{$slider->title}}</td>
-                                  <td>{{$slider->description}}</td>
                                   <td>
                                       <i class="fa fa-pencil text-primary ml-2 updateSlider" 
                                         data-toggle="modal" data-target="#updateSlider"
@@ -118,11 +116,6 @@
                                     <label>العنوان</label>
                                     <input type="text" name="title" maxlength="50" class="form-control" placeholder="">
                                 </div>
-                                <label>الوصف</label>
-
-                                <div class="form-group">
-                                    <textarea name="description" maxlength="100" class="form-control" id=""  rows="4"></textarea>
-                                </div>
                                 <div class="form-group">
                                     <label >الصورة</label>
                                     <input type="file" required name="image" class="form-control" placeholder="">
@@ -145,7 +138,7 @@
                   <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content mt-4">
                       <div class="modal-header">
-                        <h6 class="modal-title" id="exampleModalLongTitle">إضافة سلايدر</h6>
+                        <h6 class="modal-title" id="exampleModalLongTitle">تحديث سلايدر</h6>
                         <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
@@ -157,11 +150,6 @@
                                 <div class="form-group">
                                     <label>العنوان</label>
                                     <input type="text" name="title" maxlength="50" class="form-control" placeholder="">
-                                </div>
-                                <label>الوصف</label>
-
-                                <div class="form-group">
-                                    <textarea name="description" maxlength="100" class="form-control" id=""  rows="4"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label >الصورة</label>
@@ -210,6 +198,8 @@
                </div>
             
               </div>
+      </div>
+      
 @section('js')
     
 
@@ -254,6 +244,7 @@ $(document).on('click','.deleteSlider',function(){
 });
 $(document).on('click','.updateSlider',function(){
   let action = $(this).data('action');
+  console.log(action)
     $('#updateSlider form').attr('action',action);
   $('#updateSlider form').find('input[name="title"]').val($(this).data('title'));
   $('#updateSlider form').find('textarea[name="description"]').text($(this).data('description'));

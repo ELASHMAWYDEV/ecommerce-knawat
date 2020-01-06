@@ -49,10 +49,10 @@ body{
 #new-header .lang-currency li{margin: auto 1rem;}
 #new-header .lang-dropdown.visible{
     display: block;
-    top: 25px;
+    top: 28px;
     position: absolute;
     left: -46px;
-    min-width: 8rem;
+    min-width: 3rem;
 }#new-header .lang-dropdown.visible a{color: #212529;}
 #new-header .currency-dropdownmenu .dropdown-item{color: #212529;    padding: 0.5rem 2rem;}
 #new-header .currency-dropdownmenu{left: 0px;
@@ -143,6 +143,10 @@ body{
 .main-product-content{
     background: #f5f7fa;
 }
+#mainslid{margin-bottom: 10px;}
+#mainslid img{    height: 225px;border-radius: 6px;}
+#mainslid .carousel-control-prev-icon{opacity: 0;}
+#mainslid .carousel-control-next-icon{opacity: 0;}
 .shop-top-bar {
     background: #ffffff none repeat scroll 0 0;
     display: -webkit-box;
@@ -157,7 +161,7 @@ body{
     border: 1px solid #eaecee;
 }
 .mb-30 {
-    margin: 0 0 30px 0;
+    margin: 0 0 15px 0;
 }
 .shop-bar-inner {
     margin-top: 3px;
@@ -217,9 +221,11 @@ body{
 }
 .product-name {
     display: block;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     margin-top: 5px;
 }
+.product-info{    margin-top: -17px;
+    margin-bottom: 16px;}
 a:hover {
     color: #0879c9;
 }
@@ -595,7 +601,7 @@ a:hover {
     color: #999;
 }
  
-.sidebar-nav li a:hover {
+.sidebar-nav li a:hover{
     text-decoration: none;
     color: #fff;
     background: rgba(255,255,255,0.2);

@@ -12,6 +12,7 @@ use App\Ticket;
 use App\Settings;
 use App\Favorites;
 use App\MailingList;
+use App\Slider;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
@@ -210,6 +211,68 @@ class AdminController extends Controller
         return response()->json($orders);
     }
  
+    //the slider page 
+    public function sliderpage(){
+        $sliders = Slider::all();
+        return view('admin.sliders',compact('sliders'));
+    }
+    public function addSlider(Request $request){
+        $this->validate($request,[
+            'image'=>'required|image|mimes:jpeg,png,jpg,gif,svg'
+        ]);
+        
+        $slider = new Slider();
+        $slider->title = $request->title ? $request->title : '';
+         if($file =  $request->file('image')){
+                $img = time() . '' .$file->getClientOriginalName();
+                $file->move(public_path('slider_img/'),$img);
+            
+                $slider->image = $img;
+     }
+     $slider->save();
+     Session::flash('alert-success','تم إضافة السلايدر بنجاح');
+     return redirect()->back();
+
+    }
+    public function updateSlider(Request $request,$id){
+        
+        $slider = Slider::findorfail($id);
+        $slider->title = $request->title ? $request->title : $slider->title;
+        if($file =  $request->file('image')){
+            if(file_exists(public_path('slider_img/'.$slider->image))){
+           
+                unlink(public_path('slider_img/'.$slider->image));
+            
+            }
+            $img = time() . '' .$file->getClientOriginalName();
+                $file->move(public_path('slider_img/'),$img);
+            
+                $slider->image = $img;
+        }else{
+            $slider->image = $slider->image;
+        }
+        $slider->save();
+        Session::flash('alert-success','تم تعديل السلايدر بنجاح');
+        return redirect()->back();
+
+
+    }
+    public function deleteSlider($id){
+        
+        $slider = Slider::findorfail($id);
+        $image = $slider->image;
+       
+        if(file_exists(public_path('slider_img/'.$image))){
+           
+            unlink(public_path('slider_img/'.$image));
+        
+        }
+        $slider->delete();
+        
+        Session::flash('alert-success','تم حدف السلايدر بنجاح');
+        return redirect()->back();
+
+    }
     
     
 }

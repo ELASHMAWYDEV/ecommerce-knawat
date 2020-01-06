@@ -1,5 +1,8 @@
 <template>
-<i class="badge-info rounded-badge main-r-bg">{{favoritesCount}}</i>
+ <i class="fa fa-heart fa-lg main-b-color ">
+    <i class="badge-info main-r-bg rounded-badge" style="font-size: 15px;position: relative;top: -10px;">{{favoritesCount}}</i>
+ </i> 
+
 </template>
 <script>
 export default {

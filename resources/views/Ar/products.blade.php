@@ -9,6 +9,25 @@
           <div class="col-lg-9 col-12">
              <div class="row">
                  <div class="col">
+                     <!--the main slider -->
+                     <div id="mainslid" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                          @foreach ($sliders as $slider)
+                            <div class="carousel-item @if($loop->first) active @endif">
+                              <img class="d-block w-100" src="{{asset('slider_img/').'/'.$slider->image}}" alt="First slide">
+                            </div>  
+                          @endforeach
+                        </div>
+                        <a class="carousel-control-prev" href="#mainslid" role="button" data-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#mainslid" role="button" data-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Next</span>
+                        </a>
+                      </div>
+                     <!--the main slider -->
                      <div class="shop-top-bar mb-30 pb-1 pt-2">
                            <div class="shop-bar-inner">
                                    <div class="product-view-mode">

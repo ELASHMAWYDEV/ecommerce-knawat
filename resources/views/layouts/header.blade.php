@@ -25,6 +25,8 @@
                     <a href="{{route('frontEnd.contact_us')}}" onclick=$("#close-menu").click();>Contact Us</a>
                 </li>
                 <hr style="margin: 5px 0 0;border-top: 1px solid #666f77;">
+                <categoriessm></categoriessm>
+                <hr style="margin:0;border-top: 1px solid #666f77;">
                 <li>
                     <a href="{{route('frontEnd.setLang',['lang'=>'Ar'])}}" onclick=$("#close-menu").click();>Arabic</a>
                 </li>

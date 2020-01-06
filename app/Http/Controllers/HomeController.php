@@ -9,6 +9,7 @@ use auth;
 use Session;
 use App\Pages;
 use App\MailingList;
+use App\Slider;
 use Illuminate\Support\Facades\Mail;
 class HomeController extends Controller
 {
@@ -83,7 +84,8 @@ class HomeController extends Controller
        // $products = $this->p->getProducts();
        // $categories = collect($this->p->getCategories())->splice(20);
        // return view($this->lang().'.products',compact('products','categories'));
-        return view($this->lang().'.products');
+       $sliders = Slider::all();
+       return view($this->lang().'.products',compact('sliders'));
     }
     public function productDetails($sku){
         //check if the item is in cart or not

@@ -37,11 +37,7 @@
                                       </div>
                                 </div>      
                                 <div class="product-info">
-                                           <div class="rating-box">
-                                             <ul class="rating d-flex">
-                                               <span class="shopify-product-reviews-badge" data-id="1724497690697"></span>
-                                             </ul>
-                                           </div>
+                                        
                                            <div class="p-rate mt-1 text-center">
                                                    <i class="fa fa-star oldmain-b-color"></i>
                                                    <i class="fa fa-star oldmain-b-color"></i>

@@ -6,7 +6,7 @@ console.log('yes')
         $("#sidebar-wrapper").toggleClass("active");
     });
     // Open menu
-    $(".main-menu-area button").click(function(e) {
+    $("#sidemenubar").click(function(e) {
         e.preventDefault();
         $("#sidebar-wrapper").toggleClass("active");
     });
