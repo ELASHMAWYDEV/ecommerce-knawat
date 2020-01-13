@@ -65,6 +65,12 @@
                         <p>الطلبات</p>
                       </a>
                   </li>
+                  <li class="nav-item">
+                      <a href="{{route('admin.shipping')}}" class="nav-link ayat-nl @if(Request::segment(2) =='Shipping') active @endif">
+                        <i class="nav-icon fa fa-bus"></i>
+                        <p>اعدادات الشحن</p>
+                      </a>
+                  </li>
                  
                   <li class="nav-item has-treeview ">
                     <a href="{{route('admin.pages',['slug'=>'about_us'])}}" class="nav-link ayat-nl @if(Request::segment(2) =='Pages') active @endif">

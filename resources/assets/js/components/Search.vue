@@ -39,7 +39,7 @@ export default {
        this.$store.state.authId = this.userid;
         this.fetchallProducts();
     },
-    props :['userid','lang'],
+    props :['userid'],
     mixins:[productsMixin],
     watch:{
      searchproducts:function(query){

@@ -16,7 +16,10 @@ class DatabaseSeeder extends Seeder
          $this->call(PageSeeder::class);
          $this->call(TicketSeeder::class);
          $this->call(RepliesSeeder::class);
-         $this->call(AdminSeeder::class); */
-         $this->call(SliderSeeder::class);
+         $this->call(AdminSeeder::class);
+         $this->call(SliderSeeder::class); */
+         $this->call(ShippingCompanies::class);
+         $this->call(ShippingSeeder::class);
+         
     }
 }

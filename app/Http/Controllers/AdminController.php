@@ -13,6 +13,9 @@ use App\Settings;
 use App\Favorites;
 use App\MailingList;
 use App\Slider;
+use App\Shipping;
+use App\ShippingCompanies;
+use DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
@@ -272,6 +275,94 @@ class AdminController extends Controller
         Session::flash('alert-success','تم حدف السلايدر بنجاح');
         return redirect()->back();
 
+    }
+    //the shipping page 
+    public function shippingpage(){
+        $shipping_companies = ShippingCompanies::all();
+        $shippings = Shipping::orderBy('country','desc')->get();
+        return view('admin.shipping',compact('shippings','shipping_companies'));
+    }
+    public function addShipping(Request $request){
+        $this->validate($request,[
+            'country'=>'required',
+            'weight'=>'required',
+            'price'=>'required'
+        ]);
+        $shipp = Shipping::where('country',$request->country)->first();
+        if($shipp && ($shipp->company_id == $request->company_id)){
+            Session::flash('alert-success','البلد موجود بنفس الشركة من قبل');
+            return redirect()->back();
+        }
+        $shipping = new Shipping();
+        $shipping->company_id = $request->company_id ? $request->company_id : 1;
+        $shipping->country = $request->country;
+        $shipping->weight = $request->weight;
+        $shipping->price = $request->price;
+        $shipping->save();
+     Session::flash('alert-success','تم إضافة التسعيرة بنجاح');
+     return redirect()->back();
+
+    }
+    public function updateShipping(Request $request,$id){
+        //find the current shipping to update
+        $shipping = Shipping::findorfail($id);
+      
+        //search the related shipping to the same country 
+        $relatedshipp = Shipping::where('country',$shipping->country)->where('id','!=',$id)->get();
+        foreach($relatedshipp as $sh){
+           if($sh->company_id == $request->company_id){
+            Session::flash('alert-warning','البلد موجود بنفس اسم الشركة من قبل');
+            return redirect()->back();
+            } 
+        } 
+        
+        
+        $shipping->company_id = $request->company_id ? $request->company_id : $shipping->company_id;
+        $shipping->weight = $request->weight ? $request->weight : $shipping->weight;
+        $shipping->price = $request->price ? $request->price : $shipping->price;
+        $shipping->save();
+        Session::flash('alert-success','تم تعديل التسعيرة بنجاح');
+        return redirect()->back();
+
+
+    }
+    public function deleteShipping($id){
+        
+        $shipping = Shipping::findorfail($id);
+        
+        $shipping->delete();
+        
+        Session::flash('alert-success','تم حدف التسعيرة بنجاح');
+        return redirect()->back();
+
+    }
+    //activate and disactivate the adjustment price status
+    public function updateAdjustmentStatus($status){
+        $shippings = Shipping::query();
+        $shippings->update(['adjustment_price'=>$status]);
+        Session::flash('alert-success','تم تحديث حالة تسعيرة التوظيب بنجاح');
+        return redirect()->back();
+    }
+    public function checkAdjustmentPriceStatus(){
+        $adjustmentstatus = Shipping::first();
+        return response()->json($adjustmentstatus);
+       
+    }
+    public function currentShippingCompany($country){
+        $active_company_id = ShippingCompanies::where('state',1)->first()->id;
+        $current_company = Shipping::where('country',$country)->where('company_id',$active_company_id)->first();
+        return response()->json($current_company);
+       
+    }
+    public function changeShippingcompany(Request $request){
+        $current_company =ShippingCompanies::findorfail($request->company_id);
+
+        $shippings = ShippingCompanies::query();
+        $shippings->update(['state'=>false]);
+        $current_company->state = true;
+        $current_company->save();
+        Session::flash('alert-success','تم تغيير شركة  الشحن بنجاح');
+        return redirect()->back();
     }
     
     

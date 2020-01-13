@@ -14,8 +14,8 @@
             
                 
                    <!-- page wapper-->
-    <div class="columns-container p-3 bg-white">
-            <div class="container" id="columns">
+    <div class="columns-container p-1 bg-white">
+            <div class="" id="columns">
                
                 <div class="page-content">
                     <ul class="list-group " v-if="this.errors.length > 0">

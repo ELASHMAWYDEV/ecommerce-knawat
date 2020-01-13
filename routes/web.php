@@ -92,6 +92,16 @@ Route::group(['as'=>'user.','middleware'=>'auth'],function(){
 
    //verify if the payment info is included or not
    Route::get('/checkbillinginfo','UserController@checkbillinginfo')->name('checkbillinginfo'); 
+   Route::post('/process_payment','UserController@process_payment')->name('process_payment'); 
+   Route::post('/cancel_order','UserController@cancel_order')->name('cancel_order'); 
+   Route::get('/shipmentrules','UserController@getshipmentrules')->name('getshipmentrules'); 
+   //get the user processed orders from knawat
+   Route::get('/getmyprocessedorder/{id}','UserController@getmyprocessedorder')->name('getmyprocessedorder'); 
+   //check if the adjustment price is active or not 
+   Route::get('checkAdjustmentPriceStatus','AdminController@checkAdjustmentPriceStatus')->name('checkAdjustmentPriceStatus');
+   //get the current active shipping company
+   Route::get('/currentShippingCompany/{country}','AdminController@currentShippingCompany')->name('currentShippingCompany');
+
 });
 Route::get('json-api', 'ApiController@index');
 
@@ -145,6 +155,16 @@ Route::group(['prefix' => 'admin','as'=>'admin.'], function () {
   Route::post('addSlider','AdminController@addSlider')->name('addSlider');
   Route::post('updateSlider/{id}','AdminController@updateSlider')->name('updateSlider');
   Route::get('deleteSlider/{id}','AdminController@deleteSlider')->name('deleteSlider');
+
+  //the shipping actions 
+  Route::get('Shipping','AdminController@shippingpage')->name('shipping');
+  Route::post('addShipping','AdminController@addShipping')->name('addShipping');
+  Route::post('updateShipping/{id}','AdminController@updateShipping')->name('updateShipping');
+  Route::get('deleteShipping/{id}','AdminController@deleteShipping')->name('deleteShipping');
+  //check if the adjustment price 
+  Route::get('adjustmentPriceStatus/{state}','AdminController@updateAdjustmentStatus')->name('updateAdjustmentStatus');
+  //change the current active shipping company
+  Route::post('changeShippingcompany','AdminController@changeShippingcompany')->name('changeShippingcompany');
 });
 
 

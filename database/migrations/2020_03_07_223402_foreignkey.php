@@ -13,7 +13,7 @@ class Foreignkey extends Migration
      */
     public function up()
     {
-        Schema::table('favorites', function (Blueprint $table) {
+       /*  Schema::table('favorites', function (Blueprint $table) {
             
             $table->foreign('user_id')
             ->references('id')
@@ -44,7 +44,7 @@ class Foreignkey extends Migration
             ->on('users')
             ->onUpdate('cascade')
             ->onDelete('cascade');
-        });
+        }); */
        /*  Schema::table('tickets', function (Blueprint $table) {
             
             $table->foreign('user_id')
@@ -54,7 +54,7 @@ class Foreignkey extends Migration
             ->onDelete('cascade');
         }); */
 
-        Schema::table('replies', function (Blueprint $table) {
+        /* Schema::table('replies', function (Blueprint $table) {
             
             $table->foreign('user_id')
             ->references('id')
@@ -75,6 +75,14 @@ class Foreignkey extends Migration
             $table->foreign('user_id')
             ->references('id')
             ->on('users')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+        }); */
+        Schema::table('shippings', function (Blueprint $table) {
+            
+            $table->foreign('company_id')
+            ->references('id')
+            ->on('shipping_companies')
             ->onUpdate('cascade')
             ->onDelete('cascade');
         });

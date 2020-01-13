@@ -2,7 +2,7 @@
 namespace App\Util;
 
 use Knawat\MP;
-
+use Illuminate\Http\Request;
 class Products {
     public $mp;
 
@@ -46,11 +46,26 @@ class Products {
     public function getOrders(){
         return $this->mp->get('/orders');
     }
+    public function createOrder(Request $request){
+        
+        $res = $this->mp->post('/orders',$request->all());
+        
+        return response()->json($res);
+    }
     public function getOrder($id){
         return $this->mp->get('/orders'.'/'.$id);
+    }
+    public function cancelOrder($id){
+        $res =  $this->mp->delete('/orders'.'/'.$id); 
+        dd($res);
     }
     public function getCurrencies(){
         return $this->mp->get('/currencies');
     }
+    public function getshipmentrules(){
+        $res = $this->mp->get('/shipment/rules');
+        dd($res);
+    }
+ 
 
 }

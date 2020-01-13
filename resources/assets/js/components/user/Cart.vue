@@ -122,6 +122,8 @@ tbody tr td:not(:first-of-type){    padding-top: 1.9rem;}
                         <th scope="col">{{!lang ? 'price' : 'السعر'}} </th>
                         <th scope="col">{{!lang ? 'quantity' : 'الكمية'}} </th>
                         <th scope="col">{{!lang ? 'action' : 'العملية'}} </th>
+                        <th scope="col">{{!lang ? 'adjustment' : 'التوظيب'}} </th>
+                        <th scope="col">{{!lang ? 'shipping' : 'الشحن'}} </th>
                         <th scope="col">{{!lang ? 'total' : 'المجموع'}} </th>
                         
                     </tr>
@@ -164,6 +166,12 @@ tbody tr td:not(:first-of-type){    padding-top: 1.9rem;}
                                     </div>
                                 </div>
                             </td>
+                            <td>
+                               {{this.adjustment_price_status ? '2$' : '0$'}}
+                            </td>
+                            <td>
+                               {{this.shippingFees.price}}$
+                            </td>
                             <td><a @click="removecartItem(p.sku)" href="#" class="icon delte-cart-item">X</a></td>
                             <td>
                                 <h5 class="td-color singleitemtotal " :datasku="'t-'+p.sku">
@@ -195,31 +203,76 @@ export default {
             products:[],
             loading:false,
             totaltopay:0,
-            realItemsToal:[]
+            realItemsToal:[],
+            user:null,
+            firstname:'',
+            lastname:'',
+            address:'',
+            email : '',
+            phone:'',
+             /// the adjustment price status
+             adjustment_price_status:false,
+            ///// the billing informations ------
+            address_line1:'',
+            address_line2:'',
+            city:'',country:'',state:'',company:'',postcode:'',
+            shippingFees : null,
+            countrycode:''
+        
         }
     },
     mixins:[headerMixins,currencyMixins],
     created(){
         this.loading = true;
+        this.checkadjustmentstatus();
         setTimeout(() => {
           this.setcartItems();   
-        }, 2000);
-        this.paypalInit();
+        }, 3000);
+        //this.paypalInit();
+    },
+    mounted(){
+       this.setuser();
+       this.setBillingInfo();
     },
     computed:{
       
         cartItems(){
             return this.$store.state.cartItems;
-        },
+        },  checkallbilinginfo(){
+              return (this.address_line1.length > 0) && (this.city.length > 0)
+               && (this.country.length > 0) && (this.state.length > 0)
+          },
     
     },
     methods:{
+          checkadjustmentstatus(){
+              axios.get('checkAdjustmentPriceStatus')
+              .then(res => {
+                  //console.log(res.data)
+                  if(res.data.adjustment_price == 1){
+                     this.adjustment_price_status = true 
+                  }
+                   
+
+              })
+          },
+          getCurrentShipping(country){
+            
+           axios.get('currentShippingCompany/'+country)
+              .then(res => {
+                  let shipp =  res.data;
+                  this.shippingFees = shipp;
+                  
+              })
+          },
           setcartItems(){
+                
                     let requests =  [];
                     this.cartItems.forEach((product)=>{
-                    
-                    requests.push(axios.get('/getProductBySku/'+product.sku));
+                       
+                      requests.push(axios.get('/getProductBySku/'+product.sku));
                     });
+                    
                     //send multiple requests
                     axios.all(requests).then(axios.spread((...responses) => {
                     
@@ -233,6 +286,8 @@ export default {
                     this.loading = false
                     //calculate the initil commanded price when adding item to cart
                     this.initItemsTotal();
+                    // get the current shipping company price
+                    this.getCurrentShipping();
                     })).catch(errors => {
                     // react on errors.
                        console.log(errors)
@@ -280,12 +335,16 @@ export default {
               return this.cartItems.filter(item => item.sku == sku)[0].quantity
           },
           getItemTotal(p,event){
+            
             let price = (this.currencyRate * (p.variations[0].sale_price)).toFixed(2);
             let demandedQte = event.target.value;
+            let adjustment_price = this.adjustment_price_status ? 2 : 0;
+            
             //change the commanded quantity in cartitem
             this.cartItems.filter(item => item.sku == p.sku)[0].quantity = demandedQte;
 
-            let total = (price * demandedQte).toFixed(2);
+            let total = ((price * demandedQte) + adjustment_price + 
+            this.shippingFees.price).toFixed(2);
            
             document.querySelectorAll(".singleitemtotal[datasku = 't-"+p.sku+"']")[0].textContent = this.currencySign+""+total;
             //here we set the real item total in real items total array
@@ -319,15 +378,166 @@ export default {
               
 
           },
+          setuser(){
+           var user = null;
+           axios.get('/userinfo')
+           .then(res =>{
+               
+               user = res.data;
+               this.firstname = user.firstname;
+               this.lastname = user.lastname;
+               this.phone = user.phone;
+               this.address = user.address;
+               this.country = user.country;
+               this.email = user.email;
+              
+               //call the current shipping method to get the price of shippment
+               setTimeout(() => {
+               console.log('usercountry',this.country)
+                  //get the current shipping price to the user country
+                  this.getCurrentShipping(this.country);  
+                  //then get the country code by name 
+                  this.countryNameToCode();  
+               }, 9000);
+               
+           })
+           
+          },
+          setBillingInfo(){
+                let userbillinginfo = null;
+                axios.get('/userBillinginfo')
+                .then(res =>{
+                    
+                    userbillinginfo = res.data;
+                    
+                    this.address_line1 = userbillinginfo.address_line1;
+                    this.address_line2 = userbillinginfo.address_line2;
+                    this.city = userbillinginfo.city;
+                    this.country = userbillinginfo.country;
+                    this.state = userbillinginfo.state;
+                    this.company = userbillinginfo.company;
+                    this.postcode = userbillinginfo.postcode;
+                })
+          },
+          countryNameToCode(){
+            
+            fetch(`https://restcountries.eu/rest/v2/name/${this.country}`)
+            .then(function(res){
+                return res.json();
+            })
+            .then((data) => {
+                
+                //console.log('country code ',data[0].alpha2Code);
+                this.countrycode = data[0].alpha2Code;
+            })
+     
+          },
           checkout(){
 
-              axios.get('/checkbillinginfo')
-                .then(res => {
-                   if(res.data.res == 'ok'){
-                      /* this.realItemsToal.forEach((p,i) =>{
+              
+                   if(this.checkallbilinginfo){
+                      this.realItemsToal.forEach((p,i) =>{
                           console.log(i)
                           console.log(Object.assign(p,{quanity:this.cartItems(i)}))
-                      }) */
+                      })
+                      var order = {
+                            "status": "processing",
+                           "items": [
+                            {
+                                "quantity": 1,
+                                "sku": "BI11103820"
+                            }
+                            ],
+                            //"items":this.realItemsToal,
+                            "shipping": {
+                            "first_name": this.firstname,
+                            "last_name": this.lastname,
+                            "address_1": this.address_line1,
+                            "address_2": this.address_line2.length > 0 ? this.address_line2 : this.state,
+                            "city": this.city,
+                            "state": this.state,
+                            "postcode": this.postcode,
+                            "country": this.countrycode,
+                            "email": this.email,
+                            "phone": this.phone
+                            },
+                            "notes": "My Orders"
+                        }
+                      
+                      //confirm the payment operation
+                      const swalWithBootstrapButtons = Swal.mixin({
+                        customClass: {
+                            confirmButton: 'btn btn-success',
+                            cancelButton: 'btn btn-danger'
+                        },
+                        buttonsStyling: false
+                        })
+
+                        swalWithBootstrapButtons.fire({
+                        title: !this.lang ? 'The total price to pay is :' : 'المبلغ الكلي للدفع :',
+                        text: this.totaltopay,
+                        icon: 'info',
+                        showCancelButton: true,
+                        confirmButtonText: !this.lang ? 'Yes, Continue' : 'متابعة',
+                        cancelButtonText: !this.lang ? 'No, cancel!' : 'إلغاء',
+                        reverseButtons: true
+                        }).then((result) => {
+                        if (result.value) {
+                            swalWithBootstrapButtons.fire(
+                            !this.lang ? 'completed' : 'تم الالغاء',
+                            !this.lang ? 'thanks for your payment' : 'شكرا لك سيتم معالجة طلبك',
+                            'success'
+                            )
+                                   /*  axios.post('/process_payment',order)
+                                    .then(res =>{
+                                        console.log(res)
+                                        if(res.data.code == '422' || res.data.code == '500'){
+                                        let returnederror = "";
+                                            res.data.data.forEach(item =>{
+                                                returnederror = returnederror+' ' + item.message;
+                                        } )
+                                        !this.lang ?
+                                                Swal.fire({
+                                                    title:res.data.type,
+                                                    type:'error',
+                                                    html:`<h6 style="color:red" >${returnederror}</h6>`
+                                                
+                                                }) 
+                                            :
+                                            Swal.fire({
+                                                    title:'خطأ',
+                                                    type:'خطأ',
+                                                    html:`<h6 style="color:red" >${returnederror}</h6>`
+                                            })
+                                        }else{
+                                            let result = res.data;
+                                            Swal.fire({
+                                                    title:res.data.type,
+                                                    type:res.data.status,
+                                                    html:`<h6 >${returnedmessage}</h6>`
+                                                
+                                                })  
+                                        }
+                                    }) */
+                        } else if (
+                            /* Read more about handling dismissals below */
+                            result.dismiss === Swal.DismissReason.cancel
+                        ) {
+                            swalWithBootstrapButtons.fire(
+                            !this.lang ? 'Cancelled' : 'تم الالغاء',
+                            !this.lang ? 'you can request any time you want' : 'بامكانك الكلب في اي وقت',
+                            'error'
+                            )
+                        }
+                        })
+                    
+                      axios.post('/cancel_order',{
+                          "id":"SO-06328"
+                      })
+                      .then(res =>{
+                          console.log(res.data)
+                      })
+
                       /*  Swal.fire({
                         title:'confirmed',
                         text:'yes',
@@ -349,8 +559,8 @@ export default {
                             <a href="/settings"  >مواصلة</a>'
                     }) 
                    }
-                })
-          }
+                
+          },
     }
 }
 /* Vue.loadScript('https://www.paypalobjects.com/api/checkout.js').then(()=>{

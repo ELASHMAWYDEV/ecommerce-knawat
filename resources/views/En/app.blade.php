@@ -114,6 +114,3 @@
      
 </body>
 </html>
-
-P.U
-(en chiffre)

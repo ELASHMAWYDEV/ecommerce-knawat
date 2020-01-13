@@ -15,8 +15,17 @@ use Auth;
 use App\Reply;
 use App\MailingList;
 use App\Order;
+use App\Util\Products;
 class UserController extends Controller
 {
+
+  protected $p;
+    public function __construct(Products $products)
+    {
+        //$this->middleware('auth')->except('index','loginPage');
+        $this->p = $products;
+        
+    }
     /**
      * Display a listing of the resource.
      *
@@ -417,6 +426,30 @@ class UserController extends Controller
           return response()->json(['res'=>'ok']);
        }
        return response()->json(['res'=>'failed']);
+    }
+    public function process_payment(Request $request){
+      
+      
+        $res = $this->p->createOrder($request);
+        if($res->data->status == 'success'){
+          $real_data = $res->data->data;
+          $order = new Order();
+            $order->user_id = Auth::id();
+            $order->order_id =  $real_data->id;
+            $order->order_number =  $real_data->orderNumber;
+            $order->save();
+        }
+        return $res;
+    }
+    public function cancel_order(Request $request){
+       //dd($request->id);
+        $this->p->cancelOrder($request->id);
+    }
+    public function getshipmentrules(){
+      $this->p->getshipmentrules();
+    }
+    public function getmyprocessedorder($id){
+       return response()->json($this->p->getOrder($id));
     }
    
 }

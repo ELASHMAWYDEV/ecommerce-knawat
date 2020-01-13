@@ -83,7 +83,7 @@ const store = new Vuex.Store({
         'TRY':'₺'
       },
       currentCurrency:'USD',
-      currencyRate :0.174,
+      currencyRate :1,//0.174,
       currencySign:'$',
       productDetails:{},
       authId:null,
