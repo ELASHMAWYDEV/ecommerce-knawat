@@ -147,14 +147,14 @@ tbody tr td:not(:first-of-type){    padding-top: 1.9rem;}
                                     </div>
                                     <div class="col-xs-3">
                                         <h5 class="td-color singleitemtotal">
-                                             {{currencySign}}{{ (((currencyRate * (p.variations[0].sale_price)).toFixed(2)) * getCommandedQuantity(p.sku)).toFixed(2) }}
+                                             {{currencySign}}{{ (((currencyRate * (p.variations[0].sale_price.toFixed(2))).toFixed(2)) * getCommandedQuantity(p.sku)).toFixed(2)  }}
                                         </h5></div>
                                     <div class="col-xs-3">
                                         <h5 class="td-color"><a href="#" @click="removecartItem(p.sku)" class="icon delete-cart-item">X</a></h5></div>
                                 </div>
                             </td>
                             <td>
-                                <h5 class="td-color">{{currencySign}}{{ (currencyRate * (p.variations[0].sale_price)).toFixed(2)}}</h5></td>
+                                <h5 class="td-color">{{currencySign}}{{ (currencyRate * (p.variations[0].sale_price.toFixed(2))).toFixed(2)}}</h5></td>
                             <td>
                                 <div class="qty-box qty-box-lg" >
                                     <div class="input-group" :id="'lg-quantity'+key">
@@ -166,16 +166,18 @@ tbody tr td:not(:first-of-type){    padding-top: 1.9rem;}
                                     </div>
                                 </div>
                             </td>
-                            <td>
-                               {{this.adjustment_price_status ? '2$' : '0$'}}
-                            </td>
-                            <td>
-                               {{this.shippingFees.price}}$
-                            </td>
                             <td><a @click="removecartItem(p.sku)" href="#" class="icon delte-cart-item">X</a></td>
                             <td>
+                               {{adjustment_price_status ? '2$' : '0$'}}
+                            </td>
+                            <td class="shipping_price">
+                               ---
+                            </td>
+                            
+                            <td>
                                 <h5 class="td-color singleitemtotal " :datasku="'t-'+p.sku">
-                                 {{currencySign}}{{ (((currencyRate * (p.variations[0].sale_price)).toFixed(2)) * getCommandedQuantity(p.sku)).toFixed(2) }}
+                                    ---
+                                <!--  {{currencySign}}{{ (((currencyRate * (p.variations[0].sale_price)).toFixed(2)) * getCommandedQuantity(p.sku)).toFixed(2) }} -->
                                 </h5>
                             </td>
                         </tr>
@@ -217,11 +219,22 @@ export default {
             address_line2:'',
             city:'',country:'',state:'',company:'',postcode:'',
             shippingFees : null,
-            countrycode:''
+            countrycode:'',
+            loaded_sku:[], //after loading from url we save sku
+            calculated_loaded_sku:[] //after calculating total price of each sku
         
         }
     },
     mixins:[headerMixins,currencyMixins],
+    watch: {
+        cartItems: function () {
+            this.setcartItems();
+        },
+        adjustment_price_status :function(){
+            this.checkadjustmentstatus();
+        },
+
+    },
     created(){
         this.loading = true;
         this.checkadjustmentstatus();
@@ -242,6 +255,7 @@ export default {
               return (this.address_line1.length > 0) && (this.city.length > 0)
                && (this.country.length > 0) && (this.state.length > 0)
           },
+        
     
     },
     methods:{
@@ -262,13 +276,49 @@ export default {
               .then(res => {
                   let shipp =  res.data;
                   this.shippingFees = shipp;
+                  document.querySelectorAll('.shipping_price').forEach(ele =>{
+                      //console.log('price',this.shippingFees.price)
+                      ele.textContent = this.shippingFees.price + '$';
+                  })
+                  //calculate total after getting the shipping price
+                  this.realItemsToal.forEach((item,i) => {
+                     item.total =parseFloat(item.total)  + parseFloat(this.shippingFees.price);
+                     document.querySelectorAll(".singleitemtotal[datasku = 't-"+item.sku+"']").forEach(i =>{
+                         i.textContent =  item.total + this.currencySign;
+                     })
+                   })
+                   
+                    
+                  this.setTotalToPay();
                   
               })
           },
           setcartItems(){
-                
+                    
+                    let url = '/getProductBySku/';
+                    let promisedItems = [];
+
+                    this.$store.state.cartItems.forEach(product => {
+                        promisedItems.push(axios.get(url + product.sku))
+                    });
+
+                     Promise.all(promisedItems)
+                     .then(res => {
+                         
+                        //console.log(res)
+                        res.forEach(p =>{
+                            //console.log(this.loaded_sku)
+                            if(!(this.loaded_sku.includes(p.data.product.sku))){
+                                this.products.push(p.data.product);
+                                this.loaded_sku.push(p.data.product.sku);
+                            }
+                        })
+                        this.initItemsTotal();
+                     })
+                    
+                    this.loading = false
                     let requests =  [];
-                    this.cartItems.forEach((product)=>{
+                    /* this.$store.state.cartItems.forEach((product)=>{
                        
                       requests.push(axios.get('/getProductBySku/'+product.sku));
                     });
@@ -280,9 +330,8 @@ export default {
                         //console.log(res.data)
                         this.products.push(res.data.product);
                     });
-                    setTimeout(() => {
-                        
-                    }, 2000);
+
+                  
                     this.loading = false
                     //calculate the initil commanded price when adding item to cart
                     this.initItemsTotal();
@@ -292,7 +341,7 @@ export default {
                     // react on errors.
                        console.log(errors)
                     
-                    })
+                    }) */
             
          
           },
@@ -336,17 +385,19 @@ export default {
           },
           getItemTotal(p,event){
             
-            let price = (this.currencyRate * (p.variations[0].sale_price)).toFixed(2);
+            let price = (this.currencyRate * (p.variations[0].sale_price.toFixed(2))).toFixed(2);
             let demandedQte = event.target.value;
             let adjustment_price = this.adjustment_price_status ? 2 : 0;
-            
+            console.log(this.adjustment_price_status)
             //change the commanded quantity in cartitem
             this.cartItems.filter(item => item.sku == p.sku)[0].quantity = demandedQte;
 
             let total = ((price * demandedQte) + adjustment_price + 
             this.shippingFees.price).toFixed(2);
            
-            document.querySelectorAll(".singleitemtotal[datasku = 't-"+p.sku+"']")[0].textContent = this.currencySign+""+total;
+            document.querySelectorAll(".singleitemtotal[datasku = 't-"+p.sku+"']").forEach(i=>{
+                i.textContent = this.currencySign+""+total;
+            })
             //here we set the real item total in real items total array
             let prod = this.realItemsToal.filter(item => item.sku == p.sku)[0];
           
@@ -359,12 +410,19 @@ export default {
           //calculate the initil commanded price when adding item to cart
           initItemsTotal(){
               let itemtotal = 0;
+              let adjustment_price = this.adjustment_price_status ? 2 : 0;
               this.products.forEach(p =>{
-                 itemtotal = (((this.currencyRate * (p.variations[0].sale_price)).toFixed(2)) * this.getCommandedQuantity(p.sku)).toFixed(2)
-                 this.realItemsToal.push({
-                     sku:p.sku,
-                     total:itemtotal,
-                 })
+                  console.log(p)
+                 if(!this.calculated_loaded_sku.includes(p.sku)){
+                    this.calculated_loaded_sku.push(p.sku);
+                    itemtotal = (((this.currencyRate * (p.variations[0].sale_price.toFixed(2))).toFixed(2)) * 
+                    this.getCommandedQuantity(p.sku)  + adjustment_price  ).toFixed(2) ;
+                    console.log('realitem',itemtotal )
+                    this.realItemsToal.push({
+                        sku:p.sku,
+                        total:itemtotal, 
+                    })
+                 }
               })
               //set the total price to pay 
               this.setTotalToPay();

@@ -59479,6 +59479,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -59502,12 +59504,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             address_line2: '',
             city: '', country: '', state: '', company: '', postcode: '',
             shippingFees: null,
-            countrycode: ''
+            countrycode: '',
+            loaded_sku: [], //after loading from url we save sku
+            calculated_loaded_sku: [] //after calculating total price of each sku
 
         };
     },
 
     mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_headerMixins_js__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_currencyMixins_js__["a" /* default */]],
+    watch: {
+        cartItems: function cartItems() {
+            this.setcartItems();
+        },
+        adjustment_price_status: function adjustment_price_status() {
+            this.checkadjustmentstatus();
+        }
+
+    },
     created: function created() {
         var _this = this;
 
@@ -59548,37 +59561,69 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.get('currentShippingCompany/' + country).then(function (res) {
                 var shipp = res.data;
                 _this3.shippingFees = shipp;
+                document.querySelectorAll('.shipping_price').forEach(function (ele) {
+                    //console.log('price',this.shippingFees.price)
+                    ele.textContent = _this3.shippingFees.price + '$';
+                });
+                //calculate total after getting the shipping price
+                _this3.realItemsToal.forEach(function (item, i) {
+                    item.total = parseFloat(item.total) + parseFloat(_this3.shippingFees.price);
+                    document.querySelectorAll(".singleitemtotal[datasku = 't-" + item.sku + "']").forEach(function (i) {
+                        i.textContent = item.total + _this3.currencySign;
+                    });
+                });
+
+                _this3.setTotalToPay();
             });
         },
         setcartItems: function setcartItems() {
             var _this4 = this;
 
-            var requests = [];
-            this.cartItems.forEach(function (product) {
+            var url = '/getProductBySku/';
+            var promisedItems = [];
 
-                requests.push(axios.get('/getProductBySku/' + product.sku));
+            this.$store.state.cartItems.forEach(function (product) {
+                promisedItems.push(axios.get(url + product.sku));
             });
 
-            //send multiple requests
-            axios.all(requests).then(axios.spread(function () {
-                for (var _len = arguments.length, responses = Array(_len), _key = 0; _key < _len; _key++) {
-                    responses[_key] = arguments[_key];
-                }
+            Promise.all(promisedItems).then(function (res) {
 
-                responses.forEach(function (res) {
-                    //console.log(res.data)
-                    _this4.products.push(res.data.product);
+                //console.log(res)
+                res.forEach(function (p) {
+                    //console.log(this.loaded_sku)
+                    if (!_this4.loaded_sku.includes(p.data.product.sku)) {
+                        _this4.products.push(p.data.product);
+                        _this4.loaded_sku.push(p.data.product.sku);
+                    }
                 });
-                setTimeout(function () {}, 2000);
-                _this4.loading = false;
-                //calculate the initil commanded price when adding item to cart
                 _this4.initItemsTotal();
-                // get the current shipping company price
-                _this4.getCurrentShipping();
-            })).catch(function (errors) {
-                // react on errors.
-                console.log(errors);
             });
+
+            this.loading = false;
+            var requests = [];
+            /* this.$store.state.cartItems.forEach((product)=>{
+               
+              requests.push(axios.get('/getProductBySku/'+product.sku));
+            });
+            
+            //send multiple requests
+            axios.all(requests).then(axios.spread((...responses) => {
+            
+            responses.forEach(res => {
+                //console.log(res.data)
+                this.products.push(res.data.product);
+            });
+            
+            this.loading = false
+            //calculate the initil commanded price when adding item to cart
+            this.initItemsTotal();
+            // get the current shipping company price
+            this.getCurrentShipping();
+            })).catch(errors => {
+            // react on errors.
+               console.log(errors)
+            
+            }) */
         },
         removecartItem: function removecartItem($sku) {
             var _this5 = this;
@@ -59625,11 +59670,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             })[0].quantity;
         },
         getItemTotal: function getItemTotal(p, event) {
+            var _this6 = this;
 
-            var price = (this.currencyRate * p.variations[0].sale_price).toFixed(2);
+            var price = (this.currencyRate * p.variations[0].sale_price.toFixed(2)).toFixed(2);
             var demandedQte = event.target.value;
             var adjustment_price = this.adjustment_price_status ? 2 : 0;
-
+            console.log(this.adjustment_price_status);
             //change the commanded quantity in cartitem
             this.cartItems.filter(function (item) {
                 return item.sku == p.sku;
@@ -59637,7 +59683,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             var total = (price * demandedQte + adjustment_price + this.shippingFees.price).toFixed(2);
 
-            document.querySelectorAll(".singleitemtotal[datasku = 't-" + p.sku + "']")[0].textContent = this.currencySign + "" + total;
+            document.querySelectorAll(".singleitemtotal[datasku = 't-" + p.sku + "']").forEach(function (i) {
+                i.textContent = _this6.currencySign + "" + total;
+            });
             //here we set the real item total in real items total array
             var prod = this.realItemsToal.filter(function (item) {
                 return item.sku == p.sku;
@@ -59651,15 +59699,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         //calculate the initil commanded price when adding item to cart
         initItemsTotal: function initItemsTotal() {
-            var _this6 = this;
+            var _this7 = this;
 
             var itemtotal = 0;
+            var adjustment_price = this.adjustment_price_status ? 2 : 0;
             this.products.forEach(function (p) {
-                itemtotal = ((_this6.currencyRate * p.variations[0].sale_price).toFixed(2) * _this6.getCommandedQuantity(p.sku)).toFixed(2);
-                _this6.realItemsToal.push({
-                    sku: p.sku,
-                    total: itemtotal
-                });
+                console.log(p);
+                if (!_this7.calculated_loaded_sku.includes(p.sku)) {
+                    _this7.calculated_loaded_sku.push(p.sku);
+                    itemtotal = ((_this7.currencyRate * p.variations[0].sale_price.toFixed(2)).toFixed(2) * _this7.getCommandedQuantity(p.sku) + adjustment_price).toFixed(2);
+                    console.log('realitem', itemtotal);
+                    _this7.realItemsToal.push({
+                        sku: p.sku,
+                        total: itemtotal
+                    });
+                }
             });
             //set the total price to pay 
             this.setTotalToPay();
@@ -59673,64 +59727,64 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         paypalInit: function paypalInit() {},
         setuser: function setuser() {
-            var _this7 = this;
+            var _this8 = this;
 
             var user = null;
             axios.get('/userinfo').then(function (res) {
 
                 user = res.data;
-                _this7.firstname = user.firstname;
-                _this7.lastname = user.lastname;
-                _this7.phone = user.phone;
-                _this7.address = user.address;
-                _this7.country = user.country;
-                _this7.email = user.email;
+                _this8.firstname = user.firstname;
+                _this8.lastname = user.lastname;
+                _this8.phone = user.phone;
+                _this8.address = user.address;
+                _this8.country = user.country;
+                _this8.email = user.email;
 
                 //call the current shipping method to get the price of shippment
                 setTimeout(function () {
-                    console.log('usercountry', _this7.country);
+                    console.log('usercountry', _this8.country);
                     //get the current shipping price to the user country
-                    _this7.getCurrentShipping(_this7.country);
+                    _this8.getCurrentShipping(_this8.country);
                     //then get the country code by name 
-                    _this7.countryNameToCode();
+                    _this8.countryNameToCode();
                 }, 9000);
             });
         },
         setBillingInfo: function setBillingInfo() {
-            var _this8 = this;
+            var _this9 = this;
 
             var userbillinginfo = null;
             axios.get('/userBillinginfo').then(function (res) {
 
                 userbillinginfo = res.data;
 
-                _this8.address_line1 = userbillinginfo.address_line1;
-                _this8.address_line2 = userbillinginfo.address_line2;
-                _this8.city = userbillinginfo.city;
-                _this8.country = userbillinginfo.country;
-                _this8.state = userbillinginfo.state;
-                _this8.company = userbillinginfo.company;
-                _this8.postcode = userbillinginfo.postcode;
+                _this9.address_line1 = userbillinginfo.address_line1;
+                _this9.address_line2 = userbillinginfo.address_line2;
+                _this9.city = userbillinginfo.city;
+                _this9.country = userbillinginfo.country;
+                _this9.state = userbillinginfo.state;
+                _this9.company = userbillinginfo.company;
+                _this9.postcode = userbillinginfo.postcode;
             });
         },
         countryNameToCode: function countryNameToCode() {
-            var _this9 = this;
+            var _this10 = this;
 
             fetch('https://restcountries.eu/rest/v2/name/' + this.country).then(function (res) {
                 return res.json();
             }).then(function (data) {
 
                 //console.log('country code ',data[0].alpha2Code);
-                _this9.countrycode = data[0].alpha2Code;
+                _this10.countrycode = data[0].alpha2Code;
             });
         },
         checkout: function checkout() {
-            var _this10 = this;
+            var _this11 = this;
 
             if (this.checkallbilinginfo) {
                 this.realItemsToal.forEach(function (p, i) {
                     console.log(i);
-                    console.log(Object.assign(p, { quanity: _this10.cartItems(i) }));
+                    console.log(Object.assign(p, { quanity: _this11.cartItems(i) }));
                 });
                 var order = {
                     "status": "processing",
@@ -59772,7 +59826,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     reverseButtons: true
                 }).then(function (result) {
                     if (result.value) {
-                        swalWithBootstrapButtons.fire(!_this10.lang ? 'completed' : 'تم الالغاء', !_this10.lang ? 'thanks for your payment' : 'شكرا لك سيتم معالجة طلبك', 'success');
+                        swalWithBootstrapButtons.fire(!_this11.lang ? 'completed' : 'تم الالغاء', !_this11.lang ? 'thanks for your payment' : 'شكرا لك سيتم معالجة طلبك', 'success');
                         /*  axios.post('/process_payment',order)
                          .then(res =>{
                              console.log(res)
@@ -59807,7 +59861,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     } else if (
                     /* Read more about handling dismissals below */
                     result.dismiss === Swal.DismissReason.cancel) {
-                        swalWithBootstrapButtons.fire(!_this10.lang ? 'Cancelled' : 'تم الالغاء', !_this10.lang ? 'you can request any time you want' : 'بامكانك الكلب في اي وقت', 'error');
+                        swalWithBootstrapButtons.fire(!_this11.lang ? 'Cancelled' : 'تم الالغاء', !_this11.lang ? 'you can request any time you want' : 'بامكانك الكلب في اي وقت', 'error');
                     }
                 });
 
@@ -60025,7 +60079,7 @@ var render = function() {
                                       (
                                         (
                                           _vm.currencyRate *
-                                          p.variations[0].sale_price
+                                          p.variations[0].sale_price.toFixed(2)
                                         ).toFixed(2) *
                                         _vm.getCommandedQuantity(p.sku)
                                       ).toFixed(2)
@@ -60062,7 +60116,8 @@ var render = function() {
                             _vm._s(_vm.currencySign) +
                               _vm._s(
                                 (
-                                  _vm.currencyRate * p.variations[0].sale_price
+                                  _vm.currencyRate *
+                                  p.variations[0].sale_price.toFixed(2)
                                 ).toFixed(2)
                               )
                           )
@@ -60101,22 +60156,6 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("td", [
-                        _vm._v(
-                          "\n                           " +
-                            _vm._s(this.adjustment_price_status ? "2$" : "0$") +
-                            "\n                        "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          "\n                           " +
-                            _vm._s(this.shippingFees.price) +
-                            "$\n                        "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
                         _c(
                           "a",
                           {
@@ -60133,6 +60172,20 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("td", [
+                        _vm._v(
+                          "\n                           " +
+                            _vm._s(_vm.adjustment_price_status ? "2$" : "0$") +
+                            "\n                        "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "shipping_price" }, [
+                        _vm._v(
+                          "\n                           ---\n                        "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
                         _c(
                           "h5",
                           {
@@ -60141,18 +60194,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                             " +
-                                _vm._s(_vm.currencySign) +
-                                _vm._s(
-                                  (
-                                    (
-                                      _vm.currencyRate *
-                                      p.variations[0].sale_price
-                                    ).toFixed(2) *
-                                    _vm.getCommandedQuantity(p.sku)
-                                  ).toFixed(2)
-                                ) +
-                                "\n                            "
+                              "\n                                ---\n                            "
                             )
                           ]
                         )
