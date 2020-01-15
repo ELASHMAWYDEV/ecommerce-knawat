@@ -98,9 +98,9 @@ Route::group(['as'=>'user.','middleware'=>'auth'],function(){
    //get the user processed orders from knawat
    Route::get('/getmyprocessedorder/{id}','UserController@getmyprocessedorder')->name('getmyprocessedorder'); 
    //check if the adjustment price is active or not 
-   Route::get('checkAdjustmentPriceStatus','AdminController@checkAdjustmentPriceStatus')->name('checkAdjustmentPriceStatus');
+   Route::get('checkAdjustmentPriceStatus','UserController@checkAdjustmentPriceStatus')->name('checkAdjustmentPriceStatus');
    //get the current active shipping company
-   Route::get('/currentShippingCompany/{country}','AdminController@currentShippingCompany')->name('currentShippingCompany');
+   Route::get('currentShippingCompany/{country}','UserController@currentShippingCompany')->name('currentShippingCompany');
 
 });
 Route::get('json-api', 'ApiController@index');

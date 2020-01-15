@@ -316,7 +316,7 @@ export default {
                         this.initItemsTotal();
                      })
                     
-                    this.loading = false
+                    
                     let requests =  [];
                     /* this.$store.state.cartItems.forEach((product)=>{
                        
@@ -347,12 +347,13 @@ export default {
           },
           removecartItem($sku){
             Swal.fire({
-            text: 'Are you sure to remove this product from cart?',
+            text: !this.lang ? 'Are you sure to remove this product from cart?':
+                   'هل أنت متأكد من حدف المنتج من السلة',
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#E64545',
-            confirmButtonText: 'Yes !'
+            confirmButtonText: !lang ? 'Yes !' :'نعم'
             }).then((result) => {
                 
             if (result.value) {
@@ -361,7 +362,7 @@ export default {
                    this.products = this.products.filter(item => item.sku != $sku)
                    this.$store.state.cartItems = this.cartItems.filter(item => item != $sku)
                    Swal.fire({
-                     title:'Deleted!',
+                     title:!lang ? 'Deleted!' : 'تم الحدف',
                      text:res.data.msg,
                      type:'success'
                    }) 
@@ -409,6 +410,7 @@ export default {
           },
           //calculate the initil commanded price when adding item to cart
           initItemsTotal(){
+              this.loading = false
               let itemtotal = 0;
               let adjustment_price = this.adjustment_price_status ? 2 : 0;
               this.products.forEach(p =>{

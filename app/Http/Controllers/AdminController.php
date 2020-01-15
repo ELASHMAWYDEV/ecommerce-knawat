@@ -343,17 +343,8 @@ class AdminController extends Controller
         Session::flash('alert-success','تم تحديث حالة تسعيرة التوظيب بنجاح');
         return redirect()->back();
     }
-    public function checkAdjustmentPriceStatus(){
-        $adjustmentstatus = Shipping::first();
-        return response()->json($adjustmentstatus);
-       
-    }
-    public function currentShippingCompany($country){
-        $active_company_id = ShippingCompanies::where('state',1)->first()->id;
-        $current_company = Shipping::where('country',$country)->where('company_id',$active_company_id)->first();
-        return response()->json($current_company);
-       
-    }
+    
+   
     public function changeShippingcompany(Request $request){
         $current_company =ShippingCompanies::findorfail($request->company_id);
 

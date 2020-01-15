@@ -128,8 +128,10 @@ export default {
           }else{
             Swal.fire({
               type: 'error',
-              html: 'please login to add to your favorites <br>\
-              <a href="" data-target="#login-modal" data-toggle="modal">login</a>',
+              html:!lang ? 'please login to add to your favorites <br>\
+              <a href="" data-target="#login-modal" data-toggle="modal">login</a>' :
+              'قم بتسجيل الدخول لرؤية المفضلة <br>\
+              <a href="" data-target="#login-modal" data-toggle="modal">تسجيل الدخول</a>',
             })
           // document.querySelector('#loginto').style.display = 'block';
           }
@@ -152,14 +154,16 @@ export default {
            if(maxQTE == 0){
              Swal.fire({
                type:'warning',
-               title: 'Sorry the product is not available now !',
+               title: !this.lang ? 'Sorry the product quantity is not available now !':
+                      'كمية المنتج غير متوفرة الان',
              })
              return false;
            }
            
            Swal.fire({
-               title: 'please select a quantity',
-               html:'<h6>max quantity :'+maxQTE+'</h6>',
+               title: !this.lang ? 'please select a quantity' : 'من فضلك اختر الكمية',
+               html:!this.lang ? '<h6>max quantity :'+maxQTE+'</h6>': 
+                      '<h6>الكمية المتوفرة'+maxQTE+'</h6>',
                input: 'number',
                inputAttributes: {
                min: 1,
@@ -167,7 +171,7 @@ export default {
                step: 1
                },
                showCancelButton: true,
-               confirmButtonText: 'Submit',
+               confirmButtonText: !lang ? 'Submit' : 'تأكيد',
                showLoaderOnConfirm: true,
                preConfirm: (quantity) => {
                    
@@ -179,9 +183,14 @@ export default {
                      user_id : this.authId,sku:product.sku,quantity:quantity.value
                  })
                  .then(res => {
+                     !lang ? 
                      event.target.innerHTML='\
-                     added to cart \
-                     <i class="fa fa-check text-light ml-2" style="position:relative;top:2px"></i>';
+                     in cart \
+                     <i class="fa fa-check text-light ml-2" style="position:relative;top:2px"></i>':
+                     event.target.innerHTML='\
+                     في السلة \
+                     <i class="fa fa-check text-light ml-2" style="position:relative;top:2px"></i>'
+                     ;
                      if(res.data.type == "success"){
                        this.$store.state.cartItems.push(product.sku)
                      }
@@ -196,8 +205,10 @@ export default {
          }else{
          Swal.fire({
            type: 'error',
-           html: 'please login to add to your favorites <br>\
-            <a href="" data-target="#login-modal" data-toggle="modal">login</a>',
+           html: !lang  ? 'please login to add to your cart <br>\
+            <a href="" data-target="#login-modal" data-toggle="modal">login</a>'
+                        : 'قم بتسجيل الدخول لإضافة المنتج للسلة<br>\
+            <a href="" data-target="#login-modal" data-toggle="modal">تسجيل الدخول</a>',
          })
         // document.querySelector('#loginto').style.display = 'block';
        }
@@ -219,6 +230,7 @@ export default {
         },
         lang(){
           return this.$store.state.lang;
-        }
+        },
+       
       }
   };

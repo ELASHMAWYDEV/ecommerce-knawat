@@ -59,7 +59,8 @@ export default {
     data(){
         return {
             products:[],
-            loading:false
+            loading:false,
+            loaded_sku:[]
         }
     },
     mixins:[mixins],
@@ -70,22 +71,51 @@ export default {
         }, 2000);
        
     },
+    watch: {
+        favoritedProducts: function () {
+            this.setFavoritedProducts();
+        },
+    },
     computed:{
       
         favoritedProducts(){
             return this.$store.state.favoritedProducts;
+        }, authId(){
+          return this.$store.state.authId;
         }
     },
     methods:{
           setFavoritedProducts(){
          
-                let requests =  [];
+                    let url = '/getProductBySku/';
+                    let promisedItems = [];
+
+                    this.favoritedProducts.forEach(product => {
+                        promisedItems.push(axios.get(url + product))
+                    });
+
+                     Promise.all(promisedItems)
+                     .then(res => {
+                         
+                        //console.log(res)
+                        res.forEach(p =>{
+                            //console.log(this.loaded_sku)
+                            if(!(this.loaded_sku.includes(p.data.product.sku))){
+                                this.products.push(p.data.product);
+                                this.loaded_sku.push(p.data.product.sku);
+                            }
+                        })
+                        this.loading = false
+                     })
+                    
+                    
+               /*  let requests =  [];
                 this.favoritedProducts.forEach((product)=>{
                 console.log('i enter')
                 requests.push(axios.get('/getProductBySku/'+product));
-                });
+                }); */
                 //send multiple requests
-                axios.all(requests).then(axios.spread((...responses) => {
+                /* axios.all(requests).then(axios.spread((...responses) => {
                 
                   responses.forEach(res => {
                       console.log(res.data)
@@ -102,13 +132,14 @@ export default {
                       
                   }, 2000);
                    
-                })
+                }) */
             
          
           },
           removeFavorite($sku){
             Swal.fire({
-            text: 'Are you sure to remove this product from favorites?',
+            text: !this.lang ? 'Are you sure to remove this product from favorites?' :
+            'هل أنت متأكد من حدف المنتج من المفضلة',
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -122,7 +153,7 @@ export default {
                    this.products = this.products.filter(item => item.sku != $sku)
                    this.$store.state.favoritedProducts = this.favoritedProducts.filter(item => item != $sku)
                    Swal.fire({
-                     title:'Removed!',
+                     title:!lang ? 'Removed!' : 'تم الحدف',
                      text:res.data.msg,
                      type:'success'
                    }) 
@@ -132,7 +163,7 @@ export default {
           })
           },
           //get the product quantity   by calculating sum of variations quantity
-       getQuantity(product){
+          getQuantity(product){
            let sum = 0;
            product.variations.forEach( variation =>{
                //we test if a quantity is > 0 so the size is available for this variation
@@ -141,7 +172,7 @@ export default {
          
            return sum;
           
-       },
+          },
     }
 }
 </script>

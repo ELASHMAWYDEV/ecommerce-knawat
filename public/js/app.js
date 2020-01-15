@@ -929,8 +929,9 @@ module.exports = {
       } else {
         Swal.fire({
           type: 'error',
-          html: 'please login to add to your favorites <br>\
-              <a href="" data-target="#login-modal" data-toggle="modal">login</a>'
+          html: !lang ? 'please login to add to your favorites <br>\
+              <a href="" data-target="#login-modal" data-toggle="modal">login</a>' : 'قم بتسجيل الدخول لرؤية المفضلة <br>\
+              <a href="" data-target="#login-modal" data-toggle="modal">تسجيل الدخول</a>'
         });
         // document.querySelector('#loginto').style.display = 'block';
       }
@@ -959,14 +960,14 @@ module.exports = {
         if (maxQTE == 0) {
           Swal.fire({
             type: 'warning',
-            title: 'Sorry the product is not available now !'
+            title: !this.lang ? 'Sorry the product quantity is not available now !' : 'كمية المنتج غير متوفرة الان'
           });
           return false;
         }
 
         Swal.fire({
-          title: 'please select a quantity',
-          html: '<h6>max quantity :' + maxQTE + '</h6>',
+          title: !this.lang ? 'please select a quantity' : 'من فضلك اختر الكمية',
+          html: !this.lang ? '<h6>max quantity :' + maxQTE + '</h6>' : '<h6>الكمية المتوفرة' + maxQTE + '</h6>',
           input: 'number',
           inputAttributes: {
             min: 1,
@@ -974,7 +975,7 @@ module.exports = {
             step: 1
           },
           showCancelButton: true,
-          confirmButtonText: 'Submit',
+          confirmButtonText: !lang ? 'Submit' : 'تأكيد',
           showLoaderOnConfirm: true,
           preConfirm: function preConfirm(quantity) {},
           allowOutsideClick: function allowOutsideClick() {
@@ -985,8 +986,10 @@ module.exports = {
             axios.post('/user/carItems/add', {
               user_id: _this5.authId, sku: product.sku, quantity: quantity.value
             }).then(function (res) {
-              event.target.innerHTML = '\
-                     added to cart \
+              !lang ? event.target.innerHTML = '\
+                     in cart \
+                     <i class="fa fa-check text-light ml-2" style="position:relative;top:2px"></i>' : event.target.innerHTML = '\
+                     في السلة \
                      <i class="fa fa-check text-light ml-2" style="position:relative;top:2px"></i>';
               if (res.data.type == "success") {
                 _this5.$store.state.cartItems.push(product.sku);
@@ -1003,8 +1006,9 @@ module.exports = {
       } else {
         Swal.fire({
           type: 'error',
-          html: 'please login to add to your favorites <br>\
-            <a href="" data-target="#login-modal" data-toggle="modal">login</a>'
+          html: !lang ? 'please login to add to your cart <br>\
+            <a href="" data-target="#login-modal" data-toggle="modal">login</a>' : 'قم بتسجيل الدخول لإضافة المنتج للسلة<br>\
+            <a href="" data-target="#login-modal" data-toggle="modal">تسجيل الدخول</a>'
         });
         // document.querySelector('#loginto').style.display = 'block';
       }
@@ -58798,7 +58802,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             products: [],
-            loading: false
+            loading: false,
+            loaded_sku: []
         };
     },
 
@@ -58812,43 +58817,73 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }, 2000);
     },
 
+    watch: {
+        favoritedProducts: function favoritedProducts() {
+            this.setFavoritedProducts();
+        }
+    },
     computed: {
         favoritedProducts: function favoritedProducts() {
             return this.$store.state.favoritedProducts;
+        },
+        authId: function authId() {
+            return this.$store.state.authId;
         }
     },
     methods: {
         setFavoritedProducts: function setFavoritedProducts() {
             var _this2 = this;
 
-            var requests = [];
-            this.favoritedProducts.forEach(function (product) {
-                console.log('i enter');
-                requests.push(axios.get('/getProductBySku/' + product));
-            });
-            //send multiple requests
-            axios.all(requests).then(axios.spread(function () {
-                for (var _len = arguments.length, responses = Array(_len), _key = 0; _key < _len; _key++) {
-                    responses[_key] = arguments[_key];
-                }
+            var url = '/getProductBySku/';
+            var promisedItems = [];
 
-                responses.forEach(function (res) {
-                    console.log(res.data);
-                    _this2.products.push(res.data.product);
-                });
-                setTimeout(function () {}, 2000);
-                _this2.loading = false;
-            })).catch(function (errors) {
-                // react on errors.
-                swal.fire('there is error in fetching products');
-                setTimeout(function () {}, 2000);
+            this.favoritedProducts.forEach(function (product) {
+                promisedItems.push(axios.get(url + product));
             });
+
+            Promise.all(promisedItems).then(function (res) {
+
+                //console.log(res)
+                res.forEach(function (p) {
+                    //console.log(this.loaded_sku)
+                    if (!_this2.loaded_sku.includes(p.data.product.sku)) {
+                        _this2.products.push(p.data.product);
+                        _this2.loaded_sku.push(p.data.product.sku);
+                    }
+                });
+                _this2.loading = false;
+            });
+
+            /*  let requests =  [];
+             this.favoritedProducts.forEach((product)=>{
+             console.log('i enter')
+             requests.push(axios.get('/getProductBySku/'+product));
+             }); */
+            //send multiple requests
+            /* axios.all(requests).then(axios.spread((...responses) => {
+            
+              responses.forEach(res => {
+                  console.log(res.data)
+                  this.products.push(res.data.product);
+              });
+              setTimeout(() => {
+                  
+              }, 2000);
+              this.loading = false
+            })).catch(errors => {
+            // react on errors.
+               swal.fire('there is error in fetching products')
+                setTimeout(() => {
+                  
+              }, 2000);
+               
+            }) */
         },
         removeFavorite: function removeFavorite($sku) {
             var _this3 = this;
 
             Swal.fire({
-                text: 'Are you sure to remove this product from favorites?',
+                text: !this.lang ? 'Are you sure to remove this product from favorites?' : 'هل أنت متأكد من حدف المنتج من المفضلة',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -58865,7 +58900,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             return item != $sku;
                         });
                         Swal.fire({
-                            title: 'Removed!',
+                            title: !lang ? 'Removed!' : 'تم الحدف',
                             text: res.data.msg,
                             type: 'success'
                         });
@@ -59599,7 +59634,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this4.initItemsTotal();
             });
 
-            this.loading = false;
             var requests = [];
             /* this.$store.state.cartItems.forEach((product)=>{
                
@@ -59629,12 +59663,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this5 = this;
 
             Swal.fire({
-                text: 'Are you sure to remove this product from cart?',
+                text: !this.lang ? 'Are you sure to remove this product from cart?' : 'هل أنت متأكد من حدف المنتج من السلة',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#E64545',
-                confirmButtonText: 'Yes !'
+                confirmButtonText: !lang ? 'Yes !' : 'نعم'
             }).then(function (result) {
 
                 if (result.value) {
@@ -59646,7 +59680,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             return item != $sku;
                         });
                         Swal.fire({
-                            title: 'Deleted!',
+                            title: !lang ? 'Deleted!' : 'تم الحدف',
                             text: res.data.msg,
                             type: 'success'
                         });
@@ -59701,6 +59735,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         initItemsTotal: function initItemsTotal() {
             var _this7 = this;
 
+            this.loading = false;
             var itemtotal = 0;
             var adjustment_price = this.adjustment_price_status ? 2 : 0;
             this.products.forEach(function (p) {

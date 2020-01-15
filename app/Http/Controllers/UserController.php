@@ -16,6 +16,8 @@ use App\Reply;
 use App\MailingList;
 use App\Order;
 use App\Util\Products;
+use App\Shipping;
+use App\ShippingCompanies;
 class UserController extends Controller
 {
 
@@ -284,7 +286,11 @@ class UserController extends Controller
     
       $favorite = Favorites::where('sku',$id)->first();
       $favorite->delete();
-      return response()->json(['msg'=>'removed from favorites successfuly']);
+      if($this->lang() == 'Ar'){
+            return response()->json(['msg'=>'تم حدف المنتج من المفضلة']);
+      }
+            return response()->json(['msg'=>'removed from favorites successfuly']);
+
     }
     public function cart_page(){
       return view($this->lang().'.cart');
@@ -450,6 +456,18 @@ class UserController extends Controller
     }
     public function getmyprocessedorder($id){
        return response()->json($this->p->getOrder($id));
+    }
+    //the shipping part
+    public function checkAdjustmentPriceStatus(){
+      $adjustmentstatus = Shipping::first();
+      return response()->json($adjustmentstatus);
+     
+  }
+    public function currentShippingCompany($country){
+      $active_company_id = ShippingCompanies::where('state',1)->first()->id;
+      $current_company = Shipping::where('country',$country)->where('company_id',$active_company_id)->first();
+      return response()->json($current_company);
+     
     }
    
 }
